@@ -1,5 +1,6 @@
+from django.utils import timezone
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 from .models import Banco, Tipo, Entrada, Saida
 from .forms import BancoModelForm, TipoModelForm, EntradaModelForm, SaidaModelForm
 
@@ -159,16 +160,27 @@ class SaidaDeleteView(DeleteView):
     success_url = reverse_lazy('saida-list')
 
 
-class MovimentacaoListView(ListView):
-    '''LISTAGEM RESUMIDA DE ENTRADAS E SAÍDAS'''
-    template_name = 'movimentacao_list.html'
-    
-    def get_queryset(self):
-        # Retornamos um queryset vazio ou apenas um valor, pois não usamos um modelo específico
-        return []
+class DashboardView(TemplateView):
+    template_name = 'dashboard.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['entradas'] = Entrada.objects.all()
-        context['saidas'] = Saida.objects.all()
+
+        # Pega o mês do GET, se não houver, usa o mês atual
+        mes = self.request.GET.get('mes', timezone.now().month)
+        ano = timezone.now().year  # você pode querer adicionar uma opção para o ano
+
+        entradas = Entrada.objects.filter(data__month=mes, data__year=ano)
+        saidas = Saida.objects.filter(data__month=mes, data__year=ano)
+
+        context['entradas'] = entradas
+        context['saidas'] = saidas
+        context['mes_atual'] = mes  # Adiciona o mês atual ao contexto
+
+        # Define a lista de meses
+        context['meses'] = [
+            "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+        ]
+
         return context

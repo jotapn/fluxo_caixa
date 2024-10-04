@@ -13,66 +13,98 @@
             margin: 0;
             padding: 0;
         }
-    
+
         header {
             background-color: #0096c7;
             color: #fff;
             text-align: center;
         }
-    
+        
+        header h1{
+            margin: 0;
+        }
+
+        header h1 a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        header h1 a:hover{
+            text-decoration: none;
+            color: #fff78;
+        }
+
         footer {
             background-color: #ccc;
             color: #333;
             padding: 20px;
             text-align: center;
         }
-    
-        nav {
+
+        .sidebar {
+            position: fixed;
+            left: -250px; /* Esconde a sidebar */
+            height: 100%;
+            width: 250px;
             background-color: #0096c7;
-            color: #fff;
-            height: 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            transition: left 0.3s ease;
+            z-index: 1000;
         }
-    
-        nav ul {
+
+        .sidebar.active {
+            left: 0; /* Mostra a sidebar */
+        }
+
+        .sidebar ul {
             list-style: none;
-            margin: 0;
             padding: 0;
-            display: flex;
+            margin: 0;
         }
-    
-        nav ul li {
-            margin: 0 10px;
+
+        .sidebar ul li:first-child a {
+            border-top: 1px solid #ccc;
         }
-    
-        nav ul li a {
+
+        .sidebar ul li {
+            border-bottom: 1px solid #ccc;
+        }
+
+        .sidebar ul li a {
             color: #fff;
-            text-decoration: none;
-            font-size: 16px;
             padding: 15px;
-            transition: all 0.3s ease;
+            display: block;
+            text-decoration: none;
         }
-    
-        nav ul li a:hover {
+
+        .sidebar ul li a:hover {
             background-color: #32bbe8;
         }
-    
-        nav ul li.active a {
-            background-color: #666;
+
+        .menu-toggle {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            cursor: pointer;
         }
-    
-        nav ul li.active a:hover {
-            background-color: #999;
+
+        main {
+            margin-left: 60px; /* Espaço para o botão do menu */
         }
-      </style>
+    </style>
 </head>
 <body>
     <header>
-        <nav>  
-        </nav>
+        <span class="menu-toggle" id="menuToggle">&#9776; Menu</span>
+        <h1><a href="{% url 'dashboard' %}">Fluxo de Caixa</a></h1>
     </header>
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li><a href="{% url 'banco-list' %}">Bancos</a></li>
+            <li><a href="{% url 'tipo-list' %}">Tipos</a></li>
+            <li><a href="{% url 'entrada-list' %}">Entradas</a></li>
+            <li><a href="{% url 'saida-list' %}">Saídas</a></li>
+        </ul>
+    </div>
     <main>
         <div class="container">
             {% block content %}
@@ -80,8 +112,19 @@
         </div>
     </main>
 
+    <footer>
+        <p>© 2024 Fluxo de Caixa. Todos os direitos reservados.</p>
+    </footer>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#menuToggle').click(function() {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
 </body>
 </html>

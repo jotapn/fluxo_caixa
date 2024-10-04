@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1>Dashboard</h1>
+        <button class="btn btn-primary" data-toggle="collapse" data-target="#filterCard">Filtro</button>
+        
+        <div id="filterCard" class="collapse">
+            <div class="card mt-2">
+                <div class="card-body">
+                    <form method="GET">
+                        <div class="form-group">
+                            <label for="mes">Mês</label>
+                            <select name="mes" id="mes" class="form-control">
+                                <option value="">Selecione o Mês</option>
+                                {% for i in meses %}
+                                    <option value="{{ forloop.counter }}" {% if forloop.counter == mes_atual %}selected{% endif %}>{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">Filtrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <h2>Entradas</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entrada in entradas %}
+                <tr>
+                    <td>{{ entrada.descricao }}</td>
+                    <td>{{ entrada.valor_formatado }}</td>
+                    <td>{{ entrada.data|date:"d/m/Y" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">Nenhuma entrada encontrada.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Saídas</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for saida in saidas %}
+                <tr>
+                    <td>{{ saida.descricao }}</td>
+                    <td>{{ saida.valor_formatado }}</td>
+                    <td>{{ saida.data|date:"d/m/Y" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">Nenhuma saída encontrada.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -3,12 +3,12 @@ from .views import (
     BancoListView, BancoDetailView, BancoCreateView, BancoUpdateView, BancoDeleteView,
     TipoListView, TipoDetailView, TipoCreateView, TipoUpdateView, TipoDeleteView,
     EntradaListView, EntradaDetailView, EntradaCreateView, EntradaUpdateView, EntradaDeleteView,
-    SaidaListView, SaidaDetailView, SaidaCreateView, SaidaUpdateView, SaidaDeleteView, MovimentacaoListView
+    SaidaListView, SaidaDetailView, SaidaCreateView, SaidaUpdateView, SaidaDeleteView, DashboardView
 )
 
 
 urlpatterns = [
-    path("", MovimentacaoListView.as_view(), name="movimentacoes_list"),
+    path('', DashboardView.as_view(), name='dashboard'),  # Tela inicial
 
     # URLs de Banco
     path('bancos/', BancoListView.as_view(), name='banco-list'),

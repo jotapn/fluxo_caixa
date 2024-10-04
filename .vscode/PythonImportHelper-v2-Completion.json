@@ -416,6 +416,14 @@
         "documentation": {}
     },
     {
+        "label": "TemplateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
@@ -463,6 +471,14 @@
         "importPath": "django.db.models.deletion",
         "description": "django.db.models.deletion",
         "detail": "django.db.models.deletion",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "django.utils",
+        "description": "django.utils",
+        "isExtraImport": true,
+        "detail": "django.utils",
         "documentation": {}
     },
     {
@@ -983,7 +999,7 @@
         "kind": 5,
         "importPath": "movimentacoes.urls",
         "description": "movimentacoes.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"\", MovimentacaoListView.as_view(), name=\"movimentacoes_list\"),\n    # URLs de Banco\n    path('bancos/', BancoListView.as_view(), name='banco-list'),\n    path('bancos/<int:pk>/', BancoDetailView.as_view(), name='banco-detail'),\n    path('bancos/novo/', BancoCreateView.as_view(), name='banco-create'),\n    path('bancos/editar/<int:pk>/', BancoUpdateView.as_view(), name='banco-update'),\n    path('bancos/<int:pk>/deletar/', BancoDeleteView.as_view(), name='banco-delete'),\n    # URLs de Tipo\n    path('tipos/', TipoListView.as_view(), name='tipo-list'),",
+        "peekOfCode": "urlpatterns = [\n    path('', DashboardView.as_view(), name='dashboard'),  # Tela inicial\n    # URLs de Banco\n    path('bancos/', BancoListView.as_view(), name='banco-list'),\n    path('bancos/<int:pk>/', BancoDetailView.as_view(), name='banco-detail'),\n    path('bancos/novo/', BancoCreateView.as_view(), name='banco-create'),\n    path('bancos/editar/<int:pk>/', BancoUpdateView.as_view(), name='banco-update'),\n    path('bancos/<int:pk>/deletar/', BancoDeleteView.as_view(), name='banco-delete'),\n    # URLs de Tipo\n    path('tipos/', TipoListView.as_view(), name='tipo-list'),",
         "detail": "movimentacoes.urls",
         "documentation": {}
     },
@@ -1163,16 +1179,16 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class SaidaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_confirm_delete.html'\n    success_url = reverse_lazy('saida-list')\nclass MovimentacaoListView(ListView):\n    '''LISTAGEM RESUMIDA DE ENTRADAS E SAÍDAS'''\n    template_name = 'movimentacao_list.html'\n    def get_queryset(self):\n        # Retornamos um queryset vazio ou apenas um valor, pois não usamos um modelo específico",
+        "peekOfCode": "class SaidaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_confirm_delete.html'\n    success_url = reverse_lazy('saida-list')\nclass DashboardView(TemplateView):\n    template_name = 'dashboard.html'\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Pega o mês do GET, se não houver, usa o mês atual",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
     {
-        "label": "MovimentacaoListView",
+        "label": "DashboardView",
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class MovimentacaoListView(ListView):\n    '''LISTAGEM RESUMIDA DE ENTRADAS E SAÍDAS'''\n    template_name = 'movimentacao_list.html'\n    def get_queryset(self):\n        # Retornamos um queryset vazio ou apenas um valor, pois não usamos um modelo específico\n        return []\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        context['entradas'] = Entrada.objects.all()\n        context['saidas'] = Saida.objects.all()",
+        "peekOfCode": "class DashboardView(TemplateView):\n    template_name = 'dashboard.html'\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Pega o mês do GET, se não houver, usa o mês atual\n        mes = self.request.GET.get('mes', timezone.now().month)\n        ano = timezone.now().year  # você pode querer adicionar uma opção para o ano\n        entradas = Entrada.objects.filter(data__month=mes, data__year=ano)\n        saidas = Saida.objects.filter(data__month=mes, data__year=ano)\n        context['entradas'] = entradas",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
