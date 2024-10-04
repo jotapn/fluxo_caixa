@@ -19,6 +19,14 @@ class Banco(models.Model):
     status = models.CharField(max_length=10, choices=STATUS, default="AT")
     saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)
 
+    @property
+    def saldo_atual_formatado(self):
+        return f"R$ {self.saldo_atual:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+    
+    @property
+    def saldo_inicial_formatado(self):
+        return f"R$ {self.saldo_inicial:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+
     def __str__(self):
         return self.nome
 

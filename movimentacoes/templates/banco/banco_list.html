@@ -7,9 +7,8 @@
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>Saldo Inicial</th>
-                <th>Status</th>
                 <th>Saldo Atual</th>
+                <th>Status</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -17,9 +16,8 @@
             {% for banco in bancos %}
             <tr>
                 <td>{{ banco.nome }}</td>
-                <td>{{ banco.saldo_inicial }}</td>
+                <td>{{ banco.saldo_atual_formatado }}</td>
                 <td>{{ banco.get_status_display }}</td>
-                <td>{{ banco.saldo_atual }}</td>
                 <td>
                     <a href="{% url 'banco-detail' banco.pk %}" class="btn btn-info btn-sm">Ver</a>
                     <a href="{% url 'banco-update' banco.pk %}" class="btn btn-warning btn-sm">Editar</a>

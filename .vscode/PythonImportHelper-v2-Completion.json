@@ -929,7 +929,7 @@
         "kind": 6,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "class Banco(models.Model):\n    nome = models.CharField(max_length=50)\n    saldo_inicial = models.DecimalField(max_digits=12, decimal_places=2)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)\n    def __str__(self):\n        return self.nome\nclass Tipo(models.Model):\n    NOME_TIPO = (\n        (\"pagamento\", \"Tipo de Pagamento\"),",
+        "peekOfCode": "class Banco(models.Model):\n    nome = models.CharField(max_length=50)\n    saldo_inicial = models.DecimalField(max_digits=12, decimal_places=2)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)\n    @property\n    def saldo_atual_formatado(self):\n        return f\"R$ {self.saldo_atual:,.2f}\".replace(',', 'X').replace('.', ',').replace('X', '.')\n    @property\n    def saldo_inicial_formatado(self):",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -974,7 +974,7 @@
         "kind": 5,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "SITUACAO = (\n    (\"PG\", \"Pago\"),\n    (\"AP\", \"A pagar\")\n)\nclass Banco(models.Model):\n    nome = models.CharField(max_length=50)\n    saldo_inicial = models.DecimalField(max_digits=12, decimal_places=2)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)\n    def __str__(self):",
+        "peekOfCode": "SITUACAO = (\n    (\"PG\", \"Pago\"),\n    (\"AP\", \"A pagar\")\n)\nclass Banco(models.Model):\n    nome = models.CharField(max_length=50)\n    saldo_inicial = models.DecimalField(max_digits=12, decimal_places=2)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)\n    @property",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
