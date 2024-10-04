@@ -49,6 +49,17 @@ class Entrada(models.Model):
 
     def __str__(self):
         return f'Entrada: {self.valor} - {self.descricao}'
+    
+    @property
+    def valor_formatado(self):
+        return f"R$ {self.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+    
+    @property
+    def situacao_legivel(self):
+        for sigla, descricao in SITUACAO:
+            if self.situacao == sigla:
+                return descricao
+        return self.situacao  # Retorna a sigla se não encontrar
 
 
 class Saida(models.Model):
@@ -62,3 +73,14 @@ class Saida(models.Model):
 
     def __str__(self):
         return f'Saída: {self.valor} - {self.descricao}'
+
+    @property
+    def valor_formatado(self):
+        return f"R$ {self.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+    
+    @property
+    def situacao_legivel(self):
+        for sigla, descricao in SITUACAO:
+            if self.situacao == sigla:
+                return descricao
+        return self.situacao  # Retorna a sigla se não encontrar

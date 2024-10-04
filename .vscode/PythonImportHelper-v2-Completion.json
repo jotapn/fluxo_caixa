@@ -112,6 +112,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -819,6 +835,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "movimentacoes.migrations.0004_alter_banco_status_alter_entrada_situacao_and_more",
+        "description": "movimentacoes.migrations.0004_alter_banco_status_alter_entrada_situacao_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('movimentacoes', '0003_alter_banco_saldo_atual'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='banco',\n            name='status',\n            field=models.CharField(choices=[('AT', 'Ativo'), ('IN', 'Inativo')], default='AT', max_length=10),\n        ),",
+        "detail": "movimentacoes.migrations.0004_alter_banco_status_alter_entrada_situacao_and_more",
+        "documentation": {}
+    },
+    {
         "label": "BancoAdmin",
         "kind": 6,
         "importPath": "movimentacoes.admin",
@@ -1030,7 +1055,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class TipoCreateView(CreateView):\n    '''CRIAÇÃO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_form.html'\n    form_class = TipoModelForm\n    success_url = reverse_lazy('tipo-list')\nclass TipoUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_form.html'",
+        "peekOfCode": "class TipoCreateView(CreateView):\n    '''CRIAÇÃO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_form.html'\n    form_class = TipoModelForm\n    success_url = reverse_lazy('tipo-list')\n    def get_initial(self):\n        initial = super().get_initial()\n        initial['status'] = 'AT'  # Define o status como ativo por padrão\n        return initial",
         "detail": "movimentacoes.views",
         "documentation": {}
     },

@@ -64,6 +64,11 @@ class TipoCreateView(CreateView):
     form_class = TipoModelForm
     success_url = reverse_lazy('tipo-list')
 
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['status'] = 'AT'  # Define o status como ativo por padrão
+        return initial
+
 
 class TipoUpdateView(UpdateView):
     '''ATUALIZAÇÃO DE UM TIPO'''
