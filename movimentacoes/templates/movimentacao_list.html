@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <h2>Entradas</h2>
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>Cliente</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                    <th>Banco</th>
+                    <th>Situação</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for entrada in entradas %}
+                <tr>
+                    <td>{{ entrada.cliente }}</td>
+                    <td>R$ {{ entrada.valor }}</td>
+                    <td>{{ entrada.data }}</td>
+                    <td>{{ entrada.banco }}</td>
+                    <td>{{ entrada.situacao }}</td>
+                    
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center">Nenhuma entrada registrada.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-6">
+        <h2>Saídas</h2>
+        <table class="table table-bordered">
+            <thead class="thead-light">
+                <tr>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for saida in saidas %}
+                <tr>
+                    <td>{{ entrada.descricao }}</td>
+                    <td>R$ {{ entrada.valor }}</td>
+                    <td>{{ entrada.data }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center">Nenhuma saída registrada.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

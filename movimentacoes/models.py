@@ -31,7 +31,7 @@ class Tipo(models.Model):
     )
     nome = models.CharField(max_length=100, unique=True)
     tipo = models.CharField(max_length=10, choices=NOME_TIPO)
-    status = models.CharField(max_length=10, choices=STATUS)
+    status = models.CharField(max_length=10, choices=STATUS, default="AT")
 
     def __str__(self):
         return self.nome

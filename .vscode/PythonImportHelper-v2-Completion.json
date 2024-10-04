@@ -192,6 +192,14 @@
         "documentation": {}
     },
     {
+        "label": "forms",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
         "label": "CPF",
         "importPath": "validate_docbr",
         "description": "validate_docbr",
@@ -256,6 +264,22 @@
         "documentation": {}
     },
     {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "reverse_lazy",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
         "label": "ClientesListView",
         "importPath": "clientes.views",
         "description": "clientes.views",
@@ -296,11 +320,43 @@
         "documentation": {}
     },
     {
-        "label": "render",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
+        "label": "ListView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
         "isExtraImport": true,
-        "detail": "django.shortcuts",
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "CreateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "DetailView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "UpdateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "DeleteView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
         "documentation": {}
     },
     {
@@ -560,7 +616,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "ALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'clientes',",
+        "peekOfCode": "ALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'crispy_forms',",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -569,7 +625,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "INSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'clientes',\n    'movimentacoes',\n]",
+        "peekOfCode": "INSTALLED_APPS = [\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'crispy_forms',\n    'crispy_bootstrap5',\n    'clientes',",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -659,7 +715,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nMEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"",
+        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nMEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"\nCRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -668,7 +724,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "STATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nMEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"",
+        "peekOfCode": "STATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nMEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"\nCRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"\nCRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -677,7 +733,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nMEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"",
+        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nMEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"\nCRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"\nCRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -686,7 +742,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "MEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"",
+        "peekOfCode": "MEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"\nCRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"\nCRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -695,7 +751,25 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "MEDIA_URL = \"/media/\"",
+        "peekOfCode": "MEDIA_URL = \"/media/\"\nCRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"\nCRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "CRISPY_ALLOWED_TEMPLATE_PACKS",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "CRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"\nCRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "CRISPY_TEMPLATE_PACK",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "CRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -704,7 +778,7 @@
         "kind": 5,
         "importPath": "core.urls",
         "description": "core.urls",
-        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path('clientes/',include(\"clientes.urls\"))\n]",
+        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path('clientes/',include(\"clientes.urls\")),\n    path('',include(\"movimentacoes.urls\"))\n]",
         "detail": "core.urls",
         "documentation": {}
     },
@@ -790,6 +864,42 @@
         "documentation": {}
     },
     {
+        "label": "BancoModelForm",
+        "kind": 6,
+        "importPath": "movimentacoes.forms",
+        "description": "movimentacoes.forms",
+        "peekOfCode": "class BancoModelForm(forms.ModelForm):\n    class Meta:\n        model = Banco\n        fields = (\"nome\", \"saldo_inicial\", \"status\")\nclass TipoModelForm(forms.ModelForm):\n    class Meta:\n        model = Tipo\n        fields = '__all__'\nclass EntradaModelForm(forms.ModelForm):\n    class Meta:",
+        "detail": "movimentacoes.forms",
+        "documentation": {}
+    },
+    {
+        "label": "TipoModelForm",
+        "kind": 6,
+        "importPath": "movimentacoes.forms",
+        "description": "movimentacoes.forms",
+        "peekOfCode": "class TipoModelForm(forms.ModelForm):\n    class Meta:\n        model = Tipo\n        fields = '__all__'\nclass EntradaModelForm(forms.ModelForm):\n    class Meta:\n        model = Entrada\n        fields = \"__all__\"\nclass SaidaModelForm(forms.ModelForm):\n    class Meta:",
+        "detail": "movimentacoes.forms",
+        "documentation": {}
+    },
+    {
+        "label": "EntradaModelForm",
+        "kind": 6,
+        "importPath": "movimentacoes.forms",
+        "description": "movimentacoes.forms",
+        "peekOfCode": "class EntradaModelForm(forms.ModelForm):\n    class Meta:\n        model = Entrada\n        fields = \"__all__\"\nclass SaidaModelForm(forms.ModelForm):\n    class Meta:\n        model = Saida\n        fields = \"__all__\"",
+        "detail": "movimentacoes.forms",
+        "documentation": {}
+    },
+    {
+        "label": "SaidaModelForm",
+        "kind": 6,
+        "importPath": "movimentacoes.forms",
+        "description": "movimentacoes.forms",
+        "peekOfCode": "class SaidaModelForm(forms.ModelForm):\n    class Meta:\n        model = Saida\n        fields = \"__all__\"",
+        "detail": "movimentacoes.forms",
+        "documentation": {}
+    },
+    {
         "label": "Banco",
         "kind": 6,
         "importPath": "movimentacoes.models",
@@ -803,7 +913,7 @@
         "kind": 6,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "class Tipo(models.Model):\n    NOME_TIPO = (\n        (\"pagamento\", \"Tipo de Pagamento\"),\n        (\"despesa\", \"Tipo de Despesa\"),\n        (\"entrada\", \"Tipo de Entrada\"),\n    )\n    nome = models.CharField(max_length=100, unique=True)\n    tipo = models.CharField(max_length=10, choices=NOME_TIPO)\n    status = models.CharField(max_length=10, choices=STATUS)\n    def __str__(self):",
+        "peekOfCode": "class Tipo(models.Model):\n    NOME_TIPO = (\n        (\"pagamento\", \"Tipo de Pagamento\"),\n        (\"despesa\", \"Tipo de Despesa\"),\n        (\"entrada\", \"Tipo de Entrada\"),\n    )\n    nome = models.CharField(max_length=100, unique=True)\n    tipo = models.CharField(max_length=10, choices=NOME_TIPO)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self):",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -841,6 +951,204 @@
         "description": "movimentacoes.models",
         "peekOfCode": "SITUACAO = (\n    (\"PG\", \"Pago\"),\n    (\"AP\", \"A pagar\")\n)\nclass Banco(models.Model):\n    nome = models.CharField(max_length=50)\n    saldo_inicial = models.DecimalField(max_digits=12, decimal_places=2)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)\n    def __str__(self):",
         "detail": "movimentacoes.models",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "movimentacoes.urls",
+        "description": "movimentacoes.urls",
+        "peekOfCode": "urlpatterns = [\n    path(\"\", MovimentacaoListView.as_view(), name=\"movimentacoes_list\"),\n    # URLs de Banco\n    path('bancos/', BancoListView.as_view(), name='banco-list'),\n    path('bancos/<int:pk>/', BancoDetailView.as_view(), name='banco-detail'),\n    path('bancos/novo/', BancoCreateView.as_view(), name='banco-create'),\n    path('bancos/editar/<int:pk>/', BancoUpdateView.as_view(), name='banco-update'),\n    path('bancos/<int:pk>/deletar/', BancoDeleteView.as_view(), name='banco-delete'),\n    # URLs de Tipo\n    path('tipos/', TipoListView.as_view(), name='tipo-list'),",
+        "detail": "movimentacoes.urls",
+        "documentation": {}
+    },
+    {
+        "label": "BancoCreateView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class BancoCreateView(CreateView):\n    '''CRIAÇÃO DE UM NOVO BANCO'''\n    model = Banco\n    form_class = BancoModelForm\n    template_name = 'banco/banco_form.html'\n    success_url = reverse_lazy('banco-list')\nclass BancoListView(ListView):\n    '''LISTAGEM DOS BANCOS'''\n    model = Banco\n    template_name = 'banco/banco_list.html'",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "BancoListView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class BancoListView(ListView):\n    '''LISTAGEM DOS BANCOS'''\n    model = Banco\n    template_name = 'banco/banco_list.html'\n    context_object_name = 'bancos'\nclass BancoDetailView(DetailView):\n    '''DETALHAMENTO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_detail.html'\n    context_object_name = 'banco'",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "BancoDetailView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class BancoDetailView(DetailView):\n    '''DETALHAMENTO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_detail.html'\n    context_object_name = 'banco'\nclass BancoUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_form.html'\n    form_class = BancoModelForm",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "BancoUpdateView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class BancoUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_form.html'\n    form_class = BancoModelForm\n    success_url = reverse_lazy('banco-list')\nclass BancoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_confirm_delete.html'",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "BancoDeleteView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class BancoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_confirm_delete.html'\n    success_url = reverse_lazy('banco-list')\n##### CRUD DE TIPOS ######\nclass TipoListView(ListView):\n    '''LISTAGEM DE TIPOS'''\n    model = Tipo\n    template_name = 'tipo/tipo_list.html'",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "TipoListView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class TipoListView(ListView):\n    '''LISTAGEM DE TIPOS'''\n    model = Tipo\n    template_name = 'tipo/tipo_list.html'\n    context_object_name = 'tipos'\nclass TipoDetailView(DetailView):\n    '''DETALHAMENTO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_detail.html'\n    context_object_name = 'tipo'",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "TipoDetailView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class TipoDetailView(DetailView):\n    '''DETALHAMENTO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_detail.html'\n    context_object_name = 'tipo'\nclass TipoCreateView(CreateView):\n    '''CRIAÇÃO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_form.html'\n    form_class = TipoModelForm",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "TipoCreateView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class TipoCreateView(CreateView):\n    '''CRIAÇÃO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_form.html'\n    form_class = TipoModelForm\n    success_url = reverse_lazy('tipo-list')\nclass TipoUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_form.html'",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "TipoUpdateView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class TipoUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_form.html'\n    form_class = TipoModelForm\n    success_url = reverse_lazy('tipo-list')\nclass TipoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_confirm_delete.html'",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "TipoDeleteView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class TipoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_confirm_delete.html'\n    success_url = reverse_lazy('tipo-list')\n##### CRUD DE ENTRADAS ######\nclass EntradaListView(ListView):\n    '''LISTAGEM DE ENTRADAS'''\n    model = Entrada\n    template_name = 'entrada/entrada_list.html'",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "EntradaListView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class EntradaListView(ListView):\n    '''LISTAGEM DE ENTRADAS'''\n    model = Entrada\n    template_name = 'entrada/entrada_list.html'\n    context_object_name = 'entradas'\n# Detalhes de uma Entrada\nclass EntradaDetailView(DetailView):\n    '''DETALHAMENTO DE ENTRADAS'''\n    model = Entrada\n    template_name = 'entrada/entrada_detail.html'",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "EntradaDetailView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class EntradaDetailView(DetailView):\n    '''DETALHAMENTO DE ENTRADAS'''\n    model = Entrada\n    template_name = 'entrada/entrada_detail.html'\n    context_object_name = 'entrada'\nclass EntradaCreateView(CreateView):\n    '''CRIAÇÃO DE ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_form.html'\n    form_class = EntradaModelForm",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "EntradaCreateView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class EntradaCreateView(CreateView):\n    '''CRIAÇÃO DE ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_form.html'\n    form_class = EntradaModelForm\n    success_url = reverse_lazy('entrada-list')\nclass EntradaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_form.html'",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "EntradaUpdateView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class EntradaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_form.html'\n    form_class = EntradaModelForm\n    success_url = reverse_lazy('entrada-list')\nclass EntradaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_confirm_delete.html'",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "EntradaDeleteView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class EntradaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_confirm_delete.html'\n    success_url = reverse_lazy('entrada-list')\n##### CRUD DE SAÍDAS ######\nclass SaidaListView(ListView):\n    '''LISTAGEM DE SAÍDAS'''\n    model = Saida\n    template_name = 'saida/saida_list.html'",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "SaidaListView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class SaidaListView(ListView):\n    '''LISTAGEM DE SAÍDAS'''\n    model = Saida\n    template_name = 'saida/saida_list.html'\n    context_object_name = 'saidas'\nclass SaidaDetailView(DetailView):\n    '''DETALHES DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_detail.html'\n    context_object_name = 'saida'",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "SaidaDetailView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class SaidaDetailView(DetailView):\n    '''DETALHES DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_detail.html'\n    context_object_name = 'saida'\nclass SaidaCreateView(CreateView):\n    '''CRIAÇÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_form.html'\n    form_class = SaidaModelForm",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "SaidaCreateView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class SaidaCreateView(CreateView):\n    '''CRIAÇÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_form.html'\n    form_class = SaidaModelForm\n    success_url = reverse_lazy('saida-list')\nclass SaidaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_form.html'",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "SaidaUpdateView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class SaidaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_form.html'\n    form_class = SaidaModelForm\n    success_url = reverse_lazy('saida-list')\nclass SaidaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_confirm_delete.html'",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "SaidaDeleteView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class SaidaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_confirm_delete.html'\n    success_url = reverse_lazy('saida-list')\nclass MovimentacaoListView(ListView):\n    '''LISTAGEM RESUMIDA DE ENTRADAS E SAÍDAS'''\n    template_name = 'movimentacao_list.html'\n    def get_queryset(self):\n        # Retornamos um queryset vazio ou apenas um valor, pois não usamos um modelo específico",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "MovimentacaoListView",
+        "kind": 6,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "class MovimentacaoListView(ListView):\n    '''LISTAGEM RESUMIDA DE ENTRADAS E SAÍDAS'''\n    template_name = 'movimentacao_list.html'\n    def get_queryset(self):\n        # Retornamos um queryset vazio ou apenas um valor, pois não usamos um modelo específico\n        return []\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        context['entradas'] = Entrada.objects.all()\n        context['saidas'] = Saida.objects.all()",
+        "detail": "movimentacoes.views",
         "documentation": {}
     },
     {

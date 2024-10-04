@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Lista de Tipos</h1>
+    <a href="{% url 'tipo-create' %}" class="btn btn-primary mb-3">Adicionar Novo Tipo</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tipo in tipos %}
+            <tr>
+                <td>{{ tipo.nome }}</td>
+                <td>{{ tipo.get_tipo_display }}</td>
+                <td>{{ tipo.get_status_display }}</td>
+                <td>
+                    <a href="{% url 'tipo-detail' tipo.pk %}" class="btn btn-info btn-sm">Ver</a>
+                    <a href="{% url 'tipo-update' tipo.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                    <a href="{% url 'tipo-delete' tipo.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
