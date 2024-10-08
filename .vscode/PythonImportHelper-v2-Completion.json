@@ -160,6 +160,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -943,6 +959,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "movimentacoes.migrations.0006_alter_saida_situacao",
+        "description": "movimentacoes.migrations.0006_alter_saida_situacao",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('movimentacoes', '0005_alter_entrada_situacao'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='saida',\n            name='situacao',\n            field=models.CharField(choices=[('PG', 'Pago'), ('AP', 'A pagar')], default='AP', max_length=2),\n        ),",
+        "detail": "movimentacoes.migrations.0006_alter_saida_situacao",
+        "documentation": {}
+    },
+    {
         "label": "BancoAdmin",
         "kind": 6,
         "importPath": "movimentacoes.admin",
@@ -956,7 +981,7 @@
         "kind": 6,
         "importPath": "movimentacoes.admin",
         "description": "movimentacoes.admin",
-        "peekOfCode": "class TipoAdmin(admin.ModelAdmin):\n    list_display = ('nome', 'tipo', 'status')\n    search_fields = ('nome',)\n    list_filter = ('tipo', 'status')\n@admin.register(Entrada)\nclass EntradaAdmin(admin.ModelAdmin):\n    list_display = ('cliente', 'descricao', 'valor', 'data', 'banco', 'tipo_pagamento', 'situacao')\n    search_fields = ('descricao', \"cliente\" )  \n    list_filter = ('data', 'banco', 'tipo_pagamento', 'situacao')\n@admin.register(Saida)",
+        "peekOfCode": "class TipoAdmin(admin.ModelAdmin):\n    list_display = ('nome', 'tipo', 'status')\n    search_fields = ('nome',)\n    list_filter = ('tipo', 'status')\n@admin.register(Entrada)\nclass EntradaAdmin(admin.ModelAdmin):\n    def delete_all_entries(modeladmin, request, queryset):\n        queryset.delete()\n    list_display = ('cliente', 'descricao', 'valor', 'data', 'banco', 'tipo_pagamento', 'situacao')\n    search_fields = ('descricao', \"cliente\" )  ",
         "detail": "movimentacoes.admin",
         "documentation": {}
     },
@@ -965,7 +990,7 @@
         "kind": 6,
         "importPath": "movimentacoes.admin",
         "description": "movimentacoes.admin",
-        "peekOfCode": "class EntradaAdmin(admin.ModelAdmin):\n    list_display = ('cliente', 'descricao', 'valor', 'data', 'banco', 'tipo_pagamento', 'situacao')\n    search_fields = ('descricao', \"cliente\" )  \n    list_filter = ('data', 'banco', 'tipo_pagamento', 'situacao')\n@admin.register(Saida)\nclass SaidaAdmin(admin.ModelAdmin):\n    list_display = (\"tipo_despesa\", 'descricao', 'valor', 'data', 'banco', 'tipo_pagamento', 'situacao')\n    search_fields = ('descricao', \"tipo_despesa\")  \n    list_filter = ('data', 'banco', 'tipo_pagamento', 'situacao')",
+        "peekOfCode": "class EntradaAdmin(admin.ModelAdmin):\n    def delete_all_entries(modeladmin, request, queryset):\n        queryset.delete()\n    list_display = ('cliente', 'descricao', 'valor', 'data', 'banco', 'tipo_pagamento', 'situacao')\n    search_fields = ('descricao', \"cliente\" )  \n    list_filter = ('data', 'banco', 'tipo_pagamento', 'situacao')\n    actions = [delete_all_entries]\n@admin.register(Saida)\nclass SaidaAdmin(admin.ModelAdmin):\n    def delete_all_saidas(modeladmin, request, queryset):",
         "detail": "movimentacoes.admin",
         "documentation": {}
     },
@@ -974,7 +999,7 @@
         "kind": 6,
         "importPath": "movimentacoes.admin",
         "description": "movimentacoes.admin",
-        "peekOfCode": "class SaidaAdmin(admin.ModelAdmin):\n    list_display = (\"tipo_despesa\", 'descricao', 'valor', 'data', 'banco', 'tipo_pagamento', 'situacao')\n    search_fields = ('descricao', \"tipo_despesa\")  \n    list_filter = ('data', 'banco', 'tipo_pagamento', 'situacao')",
+        "peekOfCode": "class SaidaAdmin(admin.ModelAdmin):\n    def delete_all_saidas(modeladmin, request, queryset):\n        queryset.delete()\n    list_display = (\"tipo_despesa\", 'descricao', 'valor', 'data', 'banco', 'tipo_pagamento', 'situacao')\n    search_fields = ('descricao', \"tipo_despesa\")  \n    list_filter = ('data', 'banco', 'tipo_pagamento', 'situacao')\n    actions = [delete_all_saidas]",
         "detail": "movimentacoes.admin",
         "documentation": {}
     },
@@ -1046,7 +1071,7 @@
         "kind": 6,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "class Entrada(models.Model):\n    cliente = models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.PROTECT)\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    banco = models.ForeignKey(Banco, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'pagamento'}, on_delete=models.PROTECT,related_name='pagamentos')\n    tipo_entrada = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'entrada'}, on_delete=models.PROTECT, related_name='entradas')\n    situacao = models.CharField(max_length=2, choices=SITUACAO,  default='AP')\n    def __str__(self):",
+        "peekOfCode": "class Entrada(models.Model):\n    cliente = models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.PROTECT)\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    banco = models.ForeignKey(Banco, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'pagamento'}, on_delete=models.PROTECT,related_name='pagamentos')\n    tipo_entrada = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'entrada'}, on_delete=models.PROTECT, related_name='entradas')\n    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')\n    def __str__(self):",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -1055,7 +1080,7 @@
         "kind": 6,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "class Saida(models.Model):\n    tipo_despesa = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'despesa'}, on_delete=models.PROTECT,related_name='despesas_saida')\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    banco = models.ForeignKey(Banco, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'pagamento'}, on_delete=models.PROTECT, related_name='saidas')\n    situacao = models.CharField(max_length=2, choices=SITUACAO)\n    def __str__(self):\n        return f'Saída: {self.valor} - {self.descricao}'",
+        "peekOfCode": "class Saida(models.Model):\n    tipo_despesa = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'despesa'}, on_delete=models.PROTECT,related_name='despesas_saida')\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    banco = models.ForeignKey(Banco, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'pagamento'}, on_delete=models.PROTECT, related_name='saidas')\n    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')\n    def __str__(self):\n        return f'Saída: {self.valor} - {self.descricao}'",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -1271,7 +1296,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class DashboardView(TemplateView):\n    template_name = 'dashboard.html'\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Pega o mês do GET, se não houver, usa o mês atual\n        mes = self.request.GET.get('mes', timezone.now().month)\n        ano = timezone.now().year  # você pode querer adicionar uma opção para o ano\n        entradas = Entrada.objects.filter(data__month=mes, data__year=ano)\n        saidas = Saida.objects.filter(data__month=mes, data__year=ano)\n        context['entradas'] = entradas",
+        "peekOfCode": "class DashboardView(TemplateView):\n    template_name = 'dashboard.html'\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Pega o mês do GET, se não houver, usa o mês atual\n        mes = self.request.GET.get('mes', timezone.now().month)\n        ano = timezone.now().year  # você pode querer adicionar uma opção para o ano\n        entradas = Entrada.objects.filter(data__month=mes, data__year=ano)\n        saidas = Saida.objects.filter(data__month=mes, data__year=ano)\n        bancos = Banco.objects.all()",
         "detail": "movimentacoes.views",
         "documentation": {}
     },

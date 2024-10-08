@@ -38,11 +38,36 @@
             </div>
         </div>
 
+        <h2 class= "title-table"><a href="{% url 'banco-list' %}">Bancos</a></h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Banco</th>
+                    <th>Saldo atual</th>
+                    <th>Situação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for banco in bancos %}
+                <tr>
+                    <td>{{ banco.nome }}</td>
+                    <td>{{ banco.saldo_atual_formatado }}</td>
+                    <td>{{ banco.status_formatado }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">Nenhuma entrada encontrada.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
         <h2 class= "title-table"><a href="{% url 'entrada-list' %}">Entradas</a></h2>
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Cliente</th>
+                    <th>Banco</th>
                     <th>Valor</th>
                     <th>Data</th>
                     <th>Situação</th>
@@ -52,6 +77,7 @@
                 {% for entrada in entradas %}
                 <tr>
                     <td>{{ entrada.cliente }}</td>
+                    <td>{{ entrada.banco }}</td>
                     <td>{{ entrada.valor_formatado }}</td>
                     <td>{{ entrada.data|date:"d/m/Y" }}</td>
                     <td>{{ entrada.situacao_legivel }}</td>
@@ -69,6 +95,7 @@
             <thead>
                 <tr>
                     <th>Tipo despesa</th>
+                    <th>Banco</th>
                     <th>Valor</th>
                     <th>Data</th>
                     <th>Situação</th>
@@ -78,6 +105,7 @@
                 {% for saida in saidas %}
                 <tr>
                     <td>{{ saida.tipo_despesa }}</td>
+                    <td>{{ saida.banco }}</td>
                     <td>{{ saida.valor_formatado }}</td>
                     <td>{{ saida.data|date:"d/m/Y" }}</td>
                     <td>{{ saida.situacao_legivel }}</td>

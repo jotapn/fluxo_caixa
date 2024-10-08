@@ -198,10 +198,12 @@ class DashboardView(TemplateView):
 
         entradas = Entrada.objects.filter(data__month=mes, data__year=ano)
         saidas = Saida.objects.filter(data__month=mes, data__year=ano)
+        bancos = Banco.objects.all()
 
         context['entradas'] = entradas
         context['saidas'] = saidas
         context['mes_atual'] = mes  # Adiciona o mês atual ao contexto
+        context['bancos'] = bancos
 
         # Define a lista de meses
         context['meses'] = [

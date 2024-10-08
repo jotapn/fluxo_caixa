@@ -38,6 +38,13 @@ class Banco(models.Model):
     @property
     def saldo_inicial_formatado(self):
         return f"R$ {self.saldo_inicial:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+    
+    @property
+    def status_formatado(self):
+        for id, descricao in STATUS:
+            if self.status == id:
+                return descricao
+            return self.status
 
     def __str__(self):
         return self.nome
@@ -65,11 +72,20 @@ class Entrada(models.Model):
     banco = models.ForeignKey(Banco, on_delete=models.PROTECT)
     tipo_pagamento = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'pagamento'}, on_delete=models.PROTECT,related_name='pagamentos')
     tipo_entrada = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'entrada'}, on_delete=models.PROTECT, related_name='entradas')
-    situacao = models.CharField(max_length=2, choices=SITUACAO,  default='AP')
+    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')
 
     def __str__(self):
         return f'Entrada: {self.valor} - {self.descricao}'
-    
+
+    def save(self, *args, **kwargs):
+        # Verifica se a entrada é nova (ou seja, ainda não tem um ID) ou se a situação mudou para 'Pago'
+        if self.pk is None or Entrada.objects.get(pk=self.pk).situacao != 'PG':
+            # Se a situação é "PG" (Pago), soma o valor no saldo atual do banco
+            if self.situacao == 'PG':
+                self.banco.saldo_atual += self.valor
+                self.banco.save()
+        
+        super(Entrada, self).save(*args, **kwargs)
     
     @property
     def valor_formatado(self):
@@ -90,10 +106,20 @@ class Saida(models.Model):
     data = models.DateField(auto_now_add=True)
     banco = models.ForeignKey(Banco, on_delete=models.PROTECT)
     tipo_pagamento = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'pagamento'}, on_delete=models.PROTECT, related_name='saidas')
-    situacao = models.CharField(max_length=2, choices=SITUACAO)
+    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')
 
     def __str__(self):
         return f'Saída: {self.valor} - {self.descricao}'
+    
+    def save(self, *args, **kwargs):
+        # Verifica se a entrada é nova (ou seja, ainda não tem um ID) ou se a situação mudou para 'Pago'
+        if self.pk is None or Saida.objects.get(pk=self.pk).situacao != 'PG':
+            # Se a situação é "PG" (Pago), soma o valor no saldo atual do banco
+            if self.situacao == 'PG':
+                self.banco.saldo_atual -= self.valor
+                self.banco.save()
+        
+        super(Saida, self).save(*args, **kwargs)
 
     @property
     def valor_formatado(self):
