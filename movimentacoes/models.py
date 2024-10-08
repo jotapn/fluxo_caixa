@@ -112,9 +112,9 @@ class Saida(models.Model):
         return f'Saída: {self.valor} - {self.descricao}'
     
     def save(self, *args, **kwargs):
-        # Verifica se a entrada é nova (ou seja, ainda não tem um ID) ou se a situação mudou para 'Pago'
+        # Verifica se a saída é nova (ou seja, ainda não tem um ID) ou se a situação mudou para 'Pago'
         if self.pk is None or Saida.objects.get(pk=self.pk).situacao != 'PG':
-            # Se a situação é "PG" (Pago), soma o valor no saldo atual do banco
+            # Se a situação é "PG" (Pago), diminui o valor no saldo atual do banco
             if self.situacao == 'PG':
                 self.banco.saldo_atual -= self.valor
                 self.banco.save()
