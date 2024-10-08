@@ -2,6 +2,18 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+
+<style>
+    .title-table {
+        margin: 0.5em 0;
+    }
+    
+    .title-table a {
+        text-decoration: none;
+        color: #000
+    }
+</style>
+
 <div class="row">
     <div class="col-md-12">
         <h1>Dashboard</h1>
@@ -26,21 +38,23 @@
             </div>
         </div>
 
-        <h2>Entradas</h2>
+        <h2 class= "title-table"><a href="{% url 'entrada-list' %}">Entradas</a></h2>
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Descrição</th>
+                    <th>Cliente</th>
                     <th>Valor</th>
                     <th>Data</th>
+                    <th>Situação</th>
                 </tr>
             </thead>
             <tbody>
                 {% for entrada in entradas %}
                 <tr>
-                    <td>{{ entrada.descricao }}</td>
+                    <td>{{ entrada.cliente }}</td>
                     <td>{{ entrada.valor_formatado }}</td>
                     <td>{{ entrada.data|date:"d/m/Y" }}</td>
+                    <td>{{ entrada.situacao_legivel }}</td>
                 </tr>
                 {% empty %}
                 <tr>
@@ -49,22 +63,24 @@
                 {% endfor %}
             </tbody>
         </table>
-
-        <h2>Saídas</h2>
+        
+        <h2 class= "title-table"><a href="{% url 'saida-list' %}">Saídas</a></h2>
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Descrição</th>
+                    <th>Tipo despesa</th>
                     <th>Valor</th>
                     <th>Data</th>
+                    <th>Situação</th>
                 </tr>
             </thead>
             <tbody>
                 {% for saida in saidas %}
                 <tr>
-                    <td>{{ saida.descricao }}</td>
+                    <td>{{ saida.tipo_despesa }}</td>
                     <td>{{ saida.valor_formatado }}</td>
                     <td>{{ saida.data|date:"d/m/Y" }}</td>
+                    <td>{{ saida.situacao_legivel }}</td>
                 </tr>
                 {% empty %}
                 <tr>

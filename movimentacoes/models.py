@@ -19,6 +19,18 @@ class Banco(models.Model):
     status = models.CharField(max_length=10, choices=STATUS, default="AT")
     saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)
 
+    def save(self, *args, **kwargs):
+        # Se o banco já existe, não permitir a edição do saldo_inicial
+        if self.pk is not None:  # O objeto já existe
+            # Obtendo o objeto existente do banco de dados
+            banco_existente = Banco.objects.get(pk=self.pk)
+            # Se o saldo inicial foi alterado, lance um erro ou reverta a mudança
+            if banco_existente.saldo_inicial != self.saldo_inicial:
+                raise ValueError("Não é permitido alterar o saldo inicial de um banco já cadastrado.")
+        else:
+            self.saldo_atual = self.saldo_inicial  # Somente na primeira vez
+        super().save(*args, **kwargs)
+
     @property
     def saldo_atual_formatado(self):
         return f"R$ {self.saldo_atual:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
@@ -53,10 +65,11 @@ class Entrada(models.Model):
     banco = models.ForeignKey(Banco, on_delete=models.PROTECT)
     tipo_pagamento = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'pagamento'}, on_delete=models.PROTECT,related_name='pagamentos')
     tipo_entrada = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'entrada'}, on_delete=models.PROTECT, related_name='entradas')
-    situacao = models.CharField(max_length=2, choices=SITUACAO)
+    situacao = models.CharField(max_length=2, choices=SITUACAO,  default='AP')
 
     def __str__(self):
         return f'Entrada: {self.valor} - {self.descricao}'
+    
     
     @property
     def valor_formatado(self):

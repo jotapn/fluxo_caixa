@@ -3,6 +3,9 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 from .models import Banco, Tipo, Entrada, Saida
 from .forms import BancoModelForm, TipoModelForm, EntradaModelForm, SaidaModelForm
+from django.db.models.deletion import ProtectedError
+from django.db.utils import IntegrityError
+from django.contrib import messages
 
 
 ##### CRUD DE BANCOS ######
@@ -34,13 +37,36 @@ class BancoUpdateView(UpdateView):
     template_name = 'banco/banco_form.html'
     form_class = BancoModelForm
     success_url = reverse_lazy('banco-list')
+    
+    def form_valid(self, form):
+        try:
+            return super().form_valid(form)
+        except ValueError as e:
+            form.add_error('saldo_inicial', str(e))  # Adiciona erro ao campo de saldo inicial
+            return self.form_invalid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Editar Banco'
+        return context
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 class BancoDeleteView(DeleteView):
     '''EXCLUSÃO DE UM BANCO'''
     model = Banco
     template_name = 'banco/banco_confirm_delete.html'
     success_url = reverse_lazy('banco-list')
+
+    def delete(self, request, *args, **kwargs):
+        try:
+            return super().delete(request, *args, **kwargs)
+        except ProtectedError:
+            messages.error(request, "Não é possível excluir este banco porque ele está relacionado a outras operações.")
+            return self.get(request, *args, **kwargs)
+
 
 
 ##### CRUD DE TIPOS ######

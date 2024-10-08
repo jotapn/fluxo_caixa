@@ -56,6 +56,38 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -153,6 +185,14 @@
     },
     {
         "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "messages",
         "importPath": "django.contrib",
         "description": "django.contrib",
         "isExtraImport": true,
@@ -474,11 +514,36 @@
         "documentation": {}
     },
     {
+        "label": "ProtectedError",
+        "importPath": "django.db.models.deletion",
+        "description": "django.db.models.deletion",
+        "isExtraImport": true,
+        "detail": "django.db.models.deletion",
+        "documentation": {}
+    },
+    {
         "label": "timezone",
         "importPath": "django.utils",
         "description": "django.utils",
         "isExtraImport": true,
         "detail": "django.utils",
+        "documentation": {}
+    },
+    {
+        "label": "IntegrityError",
+        "importPath": "django.db.utils",
+        "description": "django.db.utils",
+        "isExtraImport": true,
+        "detail": "django.db.utils",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
         "documentation": {}
     },
     {
@@ -527,6 +592,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "clientes.migrations.0005_alter_cliente_cnpj_cpf",
+        "description": "clientes.migrations.0005_alter_cliente_cnpj_cpf",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('clientes', '0004_rename_clientes_cliente_rename_cnpj_cliente_cnpj_cpf'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='cliente',\n            name='cnpj_cpf',\n            field=models.CharField(max_length=18),\n        ),",
+        "detail": "clientes.migrations.0005_alter_cliente_cnpj_cpf",
+        "documentation": {}
+    },
+    {
         "label": "ClientesAdmin",
         "kind": 6,
         "importPath": "clientes.admin",
@@ -558,7 +632,7 @@
         "kind": 6,
         "importPath": "clientes.models",
         "description": "clientes.models",
-        "peekOfCode": "class Cliente(models.Model):\n    PESSOA =(\n        ('pf', \"Pessoa física\"),\n        ('pj', \"Pessoa jurídica\"),\n    )\n    nome_fantasia = models.CharField(max_length=80)\n    razao_social = models.CharField(max_length=80)\n    tipo_pessoa = models.CharField(max_length=20,choices=PESSOA, null=True, blank=True)\n    cnpj_cpf = models.CharField(max_length=14)\n    cep = models.CharField(max_length=9)",
+        "peekOfCode": "class Cliente(models.Model):\n    PESSOA =(\n        ('pf', \"Pessoa física\"),\n        ('pj', \"Pessoa jurídica\"),\n    )\n    nome_fantasia = models.CharField(max_length=80)\n    razao_social = models.CharField(max_length=80)\n    tipo_pessoa = models.CharField(max_length=20,choices=PESSOA, null=True, blank=True)\n    cnpj_cpf = models.CharField(max_length=18)\n    cep = models.CharField(max_length=9)",
         "detail": "clientes.models",
         "documentation": {}
     },
@@ -567,7 +641,7 @@
         "kind": 5,
         "importPath": "clientes.urls",
         "description": "clientes.urls",
-        "peekOfCode": "urlpatterns = [\n    path(\"\", ClientesListView.as_view(), name=\"clientes_list\"),\n    path(\"novo\", ClienteCreateView.as_view(), name=\"clientes_create\"),\n    path(\"<int:pk>\", ClientesUpdateView.as_view(), name=\"clientes_update\"),\n    path(\"delete/<int:pk>\", ClientesDeleteView.as_view(), name=\"clientes_delete\"),\n]",
+        "peekOfCode": "urlpatterns = [\n    path(\"\", ClientesListView.as_view(), name=\"clientes-list\"),\n    path(\"novo\", ClienteCreateView.as_view(), name=\"clientes-create\"),\n    path(\"<int:pk>\", ClientesUpdateView.as_view(), name=\"clientes-update\"),\n    path(\"delete/<int:pk>\", ClientesDeleteView.as_view(), name=\"clientes-delete\"),\n]",
         "detail": "clientes.urls",
         "documentation": {}
     },
@@ -594,7 +668,7 @@
         "kind": 6,
         "importPath": "clientes.views",
         "description": "clientes.views",
-        "peekOfCode": "class ClientesUpdateView(UpdateView):\n    model = Cliente\n    template_name = \"clientes_update.html\"\n    form_class = ClienteModelForm\n    def get_success_url(self):\n        return reverse_lazy('clientes_update', kwargs={'pk': self.object.pk})\nclass ClientesDeleteView(DeleteView):\n    model = Cliente\n    template_name = \"clientes_delete.html\"\n    success_url = \"/clientes/\"",
+        "peekOfCode": "class ClientesUpdateView(UpdateView):\n    model = Cliente\n    template_name = \"clientes_update.html\"\n    form_class = ClienteModelForm\n    def get_success_url(self):\n        return reverse_lazy('clientes-update', kwargs={'pk': self.object.pk})\nclass ClientesDeleteView(DeleteView):\n    model = Cliente\n    template_name = \"clientes_delete.html\"\n    success_url = \"/clientes/\"",
         "detail": "clientes.views",
         "documentation": {}
     },
@@ -860,6 +934,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "movimentacoes.migrations.0005_alter_entrada_situacao",
+        "description": "movimentacoes.migrations.0005_alter_entrada_situacao",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('movimentacoes', '0004_alter_banco_status_alter_entrada_situacao_and_more'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='entrada',\n            name='situacao',\n            field=models.CharField(choices=[('PG', 'Pago'), ('AP', 'A pagar')], default='AP', max_length=2),\n        ),",
+        "detail": "movimentacoes.migrations.0005_alter_entrada_situacao",
+        "documentation": {}
+    },
+    {
         "label": "BancoAdmin",
         "kind": 6,
         "importPath": "movimentacoes.admin",
@@ -945,7 +1028,7 @@
         "kind": 6,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "class Banco(models.Model):\n    nome = models.CharField(max_length=50)\n    saldo_inicial = models.DecimalField(max_digits=12, decimal_places=2)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)\n    @property\n    def saldo_atual_formatado(self):\n        return f\"R$ {self.saldo_atual:,.2f}\".replace(',', 'X').replace('.', ',').replace('X', '.')\n    @property\n    def saldo_inicial_formatado(self):",
+        "peekOfCode": "class Banco(models.Model):\n    nome = models.CharField(max_length=50)\n    saldo_inicial = models.DecimalField(max_digits=12, decimal_places=2)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)\n    def save(self, *args, **kwargs):\n        # Se o banco já existe, não permitir a edição do saldo_inicial\n        if self.pk is not None:  # O objeto já existe\n            # Obtendo o objeto existente do banco de dados\n            banco_existente = Banco.objects.get(pk=self.pk)",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -963,7 +1046,7 @@
         "kind": 6,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "class Entrada(models.Model):\n    cliente = models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.PROTECT)\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    banco = models.ForeignKey(Banco, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'pagamento'}, on_delete=models.PROTECT,related_name='pagamentos')\n    tipo_entrada = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'entrada'}, on_delete=models.PROTECT, related_name='entradas')\n    situacao = models.CharField(max_length=2, choices=SITUACAO)\n    def __str__(self):",
+        "peekOfCode": "class Entrada(models.Model):\n    cliente = models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.PROTECT)\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    banco = models.ForeignKey(Banco, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'pagamento'}, on_delete=models.PROTECT,related_name='pagamentos')\n    tipo_entrada = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'entrada'}, on_delete=models.PROTECT, related_name='entradas')\n    situacao = models.CharField(max_length=2, choices=SITUACAO,  default='AP')\n    def __str__(self):",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -990,7 +1073,7 @@
         "kind": 5,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "SITUACAO = (\n    (\"PG\", \"Pago\"),\n    (\"AP\", \"A pagar\")\n)\nclass Banco(models.Model):\n    nome = models.CharField(max_length=50)\n    saldo_inicial = models.DecimalField(max_digits=12, decimal_places=2)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)\n    @property",
+        "peekOfCode": "SITUACAO = (\n    (\"PG\", \"Pago\"),\n    (\"AP\", \"A pagar\")\n)\nclass Banco(models.Model):\n    nome = models.CharField(max_length=50)\n    saldo_inicial = models.DecimalField(max_digits=12, decimal_places=2)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)\n    def save(self, *args, **kwargs):",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -1035,7 +1118,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class BancoUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_form.html'\n    form_class = BancoModelForm\n    success_url = reverse_lazy('banco-list')\nclass BancoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_confirm_delete.html'",
+        "peekOfCode": "class BancoUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_form.html'\n    form_class = BancoModelForm\n    success_url = reverse_lazy('banco-list')\n    def form_valid(self, form):\n        try:\n            return super().form_valid(form)\n        except ValueError as e:",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
@@ -1044,7 +1127,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class BancoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_confirm_delete.html'\n    success_url = reverse_lazy('banco-list')\n##### CRUD DE TIPOS ######\nclass TipoListView(ListView):\n    '''LISTAGEM DE TIPOS'''\n    model = Tipo\n    template_name = 'tipo/tipo_list.html'",
+        "peekOfCode": "class BancoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_confirm_delete.html'\n    success_url = reverse_lazy('banco-list')\n    def delete(self, request, *args, **kwargs):\n        try:\n            return super().delete(request, *args, **kwargs)\n        except ProtectedError:\n            messages.error(request, \"Não é possível excluir este banco porque ele está relacionado a outras operações.\")",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
@@ -1189,6 +1272,15 @@
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
         "peekOfCode": "class DashboardView(TemplateView):\n    template_name = 'dashboard.html'\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Pega o mês do GET, se não houver, usa o mês atual\n        mes = self.request.GET.get('mes', timezone.now().month)\n        ano = timezone.now().year  # você pode querer adicionar uma opção para o ano\n        entradas = Entrada.objects.filter(data__month=mes, data__year=ano)\n        saidas = Saida.objects.filter(data__month=mes, data__year=ano)\n        context['entradas'] = entradas",
+        "detail": "movimentacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "movimentacoes.views",
+        "description": "movimentacoes.views",
+        "peekOfCode": "logger = logging.getLogger(__name__)\nclass BancoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_confirm_delete.html'\n    success_url = reverse_lazy('banco-list')\n    def delete(self, request, *args, **kwargs):\n        try:\n            return super().delete(request, *args, **kwargs)\n        except ProtectedError:",
         "detail": "movimentacoes.views",
         "documentation": {}
     },

@@ -1,14 +1,22 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">Excluir Banco</h1>
-    <div class="alert alert-danger" role="alert">
-        Tem certeza de que deseja excluir o banco <strong>{{ banco.nome }}</strong>?
-    </div>
-    <form method="post">
+    <h1 class="mb-4">Confirmar Exclusão</h1>
+    <p>Tem certeza que deseja excluir o banco "{{ object.nome }}"?</p>
+    
+    <form method="POST">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Confirmar Exclusão</button>
+        <button type="submit" class="btn btn-danger">Excluir</button>
         <a href="{% url 'banco-list' %}" class="btn btn-secondary">Cancelar</a>
     </form>
+
+    {% if messages %}
+        <div class="mt-3">
+            {% for message in messages %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
 </div>
-{% endblock %}
+{% endblock content %}

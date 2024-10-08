@@ -9,7 +9,7 @@ class Cliente(models.Model):
     nome_fantasia = models.CharField(max_length=80)
     razao_social = models.CharField(max_length=80)
     tipo_pessoa = models.CharField(max_length=20,choices=PESSOA, null=True, blank=True)
-    cnpj_cpf = models.CharField(max_length=14)
+    cnpj_cpf = models.CharField(max_length=18)
     cep = models.CharField(max_length=9)
     endereco = models.CharField(max_length=100)
     numero = models.CharField(max_length=6)

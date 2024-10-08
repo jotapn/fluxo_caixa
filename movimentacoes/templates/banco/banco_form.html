@@ -1,24 +1,15 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">{{ view.title }}</h1>
-    <form method="post">
+    <h1 class="mb-4">Editar Banco</h1>
+    <form method="POST">
         {% csrf_token %}
-        <div class="form-group">
-            <label for="id_nome">Nome do Banco</label>
-            {{ form.nome|as_crispy_field }}
-        </div>
-        <div class="form-group">
-            <label for="id_saldo_inicial">Saldo Inicial</label>
-            {{ form.saldo_inicial|as_crispy_field }}
-        </div>
-        <div class="form-group">
-            <label for="id_status">Status</label>
-            {{ form.status|as_crispy_field }}
-        </div>
-        <button type="submit" class="btn btn-success">Salvar</button>
-        <a href="{% url 'banco-list' %}" class="btn btn-secondary">Voltar</a>
+        <table>
+            {{ form|crispy }}
+        </table>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a href="{% url 'banco-list' %}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
-{% endblock %}
+{% endblock content %}

@@ -28,7 +28,7 @@ class ClientesUpdateView(UpdateView):
     form_class = ClienteModelForm
 
     def get_success_url(self):
-        return reverse_lazy('clientes_update', kwargs={'pk': self.object.pk})
+        return reverse_lazy('clientes-update', kwargs={'pk': self.object.pk})
     
 class ClientesDeleteView(DeleteView):
     model = Cliente
