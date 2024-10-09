@@ -50,3 +50,13 @@ class ContaBancaria(models.Model):
     @property
     def saldo_inicial_formatado(self):
         return f"R$ {self.saldo_inicial:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+    
+    @property
+    def status_formatado(self):
+        for id, descricao in STATUS:
+            if self.status == id:
+                return descricao
+            return self.status
+        
+    def __str__(self) -> str:
+        return self.nome

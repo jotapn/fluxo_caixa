@@ -1,9 +1,13 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">Lista de Tipos</h1>
-    <a href="{% url 'operacao-list' %}" class="btn btn-primary mb-3">Adicionar Novo Tipo</a>
-    <table class="table table-striped">
+    <h1 class="mb-4">Listagem de Operações</h1>
+
+    <div class="mb-3">
+        <a href="{% url 'operacao-criar' %}" class="btn btn-primary">Criar Nova Operação</a>
+    </div>
+
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Nome</th>
@@ -13,17 +17,17 @@
             </tr>
         </thead>
         <tbody>
-            {% for tipo in tipos %}
-            <tr>
-                <td>{{ tipo.nome }}</td>
-                <td>{{ tipo.get_tipo_display }}</td>
-                <td>{{ tipo.get_status_display }}</td>
-                <td>
-                    <a href="{% url 'operacao-list' tipo.pk %}" class="btn btn-info btn-sm">Ver</a>
-                    {% comment %} <a href="{% url 'tipo-update' tipo.pk %}" class="btn btn-warning btn-sm">Editar</a>
-                    <a href="{% url 'tipo-delete' tipo.pk %}" class="btn btn-danger btn-sm">Excluir</a> {% endcomment %}
-                </td>
-            </tr>
+            {% for operacao in operacoes %}
+                <tr>
+                    <td>{{ operacao.nome }}</td>
+                    <td>{{ operacao.tipo }}</td>
+                    <td>{{ operacao.status }}</td>
+                    <td>
+                        <a href="{% url 'tipo_detail' operacao.objeto.id %}" class="btn btn-primary btn-sm">Detalhes</a>
+                        <a href="{% url 'tipo_update' operacao.objeto.id %}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{% url 'tipo_delete' operacao.objeto.id %}" class="btn btn-danger btn-sm">Excluir</a>
+                    </td>
+                </tr>
             {% endfor %}
         </tbody>
     </table>

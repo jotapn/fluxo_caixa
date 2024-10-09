@@ -11,6 +11,13 @@ class TipoPagamento(models.Model):
     
     def __str__(self) -> str:
         return self.nome
+
+    @property
+    def status_formatado(self):
+        for id, descricao in STATUS:
+            if self.status == id:
+                return descricao
+            return self.status
     
 class TipoDespesa(models.Model):
     nome = models.CharField(max_length=100, unique=True)
@@ -18,6 +25,13 @@ class TipoDespesa(models.Model):
     
     def __str__(self) -> str:
         return self.nome
+    
+    @property
+    def status_formatado(self):
+        for id, descricao in STATUS:
+            if self.status == id:
+                return descricao
+            return self.status
 
 
 class TipoReceita(models.Model):
@@ -26,4 +40,11 @@ class TipoReceita(models.Model):
     
     def __str__(self) -> str:
         return self.nome
+    
+    @property
+    def status_formatado(self):
+        for id, descricao in STATUS:
+            if self.status == id:
+                return descricao
+            return self.status
     

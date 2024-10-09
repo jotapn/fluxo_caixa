@@ -20,7 +20,7 @@
             text-align: center;
         }
         
-        header h1{
+        header h1 {
             margin: 0;
         }
 
@@ -29,7 +29,7 @@
             text-decoration: none;
         }
 
-        header h1 a:hover{
+        header h1 a:hover {
             text-decoration: none;
             color: #fff78;
         }
@@ -100,8 +100,9 @@
     <div class="sidebar" id="sidebar">
         <ul>
             <li><a href="{% url 'banco-list' %}">Bancos</a></li>
+            <li><a href="{% url 'conta_bancaria_list' %}">Contas Bancárias</a></li> <!-- Novo link adicionado -->
             <li><a href="{% url 'clientes-list' %}">Clientes</a></li>
-            <li><a href="{% url 'operacao-list' %}">Operacoes</a></li>
+            <li><a href="{% url 'operacao-list' %}">Operações</a></li>
             <li><a href="{% url 'entrada-list' %}">Entradas</a></li>
             <li><a href="{% url 'saida-list' %}">Saídas</a></li>
         </ul>

@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 from .models import TipoReceita, TipoDespesa, TipoPagamento
 from .forms import TipoDespesaModelForm, TipoPagamentoModelForm, TipoReceitaModelForm
@@ -15,10 +16,51 @@ class OperacoesListView(TemplateView):
         tipo_receita = TipoReceita.objects.all()
         tipo_pagamento = TipoPagamento.objects.all()
 
-        context['despesa'] = tipo_despesa
-        context['receita'] = tipo_receita
-        context['pagamento'] = tipo_pagamento
+        # Unificando as operações com os campos comuns
+        operacoes = []
+        for receita in tipo_receita:
+            operacoes.append({
+                'nome': receita.nome,
+                'tipo': 'Receita',
+                'status': receita.status_formatado,
+                'objeto': receita
+            })
+        for despesa in tipo_despesa:
+            operacoes.append({
+                'nome': despesa.nome,
+                'tipo': 'Despesa',
+                'status': despesa.status_formatado,
+                'objeto': despesa
+            })
+        for pagamento in tipo_pagamento:
+            operacoes.append({
+                'nome': pagamento.nome,
+                'tipo': 'Pagamento',
+                'status': pagamento.status_formatado,
+                'objeto': pagamento
+            })
 
+        context['operacoes'] = operacoes
+        return context
+
+
+class CriarOperacaoView(TemplateView):
+    template_name = 'operacao_criar.html'
+
+    def post(self, request, *args, **kwargs):
+        tipo_operacao = request.POST.get('tipo_operacao')
+
+        if tipo_operacao == 'receita':
+            return redirect('tipo_receita_create')
+        elif tipo_operacao == 'despesa':
+            return redirect('tipo_despesa_create')
+        elif tipo_operacao == 'pagamento':
+            return redirect('tipo_pagamento_create')
+        else:
+            return self.render_to_response(self.get_context_data(error='Selecione um tipo de operação.'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         return context
 
 

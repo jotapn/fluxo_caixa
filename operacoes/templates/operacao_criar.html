@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Criar Nova Operação</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="tipo_operacao">Tipo de Operação:</label>
+            <select id="tipo_operacao" name="tipo_operacao" class="form-control">
+                <option value="">Selecione o tipo</option>
+                <option value="receita">Receita</option>
+                <option value="despesa">Despesa</option>
+                <option value="pagamento">Pagamento</option>
+            </select>
+        </div>
+        {% if error %}
+            <div class="alert alert-danger mt-2">{{ error }}</div>
+        {% endif %}
+        <button type="submit" class="btn btn-primary mt-3">Continuar</button>
+    </form>
+</div>
+{% endblock %}

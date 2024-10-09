@@ -9,5 +9,5 @@ class BancoModelForm(forms.ModelForm):
 
 class ContaBancariaModelForm(forms.ModelForm):
     class Meta:
-        model = Banco
+        model = ContaBancaria
         fields = '__all__'

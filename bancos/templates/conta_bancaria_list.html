@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Contas Bancárias</h1>
+    <a href="{% url 'conta_bancaria_create' %}" class="btn btn-primary mb-3">Criar Nova Conta Bancária</a>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Banco</th>
+                <th>Nome</th>
+                <th>Agência</th>
+                <th>Conta</th>
+                <th>Saldo Atual</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for conta in contas %}
+            <tr>
+                <td>{{ conta.banco }}</td>
+                <td>{{ conta.nome }}</td>
+                <td>{{ conta.agencia }}</td>
+                <td>{{ conta.conta }}</td>
+                <td>{{ conta.saldo_atual_formatado }}</td>
+                <td>{{ conta.status_formatado }}</td>
+                <td>
+                    <a href="{% url 'conta_bancaria_detail' conta.pk %}" class="btn btn-sm btn-info">Detalhes</a>
+                    <a href="{% url 'conta_bancaria_update' conta.pk %}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{% url 'conta_bancaria_delete' conta.pk %}" class="btn btn-sm btn-danger">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

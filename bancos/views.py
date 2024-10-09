@@ -3,7 +3,7 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 from django.contrib import messages
 from django.db.models.deletion import ProtectedError
 from .models import Banco, ContaBancaria
-from .forms import BancoModelForm
+from .forms import BancoModelForm, ContaBancariaModelForm
 
 
 ##### CRUD DE BANCOS ######
@@ -64,3 +64,40 @@ class BancoDeleteView(DeleteView):
         except ProtectedError:
             messages.error(request, "Não é possível excluir este banco porque ele está relacionado a contas ativas.")
             return self.get(request, *args, **kwargs)
+        
+class ContaBancariaListView(ListView):
+    '''LISTAGEM DE CONTAS BANCÁRIAS'''
+    model = ContaBancaria
+    template_name = 'conta_bancaria_list.html'
+    context_object_name = 'contas'
+    
+class ContaBancariaCreateView(CreateView):
+    '''CRIAÇÃO DE UMA CONTA BANCÁRIA'''
+    model = ContaBancaria
+    form_class = ContaBancariaModelForm
+    template_name = 'conta_bancaria_form.html'
+    success_url = reverse_lazy('conta_bancaria_list')
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['status'] = 'AT'  # Define o status como ativo por padrão
+        return initial
+
+class ContaBancariaDetailView(DetailView):
+    '''DETALHAMENTO DE UMA CONTA BANCÁRIA'''
+    model = ContaBancaria
+    template_name = 'conta_bancaria_detail.html'
+    context_object_name = 'conta'
+
+class ContaBancariaUpdateView(UpdateView):
+    '''ATUALIZAÇÃO DE UMA CONTA BANCÁRIA'''
+    model = ContaBancaria
+    form_class = ContaBancariaModelForm
+    template_name = 'conta_bancaria_form.html'
+    success_url = reverse_lazy('conta_bancaria_list')
+
+class ContaBancariaDeleteView(DeleteView):
+    '''EXCLUSÃO DE UMA CONTA BANCÁRIA'''
+    model = ContaBancaria
+    template_name = 'conta_bancaria_confirm_delete.html'
+    success_url = reverse_lazy('conta_bancaria_list')

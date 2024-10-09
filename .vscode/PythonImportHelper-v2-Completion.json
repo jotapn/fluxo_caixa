@@ -305,7 +305,31 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "transaction",
         "importPath": "django.db",
         "description": "django.db",
         "isExtraImport": true,
@@ -849,6 +873,22 @@
         "documentation": {}
     },
     {
+        "label": "get_object_or_404",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
@@ -987,7 +1027,7 @@
         "kind": 6,
         "importPath": "bancos.forms",
         "description": "bancos.forms",
-        "peekOfCode": "class BancoModelForm(forms.ModelForm):\n    class Meta:\n        model = Banco\n        fields = (\"nome\", \"status\")\nclass ContaBancariaModelForm(forms.ModelForm):\n    class Meta:\n        model = Banco\n        fields = '__all__'",
+        "peekOfCode": "class BancoModelForm(forms.ModelForm):\n    class Meta:\n        model = Banco\n        fields = (\"nome\", \"status\")\nclass ContaBancariaModelForm(forms.ModelForm):\n    class Meta:\n        model = ContaBancaria\n        fields = '__all__'",
         "detail": "bancos.forms",
         "documentation": {}
     },
@@ -996,7 +1036,7 @@
         "kind": 6,
         "importPath": "bancos.forms",
         "description": "bancos.forms",
-        "peekOfCode": "class ContaBancariaModelForm(forms.ModelForm):\n    class Meta:\n        model = Banco\n        fields = '__all__'",
+        "peekOfCode": "class ContaBancariaModelForm(forms.ModelForm):\n    class Meta:\n        model = ContaBancaria\n        fields = '__all__'",
         "detail": "bancos.forms",
         "documentation": {}
     },
@@ -1032,7 +1072,7 @@
         "kind": 5,
         "importPath": "bancos.urls",
         "description": "bancos.urls",
-        "peekOfCode": "urlpatterns = [\n    path('bancos/', BancoListView.as_view(), name='banco-list'),\n    path('bancos/<int:pk>/', BancoDetailView.as_view(), name='banco-detail'),\n    path('bancos/novo/', BancoCreateView.as_view(), name='banco-create'),\n    path('bancos/editar/<int:pk>/', BancoUpdateView.as_view(), name='banco-update'),\n    path('bancos/<int:pk>/deletar/', BancoDeleteView.as_view(), name='banco-delete'),\n]",
+        "peekOfCode": "urlpatterns = [\n    path('bancos/', BancoListView.as_view(), name='banco-list'),\n    path('bancos/<int:pk>/', BancoDetailView.as_view(), name='banco-detail'),\n    path('bancos/novo/', BancoCreateView.as_view(), name='banco-create'),\n    path('bancos/editar/<int:pk>/', BancoUpdateView.as_view(), name='banco-update'),\n    path('bancos/<int:pk>/deletar/', BancoDeleteView.as_view(), name='banco-delete'),\n    path('contas/', ContaBancariaListView.as_view(), name='conta_bancaria_list'),\n    path('contas/criar/', ContaBancariaCreateView.as_view(), name='conta_bancaria_create'),\n    path('contas/<int:pk>/', ContaBancariaDetailView.as_view(), name='conta_bancaria_detail'),\n    path('contas/<int:pk>/editar/', ContaBancariaUpdateView.as_view(), name='conta_bancaria_update'),",
         "detail": "bancos.urls",
         "documentation": {}
     },
@@ -1087,6 +1127,51 @@
         "importPath": "bancos.views",
         "description": "bancos.views",
         "peekOfCode": "class BancoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco_confirm_delete.html'\n    success_url = reverse_lazy('banco-list')\n    def delete(self, request, *args, **kwargs):\n        try:\n            return super().delete(request, *args, **kwargs)\n        except ProtectedError:\n            messages.error(request, \"Não é possível excluir este banco porque ele está relacionado a contas ativas.\")",
+        "detail": "bancos.views",
+        "documentation": {}
+    },
+    {
+        "label": "ContaBancariaListView",
+        "kind": 6,
+        "importPath": "bancos.views",
+        "description": "bancos.views",
+        "peekOfCode": "class ContaBancariaListView(ListView):\n    '''LISTAGEM DE CONTAS BANCÁRIAS'''\n    model = ContaBancaria\n    template_name = 'conta_bancaria_list.html'\n    context_object_name = 'contas'\nclass ContaBancariaCreateView(CreateView):\n    '''CRIAÇÃO DE UMA CONTA BANCÁRIA'''\n    model = ContaBancaria\n    form_class = ContaBancariaModelForm\n    template_name = 'conta_bancaria_form.html'",
+        "detail": "bancos.views",
+        "documentation": {}
+    },
+    {
+        "label": "ContaBancariaCreateView",
+        "kind": 6,
+        "importPath": "bancos.views",
+        "description": "bancos.views",
+        "peekOfCode": "class ContaBancariaCreateView(CreateView):\n    '''CRIAÇÃO DE UMA CONTA BANCÁRIA'''\n    model = ContaBancaria\n    form_class = ContaBancariaModelForm\n    template_name = 'conta_bancaria_form.html'\n    success_url = reverse_lazy('conta_bancaria_list')\n    def get_initial(self):\n        initial = super().get_initial()\n        initial['status'] = 'AT'  # Define o status como ativo por padrão\n        return initial",
+        "detail": "bancos.views",
+        "documentation": {}
+    },
+    {
+        "label": "ContaBancariaDetailView",
+        "kind": 6,
+        "importPath": "bancos.views",
+        "description": "bancos.views",
+        "peekOfCode": "class ContaBancariaDetailView(DetailView):\n    '''DETALHAMENTO DE UMA CONTA BANCÁRIA'''\n    model = ContaBancaria\n    template_name = 'conta_bancaria_detail.html'\n    context_object_name = 'conta'\nclass ContaBancariaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA CONTA BANCÁRIA'''\n    model = ContaBancaria\n    form_class = ContaBancariaModelForm\n    template_name = 'conta_bancaria_form.html'",
+        "detail": "bancos.views",
+        "documentation": {}
+    },
+    {
+        "label": "ContaBancariaUpdateView",
+        "kind": 6,
+        "importPath": "bancos.views",
+        "description": "bancos.views",
+        "peekOfCode": "class ContaBancariaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA CONTA BANCÁRIA'''\n    model = ContaBancaria\n    form_class = ContaBancariaModelForm\n    template_name = 'conta_bancaria_form.html'\n    success_url = reverse_lazy('conta_bancaria_list')\nclass ContaBancariaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA CONTA BANCÁRIA'''\n    model = ContaBancaria\n    template_name = 'conta_bancaria_confirm_delete.html'",
+        "detail": "bancos.views",
+        "documentation": {}
+    },
+    {
+        "label": "ContaBancariaDeleteView",
+        "kind": 6,
+        "importPath": "bancos.views",
+        "description": "bancos.views",
+        "peekOfCode": "class ContaBancariaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA CONTA BANCÁRIA'''\n    model = ContaBancaria\n    template_name = 'conta_bancaria_confirm_delete.html'\n    success_url = reverse_lazy('conta_bancaria_list')",
         "detail": "bancos.views",
         "documentation": {}
     },
@@ -1541,6 +1626,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "movimentacoes.migrations.0013_alter_entrada_cliente_alter_entrada_conta",
+        "description": "movimentacoes.migrations.0013_alter_entrada_cliente_alter_entrada_conta",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('bancos', '0001_initial'),\n        ('clientes', '0005_alter_cliente_cnpj_cpf'),\n        ('movimentacoes', '0012_alter_entrada_tipo_receita'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='entrada',\n            name='cliente',",
+        "detail": "movimentacoes.migrations.0013_alter_entrada_cliente_alter_entrada_conta",
+        "documentation": {}
+    },
+    {
         "label": "EntradaAdmin",
         "kind": 6,
         "importPath": "movimentacoes.admin",
@@ -1590,7 +1684,7 @@
         "kind": 6,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "class Entrada(models.Model):\n    cliente = models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.PROTECT)\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT, null=True, blank=True)\n    tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='pagamentos')\n    tipo_receita = models.ForeignKey(TipoReceita, on_delete=models.PROTECT, related_name='receitas', null=True)\n    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')\n    def __str__(self):",
+        "peekOfCode": "class Entrada(models.Model):\n    cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='pagamentos')\n    tipo_receita = models.ForeignKey(TipoReceita, on_delete=models.PROTECT, related_name='receitas', null=True)\n    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')\n    def __str__(self):",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -1608,7 +1702,7 @@
         "kind": 5,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "SITUACAO = (\n    (\"PG\", \"Pago\"),\n    (\"AP\", \"A pagar\")\n)\nclass Entrada(models.Model):\n    cliente = models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.PROTECT)\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT, null=True, blank=True)",
+        "peekOfCode": "SITUACAO = (\n    (\"PG\", \"Pago\"),\n    (\"AP\", \"A pagar\")\n)\nclass Entrada(models.Model):\n    cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -1644,7 +1738,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class EntradaCreateView(CreateView):\n    '''CRIAÇÃO DE ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_form.html'\n    form_class = EntradaModelForm\n    success_url = reverse_lazy('entrada-list')\nclass EntradaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_form.html'",
+        "peekOfCode": "class EntradaCreateView(CreateView):\n    '''CRIAÇÃO DE ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_form.html'\n    form_class = EntradaModelForm\n    success_url = reverse_lazy('entrada-list')\n    def form_valid(self, form):\n        print(\"teste\")\n        # Salvar a entrada primeiro\n        entrada = form.save(commit=False)",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
@@ -1662,7 +1756,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class EntradaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_confirm_delete.html'\n    success_url = reverse_lazy('entrada-list')\n##### CRUD DE SAÍDAS ######\nclass SaidaListView(ListView):\n    '''LISTAGEM DE SAÍDAS'''\n    model = Saida\n    template_name = 'saida/saida_list.html'",
+        "peekOfCode": "class EntradaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_confirm_delete.html'\n    success_url = reverse_lazy('entrada-list')\n    def delete(self, request, *args, **kwargs):\n        print(\"teste\")\n        # Obter a entrada que será excluída\n        entrada = Entrada.objects.get(pk=kwargs['pk'])  # Pega a entrada a ser excluída\n        print(f\"Excluindo entrada: {entrada.descricao} com valor: {entrada.valor}\")",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
@@ -1815,7 +1909,7 @@
         "kind": 6,
         "importPath": "operacoes.models",
         "description": "operacoes.models",
-        "peekOfCode": "class TipoPagamento(models.Model):\n    nome = models.CharField(max_length=100, unique=True)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self) -> str:\n        return self.nome\nclass TipoDespesa(models.Model):\n    nome = models.CharField(max_length=100, unique=True)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self) -> str:\n        return self.nome",
+        "peekOfCode": "class TipoPagamento(models.Model):\n    nome = models.CharField(max_length=100, unique=True)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self) -> str:\n        return self.nome\n    @property\n    def status_formatado(self):\n        for id, descricao in STATUS:\n            if self.status == id:\n                return descricao",
         "detail": "operacoes.models",
         "documentation": {}
     },
@@ -1824,7 +1918,7 @@
         "kind": 6,
         "importPath": "operacoes.models",
         "description": "operacoes.models",
-        "peekOfCode": "class TipoDespesa(models.Model):\n    nome = models.CharField(max_length=100, unique=True)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self) -> str:\n        return self.nome\nclass TipoReceita(models.Model):\n    nome = models.CharField(max_length=100, unique=True)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self) -> str:\n        return self.nome",
+        "peekOfCode": "class TipoDespesa(models.Model):\n    nome = models.CharField(max_length=100, unique=True)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self) -> str:\n        return self.nome\n    @property\n    def status_formatado(self):\n        for id, descricao in STATUS:\n            if self.status == id:\n                return descricao",
         "detail": "operacoes.models",
         "documentation": {}
     },
@@ -1833,7 +1927,7 @@
         "kind": 6,
         "importPath": "operacoes.models",
         "description": "operacoes.models",
-        "peekOfCode": "class TipoReceita(models.Model):\n    nome = models.CharField(max_length=100, unique=True)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self) -> str:\n        return self.nome",
+        "peekOfCode": "class TipoReceita(models.Model):\n    nome = models.CharField(max_length=100, unique=True)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self) -> str:\n        return self.nome\n    @property\n    def status_formatado(self):\n        for id, descricao in STATUS:\n            if self.status == id:\n                return descricao",
         "detail": "operacoes.models",
         "documentation": {}
     },
@@ -1842,7 +1936,7 @@
         "kind": 5,
         "importPath": "operacoes.models",
         "description": "operacoes.models",
-        "peekOfCode": "STATUS = (\n    (\"AT\", \"Ativo\"),\n    (\"IN\", \"Inativo\")\n)\nclass TipoPagamento(models.Model):\n    nome = models.CharField(max_length=100, unique=True)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self) -> str:\n        return self.nome\nclass TipoDespesa(models.Model):",
+        "peekOfCode": "STATUS = (\n    (\"AT\", \"Ativo\"),\n    (\"IN\", \"Inativo\")\n)\nclass TipoPagamento(models.Model):\n    nome = models.CharField(max_length=100, unique=True)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self) -> str:\n        return self.nome\n    @property",
         "detail": "operacoes.models",
         "documentation": {}
     },
@@ -1851,7 +1945,7 @@
         "kind": 5,
         "importPath": "operacoes.urls",
         "description": "operacoes.urls",
-        "peekOfCode": "urlpatterns = [\n    # URLs de Operacoes\n    path('', OperacoesListView.as_view(), name='operacao-list'),\n    # Receitas,\n    path('receitas/novo/', TipoReceitaCreateView.as_view(), name='receita-create'),\n    path('receitas/<int:pk>/', TipoReceitaDetailView.as_view(), name='receita-detail'),\n    path('receitas/<int:pk>/editar/', TipoReceitaUpdateView.as_view(), name='receita-update'),\n    path('receitas/<int:pk>/deletar/', TipoReceitaDeleteView.as_view(), name='receita-delete'),\n    # Despesas\n    path('despesas/novo/', TipoDespesaCreateView.as_view(), name='despesa-create'),",
+        "peekOfCode": "urlpatterns = [\n    # URLs de Operacoes\n    path('', OperacoesListView.as_view(), name='operacao-list'),\n    path('criar/', CriarOperacaoView.as_view(), name='operacao-criar'),\n    path('receita/criar/', TipoReceitaCreateView.as_view(), name='tipo_receita_create'),\n    path('despesa/criar/', TipoDespesaCreateView.as_view(), name='tipo_despesa_create'),\n    path('pagamento/criar/', TipoPagamentoCreateView.as_view(), name='tipo_pagamento_create'),\n    path('receitas/<int:pk>/', TipoReceitaDetailView.as_view(), name='tipo_detail'),\n    path('despesas/<int:pk>/', TipoDespesaDetailView.as_view(), name='tipo_detail'),\n    path('pagamentos/<int:pk>/', TipoPagamentoDetailView.as_view(), name='tipo_detail'),",
         "detail": "operacoes.urls",
         "documentation": {}
     },
@@ -1860,7 +1954,16 @@
         "kind": 6,
         "importPath": "operacoes.views",
         "description": "operacoes.views",
-        "peekOfCode": "class OperacoesListView(TemplateView):\n    '''LISTAGEM DE OPERAÇÕES '''\n    template_name = 'operacao_list.html'\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        tipo_despesa = TipoDespesa.objects.all()\n        tipo_receita = TipoReceita.objects.all()\n        tipo_pagamento = TipoPagamento.objects.all()\n        context['despesa'] = tipo_despesa\n        context['receita'] = tipo_receita",
+        "peekOfCode": "class OperacoesListView(TemplateView):\n    '''LISTAGEM DE OPERAÇÕES '''\n    template_name = 'operacao_list.html'\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        tipo_despesa = TipoDespesa.objects.all()\n        tipo_receita = TipoReceita.objects.all()\n        tipo_pagamento = TipoPagamento.objects.all()\n        # Unificando as operações com os campos comuns\n        operacoes = []",
+        "detail": "operacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "CriarOperacaoView",
+        "kind": 6,
+        "importPath": "operacoes.views",
+        "description": "operacoes.views",
+        "peekOfCode": "class CriarOperacaoView(TemplateView):\n    template_name = 'operacao_criar.html'\n    def post(self, request, *args, **kwargs):\n        tipo_operacao = request.POST.get('tipo_operacao')\n        if tipo_operacao == 'receita':\n            return redirect('tipo_receita_create')\n        elif tipo_operacao == 'despesa':\n            return redirect('tipo_despesa_create')\n        elif tipo_operacao == 'pagamento':\n            return redirect('tipo_pagamento_create')",
         "detail": "operacoes.views",
         "documentation": {}
     },
