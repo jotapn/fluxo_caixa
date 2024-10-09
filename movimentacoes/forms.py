@@ -1,17 +1,5 @@
 from django import forms
-from .models import Banco, Tipo, Entrada, Saida
-
-
-class BancoModelForm(forms.ModelForm):
-    class Meta:
-        model = Banco
-        fields = ("nome", "saldo_inicial", "status")
-
-
-class TipoModelForm(forms.ModelForm):
-    class Meta:
-        model = Tipo
-        fields = '__all__'
+from .models import Entrada, Saida
 
 
 class EntradaModelForm(forms.ModelForm):

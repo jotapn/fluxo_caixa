@@ -1,7 +1,5 @@
 from django.urls import path
 from .views import (
-    BancoListView, BancoDetailView, BancoCreateView, BancoUpdateView, BancoDeleteView,
-    TipoListView, TipoDetailView, TipoCreateView, TipoUpdateView, TipoDeleteView,
     EntradaListView, EntradaDetailView, EntradaCreateView, EntradaUpdateView, EntradaDeleteView,
     SaidaListView, SaidaDetailView, SaidaCreateView, SaidaUpdateView, SaidaDeleteView, DashboardView
 )
@@ -9,20 +7,6 @@ from .views import (
 
 urlpatterns = [
     path('', DashboardView.as_view(), name='dashboard'),  # Tela inicial
-
-    # URLs de Banco
-    path('bancos/', BancoListView.as_view(), name='banco-list'),
-    path('bancos/<int:pk>/', BancoDetailView.as_view(), name='banco-detail'),
-    path('bancos/novo/', BancoCreateView.as_view(), name='banco-create'),
-    path('bancos/editar/<int:pk>/', BancoUpdateView.as_view(), name='banco-update'),
-    path('bancos/<int:pk>/deletar/', BancoDeleteView.as_view(), name='banco-delete'),
-
-    # URLs de Tipo
-    path('tipos/', TipoListView.as_view(), name='tipo-list'),
-    path('tipos/<int:pk>/', TipoDetailView.as_view(), name='tipo-detail'),
-    path('tipos/novo/', TipoCreateView.as_view(), name='tipo-create'),
-    path('tipos/<int:pk>/editar/', TipoUpdateView.as_view(), name='tipo-update'),
-    path('tipos/<int:pk>/deletar/', TipoDeleteView.as_view(), name='tipo-delete'),
 
     # URLs de Entrada
     path('entradas/', EntradaListView.as_view(), name='entrada-list'),

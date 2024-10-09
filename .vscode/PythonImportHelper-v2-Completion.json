@@ -1,58 +1,19 @@
 [
     {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
+        "label": "django.db.models.deletion",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "django.db",
+        "importPath": "django.db.models.deletion",
+        "description": "django.db.models.deletion",
+        "detail": "django.db.models.deletion",
         "documentation": {}
     },
     {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
+        "label": "ProtectedError",
+        "importPath": "django.db.models.deletion",
+        "description": "django.db.models.deletion",
         "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
-        "label": "migrations",
-        "importPath": "django.db",
-        "description": "django.db",
-        "isExtraImport": true,
-        "detail": "django.db",
+        "detail": "django.db.models.deletion",
         "documentation": {}
     },
     {
@@ -136,6 +97,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -176,6 +153,14 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -184,19 +169,195 @@
         "documentation": {}
     },
     {
-        "label": "admin",
-        "importPath": "django.contrib",
-        "description": "django.contrib",
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
         "isExtraImport": true,
-        "detail": "django.contrib",
+        "detail": "django.db",
         "documentation": {}
     },
     {
-        "label": "admin",
-        "importPath": "django.contrib",
-        "description": "django.contrib",
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
         "isExtraImport": true,
-        "detail": "django.contrib",
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
         "documentation": {}
     },
     {
@@ -216,27 +377,51 @@
         "documentation": {}
     },
     {
-        "label": "Cliente",
-        "importPath": "clientes.models",
-        "description": "clientes.models",
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
         "isExtraImport": true,
-        "detail": "clientes.models",
+        "detail": "django.contrib",
         "documentation": {}
     },
     {
-        "label": "Cliente",
-        "importPath": "clientes.models",
-        "description": "clientes.models",
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
         "isExtraImport": true,
-        "detail": "clientes.models",
+        "detail": "django.contrib",
         "documentation": {}
     },
     {
-        "label": "Cliente",
-        "importPath": "clientes.models",
-        "description": "clientes.models",
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
         "isExtraImport": true,
-        "detail": "clientes.models",
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "admin",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
+        "documentation": {}
+    },
+    {
+        "label": "AppConfig",
+        "importPath": "django.apps",
+        "description": "django.apps",
+        "isExtraImport": true,
+        "detail": "django.apps",
         "documentation": {}
     },
     {
@@ -272,19 +457,27 @@
         "documentation": {}
     },
     {
-        "label": "CPF",
-        "importPath": "validate_docbr",
-        "description": "validate_docbr",
+        "label": "forms",
+        "importPath": "django",
+        "description": "django",
         "isExtraImport": true,
-        "detail": "validate_docbr",
+        "detail": "django",
         "documentation": {}
     },
     {
-        "label": "CNPJ",
-        "importPath": "validate_docbr",
-        "description": "validate_docbr",
+        "label": "forms",
+        "importPath": "django",
+        "description": "django",
         "isExtraImport": true,
-        "detail": "validate_docbr",
+        "detail": "django",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
         "documentation": {}
     },
     {
@@ -301,6 +494,30 @@
         "description": "django.test",
         "isExtraImport": true,
         "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "TestCase",
+        "importPath": "django.test",
+        "description": "django.test",
+        "isExtraImport": true,
+        "detail": "django.test",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "reverse_lazy",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
         "documentation": {}
     },
     {
@@ -352,43 +569,67 @@
         "documentation": {}
     },
     {
-        "label": "ClientesListView",
-        "importPath": "clientes.views",
-        "description": "clientes.views",
+        "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
         "isExtraImport": true,
-        "detail": "clientes.views",
+        "detail": "django.urls",
         "documentation": {}
     },
     {
-        "label": "ClienteCreateView",
-        "importPath": "clientes.views",
-        "description": "clientes.views",
+        "label": "reverse_lazy",
+        "importPath": "django.urls",
+        "description": "django.urls",
         "isExtraImport": true,
-        "detail": "clientes.views",
+        "detail": "django.urls",
         "documentation": {}
     },
     {
-        "label": "ClientesUpdateView",
-        "importPath": "clientes.views",
-        "description": "clientes.views",
+        "label": "ListView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
         "isExtraImport": true,
-        "detail": "clientes.views",
+        "detail": "django.views.generic",
         "documentation": {}
     },
     {
-        "label": "ClientesDeleteView",
-        "importPath": "clientes.views",
-        "description": "clientes.views",
+        "label": "CreateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
         "isExtraImport": true,
-        "detail": "clientes.views",
+        "detail": "django.views.generic",
         "documentation": {}
     },
     {
-        "label": "render",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
+        "label": "DetailView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
         "isExtraImport": true,
-        "detail": "django.shortcuts",
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "UpdateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "DeleteView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "TemplateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
         "documentation": {}
     },
     {
@@ -480,6 +721,134 @@
         "documentation": {}
     },
     {
+        "label": "ListView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "CreateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "DetailView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "UpdateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "DeleteView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "TemplateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "Cliente",
+        "importPath": "clientes.models",
+        "description": "clientes.models",
+        "isExtraImport": true,
+        "detail": "clientes.models",
+        "documentation": {}
+    },
+    {
+        "label": "Cliente",
+        "importPath": "clientes.models",
+        "description": "clientes.models",
+        "isExtraImport": true,
+        "detail": "clientes.models",
+        "documentation": {}
+    },
+    {
+        "label": "Cliente",
+        "importPath": "clientes.models",
+        "description": "clientes.models",
+        "isExtraImport": true,
+        "detail": "clientes.models",
+        "documentation": {}
+    },
+    {
+        "label": "CPF",
+        "importPath": "validate_docbr",
+        "description": "validate_docbr",
+        "isExtraImport": true,
+        "detail": "validate_docbr",
+        "documentation": {}
+    },
+    {
+        "label": "CNPJ",
+        "importPath": "validate_docbr",
+        "description": "validate_docbr",
+        "isExtraImport": true,
+        "detail": "validate_docbr",
+        "documentation": {}
+    },
+    {
+        "label": "ClientesListView",
+        "importPath": "clientes.views",
+        "description": "clientes.views",
+        "isExtraImport": true,
+        "detail": "clientes.views",
+        "documentation": {}
+    },
+    {
+        "label": "ClienteCreateView",
+        "importPath": "clientes.views",
+        "description": "clientes.views",
+        "isExtraImport": true,
+        "detail": "clientes.views",
+        "documentation": {}
+    },
+    {
+        "label": "ClientesUpdateView",
+        "importPath": "clientes.views",
+        "description": "clientes.views",
+        "isExtraImport": true,
+        "detail": "clientes.views",
+        "documentation": {}
+    },
+    {
+        "label": "ClientesDeleteView",
+        "importPath": "clientes.views",
+        "description": "clientes.views",
+        "isExtraImport": true,
+        "detail": "clientes.views",
+        "documentation": {}
+    },
+    {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
@@ -521,20 +890,43 @@
         "documentation": {}
     },
     {
-        "label": "django.db.models.deletion",
-        "kind": 6,
+        "label": "ContaBancaria",
+        "importPath": "bancos.models",
+        "description": "bancos.models",
         "isExtraImport": true,
-        "importPath": "django.db.models.deletion",
-        "description": "django.db.models.deletion",
-        "detail": "django.db.models.deletion",
+        "detail": "bancos.models",
         "documentation": {}
     },
     {
-        "label": "ProtectedError",
-        "importPath": "django.db.models.deletion",
-        "description": "django.db.models.deletion",
+        "label": "ContaBancaria",
+        "importPath": "bancos.models",
+        "description": "bancos.models",
         "isExtraImport": true,
-        "detail": "django.db.models.deletion",
+        "detail": "bancos.models",
+        "documentation": {}
+    },
+    {
+        "label": "TipoReceita",
+        "importPath": "operacoes.models",
+        "description": "operacoes.models",
+        "isExtraImport": true,
+        "detail": "operacoes.models",
+        "documentation": {}
+    },
+    {
+        "label": "TipoDespesa",
+        "importPath": "operacoes.models",
+        "description": "operacoes.models",
+        "isExtraImport": true,
+        "detail": "operacoes.models",
+        "documentation": {}
+    },
+    {
+        "label": "TipoPagamento",
+        "importPath": "operacoes.models",
+        "description": "operacoes.models",
+        "isExtraImport": true,
+        "detail": "operacoes.models",
         "documentation": {}
     },
     {
@@ -546,29 +938,156 @@
         "documentation": {}
     },
     {
-        "label": "IntegrityError",
-        "importPath": "django.db.utils",
-        "description": "django.db.utils",
-        "isExtraImport": true,
-        "detail": "django.db.utils",
-        "documentation": {}
-    },
-    {
-        "label": "logging",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "logging",
-        "description": "logging",
-        "detail": "logging",
-        "documentation": {}
-    },
-    {
         "label": "sys",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "sys",
         "description": "sys",
         "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "bancos.migrations.0001_initial",
+        "description": "bancos.migrations.0001_initial",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = [\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Banco',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('nome', models.CharField(max_length=50)),",
+        "detail": "bancos.migrations.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "BancoAdmin",
+        "kind": 6,
+        "importPath": "bancos.admin",
+        "description": "bancos.admin",
+        "peekOfCode": "class BancoAdmin(admin.ModelAdmin):\n    list_display = ('nome', 'status')\n    search_fields = ('nome',)\n    list_filter = ('status',)\n@admin.register(ContaBancaria)\nclass ContaBancariaAdmin(admin.ModelAdmin):\n    list_display = ('nome', 'saldo_atual', 'status')\n    search_fields = ('nome',)\n    list_filter = ('status',)\n# Register your models here.",
+        "detail": "bancos.admin",
+        "documentation": {}
+    },
+    {
+        "label": "ContaBancariaAdmin",
+        "kind": 6,
+        "importPath": "bancos.admin",
+        "description": "bancos.admin",
+        "peekOfCode": "class ContaBancariaAdmin(admin.ModelAdmin):\n    list_display = ('nome', 'saldo_atual', 'status')\n    search_fields = ('nome',)\n    list_filter = ('status',)\n# Register your models here.",
+        "detail": "bancos.admin",
+        "documentation": {}
+    },
+    {
+        "label": "BancosConfig",
+        "kind": 6,
+        "importPath": "bancos.apps",
+        "description": "bancos.apps",
+        "peekOfCode": "class BancosConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'bancos'",
+        "detail": "bancos.apps",
+        "documentation": {}
+    },
+    {
+        "label": "BancoModelForm",
+        "kind": 6,
+        "importPath": "bancos.forms",
+        "description": "bancos.forms",
+        "peekOfCode": "class BancoModelForm(forms.ModelForm):\n    class Meta:\n        model = Banco\n        fields = (\"nome\", \"status\")\nclass ContaBancariaModelForm(forms.ModelForm):\n    class Meta:\n        model = Banco\n        fields = '__all__'",
+        "detail": "bancos.forms",
+        "documentation": {}
+    },
+    {
+        "label": "ContaBancariaModelForm",
+        "kind": 6,
+        "importPath": "bancos.forms",
+        "description": "bancos.forms",
+        "peekOfCode": "class ContaBancariaModelForm(forms.ModelForm):\n    class Meta:\n        model = Banco\n        fields = '__all__'",
+        "detail": "bancos.forms",
+        "documentation": {}
+    },
+    {
+        "label": "Banco",
+        "kind": 6,
+        "importPath": "bancos.models",
+        "description": "bancos.models",
+        "peekOfCode": "class Banco(models.Model):\n    nome = models.CharField(max_length=50)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    @property\n    def status_formatado(self):\n        for id, descricao in STATUS:\n            if self.status == id:\n                return descricao\n            return self.status\n    def __str__(self):",
+        "detail": "bancos.models",
+        "documentation": {}
+    },
+    {
+        "label": "ContaBancaria",
+        "kind": 6,
+        "importPath": "bancos.models",
+        "description": "bancos.models",
+        "peekOfCode": "class ContaBancaria(models.Model):\n    banco = models.ForeignKey(Banco, on_delete=models.PROTECT)\n    nome = models.CharField(max_length=50)\n    conta = models.CharField(max_length=20)\n    agencia = models.CharField(max_length=20)\n    gerente = models.CharField(max_length=200, null=True, blank=True)\n    saldo_inicial = models.DecimalField(max_digits=12, decimal_places=2)\n    saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def save(self, *args, **kwargs):",
+        "detail": "bancos.models",
+        "documentation": {}
+    },
+    {
+        "label": "STATUS",
+        "kind": 5,
+        "importPath": "bancos.models",
+        "description": "bancos.models",
+        "peekOfCode": "STATUS = (\n    (\"AT\", \"Ativo\"),\n    (\"IN\", \"Inativo\")\n)\nclass Banco(models.Model):\n    nome = models.CharField(max_length=50)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    @property\n    def status_formatado(self):\n        for id, descricao in STATUS:",
+        "detail": "bancos.models",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "bancos.urls",
+        "description": "bancos.urls",
+        "peekOfCode": "urlpatterns = [\n    path('bancos/', BancoListView.as_view(), name='banco-list'),\n    path('bancos/<int:pk>/', BancoDetailView.as_view(), name='banco-detail'),\n    path('bancos/novo/', BancoCreateView.as_view(), name='banco-create'),\n    path('bancos/editar/<int:pk>/', BancoUpdateView.as_view(), name='banco-update'),\n    path('bancos/<int:pk>/deletar/', BancoDeleteView.as_view(), name='banco-delete'),\n]",
+        "detail": "bancos.urls",
+        "documentation": {}
+    },
+    {
+        "label": "BancoCreateView",
+        "kind": 6,
+        "importPath": "bancos.views",
+        "description": "bancos.views",
+        "peekOfCode": "class BancoCreateView(CreateView):\n    '''CRIAÇÃO DE UM NOVO BANCO'''\n    model = Banco\n    form_class = BancoModelForm\n    template_name = 'banco_form.html'\n    success_url = reverse_lazy('banco-list')\nclass BancoListView(ListView):\n    '''LISTAGEM DOS BANCOS'''\n    model = Banco\n    template_name = 'banco_list.html'",
+        "detail": "bancos.views",
+        "documentation": {}
+    },
+    {
+        "label": "BancoListView",
+        "kind": 6,
+        "importPath": "bancos.views",
+        "description": "bancos.views",
+        "peekOfCode": "class BancoListView(ListView):\n    '''LISTAGEM DOS BANCOS'''\n    model = Banco\n    template_name = 'banco_list.html'\n    context_object_name = 'bancos'\nclass BancoDetailView(DetailView):\n    '''DETALHAMENTO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco_detail.html'\n    context_object_name = 'banco'",
+        "detail": "bancos.views",
+        "documentation": {}
+    },
+    {
+        "label": "BancoDetailView",
+        "kind": 6,
+        "importPath": "bancos.views",
+        "description": "bancos.views",
+        "peekOfCode": "class BancoDetailView(DetailView):\n    '''DETALHAMENTO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco_detail.html'\n    context_object_name = 'banco'\nclass BancoUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco_form.html'\n    form_class = BancoModelForm",
+        "detail": "bancos.views",
+        "documentation": {}
+    },
+    {
+        "label": "BancoUpdateView",
+        "kind": 6,
+        "importPath": "bancos.views",
+        "description": "bancos.views",
+        "peekOfCode": "class BancoUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco_form.html'\n    form_class = BancoModelForm\n    success_url = reverse_lazy('banco-list')\nclass ContaBancariaUpdateView(UpdateView):\n    model = ContaBancaria\n    def form_valid(self, form):\n        try:",
+        "detail": "bancos.views",
+        "documentation": {}
+    },
+    {
+        "label": "ContaBancariaUpdateView",
+        "kind": 6,
+        "importPath": "bancos.views",
+        "description": "bancos.views",
+        "peekOfCode": "class ContaBancariaUpdateView(UpdateView):\n    model = ContaBancaria\n    def form_valid(self, form):\n        try:\n            return super().form_valid(form)\n        except ValueError as e:\n            form.add_error('saldo_inicial', str(e))  # Adiciona erro ao campo de saldo inicial\n            return self.form_invalid(form)\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)",
+        "detail": "bancos.views",
+        "documentation": {}
+    },
+    {
+        "label": "BancoDeleteView",
+        "kind": 6,
+        "importPath": "bancos.views",
+        "description": "bancos.views",
+        "peekOfCode": "class BancoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco_confirm_delete.html'\n    success_url = reverse_lazy('banco-list')\n    def delete(self, request, *args, **kwargs):\n        try:\n            return super().delete(request, *args, **kwargs)\n        except ProtectedError:\n            messages.error(request, \"Não é possível excluir este banco porque ele está relacionado a contas ativas.\")",
+        "detail": "bancos.views",
         "documentation": {}
     },
     {
@@ -900,7 +1419,7 @@
         "kind": 5,
         "importPath": "core.urls",
         "description": "core.urls",
-        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path('clientes/',include(\"clientes.urls\")),\n    path('',include(\"movimentacoes.urls\"))\n]",
+        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path('clientes/',include(\"clientes.urls\")),\n    path('',include(\"movimentacoes.urls\")),\n    path('',include(\"bancos.urls\")),\n    path('operacoes/',include(\"operacoes.urls\")),\n]",
         "detail": "core.urls",
         "documentation": {}
     },
@@ -968,21 +1487,57 @@
         "documentation": {}
     },
     {
-        "label": "BancoAdmin",
+        "label": "Migration",
         "kind": 6,
-        "importPath": "movimentacoes.admin",
-        "description": "movimentacoes.admin",
-        "peekOfCode": "class BancoAdmin(admin.ModelAdmin):\n    list_display = ('nome', 'saldo_atual', 'status')\n    search_fields = ('nome',)\n    list_filter = ('status',)\n@admin.register(Tipo)\nclass TipoAdmin(admin.ModelAdmin):\n    list_display = ('nome', 'tipo', 'status')\n    search_fields = ('nome',)\n    list_filter = ('tipo', 'status')\n@admin.register(Entrada)",
-        "detail": "movimentacoes.admin",
+        "importPath": "movimentacoes.migrations.0007_remove_saida_banco_remove_entrada_banco_and_more",
+        "description": "movimentacoes.migrations.0007_remove_saida_banco_remove_entrada_banco_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('bancos', '0001_initial'),\n        ('movimentacoes', '0006_alter_saida_situacao'),\n        ('operacoes', '0001_initial'),\n    ]\n    operations = [\n        migrations.RemoveField(\n            model_name='saida',\n            name='banco',",
+        "detail": "movimentacoes.migrations.0007_remove_saida_banco_remove_entrada_banco_and_more",
         "documentation": {}
     },
     {
-        "label": "TipoAdmin",
+        "label": "Migration",
         "kind": 6,
-        "importPath": "movimentacoes.admin",
-        "description": "movimentacoes.admin",
-        "peekOfCode": "class TipoAdmin(admin.ModelAdmin):\n    list_display = ('nome', 'tipo', 'status')\n    search_fields = ('nome',)\n    list_filter = ('tipo', 'status')\n@admin.register(Entrada)\nclass EntradaAdmin(admin.ModelAdmin):\n    def delete_all_entries(modeladmin, request, queryset):\n        queryset.delete()\n    list_display = ('cliente', 'descricao', 'valor', 'data', 'banco', 'tipo_pagamento', 'situacao')\n    search_fields = ('descricao', \"cliente\" )  ",
-        "detail": "movimentacoes.admin",
+        "importPath": "movimentacoes.migrations.0008_alter_saida_conta",
+        "description": "movimentacoes.migrations.0008_alter_saida_conta",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('bancos', '0001_initial'),\n        ('movimentacoes', '0007_remove_saida_banco_remove_entrada_banco_and_more'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='saida',\n            name='conta',\n            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='bancos.contabancaria'),",
+        "detail": "movimentacoes.migrations.0008_alter_saida_conta",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "movimentacoes.migrations.0009_remove_entrada_tipo_entrada",
+        "description": "movimentacoes.migrations.0009_remove_entrada_tipo_entrada",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('movimentacoes', '0008_alter_saida_conta'),\n    ]\n    operations = [\n        migrations.RemoveField(\n            model_name='entrada',\n            name='tipo_entrada',\n        ),\n    ]",
+        "detail": "movimentacoes.migrations.0009_remove_entrada_tipo_entrada",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "movimentacoes.migrations.0010_entrada_tipo_receita_alter_entrada_tipo_pagamento_and_more",
+        "description": "movimentacoes.migrations.0010_entrada_tipo_receita_alter_entrada_tipo_pagamento_and_more",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('movimentacoes', '0009_remove_entrada_tipo_entrada'),\n        ('operacoes', '0002_tipodespesa_tipopagamento_tiporeceita'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='entrada',\n            name='tipo_receita',\n            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='receitas', to='operacoes.tiporeceita'),",
+        "detail": "movimentacoes.migrations.0010_entrada_tipo_receita_alter_entrada_tipo_pagamento_and_more",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "movimentacoes.migrations.0011_alter_entrada_tipo_receita",
+        "description": "movimentacoes.migrations.0011_alter_entrada_tipo_receita",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('movimentacoes', '0010_entrada_tipo_receita_alter_entrada_tipo_pagamento_and_more'),\n        ('operacoes', '0003_delete_tipo'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='entrada',\n            name='tipo_receita',\n            field=models.ForeignKey(default=0, on_delete=django.db.models.deletion.PROTECT, related_name='receitas', to='operacoes.tiporeceita'),",
+        "detail": "movimentacoes.migrations.0011_alter_entrada_tipo_receita",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "movimentacoes.migrations.0012_alter_entrada_tipo_receita",
+        "description": "movimentacoes.migrations.0012_alter_entrada_tipo_receita",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('movimentacoes', '0011_alter_entrada_tipo_receita'),\n        ('operacoes', '0003_delete_tipo'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='entrada',\n            name='tipo_receita',\n            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='receitas', to='operacoes.tiporeceita'),",
+        "detail": "movimentacoes.migrations.0012_alter_entrada_tipo_receita",
         "documentation": {}
     },
     {
@@ -990,7 +1545,7 @@
         "kind": 6,
         "importPath": "movimentacoes.admin",
         "description": "movimentacoes.admin",
-        "peekOfCode": "class EntradaAdmin(admin.ModelAdmin):\n    def delete_all_entries(modeladmin, request, queryset):\n        queryset.delete()\n    list_display = ('cliente', 'descricao', 'valor', 'data', 'banco', 'tipo_pagamento', 'situacao')\n    search_fields = ('descricao', \"cliente\" )  \n    list_filter = ('data', 'banco', 'tipo_pagamento', 'situacao')\n    actions = [delete_all_entries]\n@admin.register(Saida)\nclass SaidaAdmin(admin.ModelAdmin):\n    def delete_all_saidas(modeladmin, request, queryset):",
+        "peekOfCode": "class EntradaAdmin(admin.ModelAdmin):\n    def delete_all_entries(modeladmin, request, queryset):\n        queryset.delete()\n    list_display = ('cliente', 'descricao', 'valor', 'data', 'tipo_pagamento', 'situacao')\n    search_fields = ('descricao', \"cliente\" )  \n    list_filter = ('data', 'tipo_pagamento', 'situacao')\n    actions = [delete_all_entries]\n@admin.register(Saida)\nclass SaidaAdmin(admin.ModelAdmin):\n    def delete_all_saidas(modeladmin, request, queryset):",
         "detail": "movimentacoes.admin",
         "documentation": {}
     },
@@ -999,7 +1554,7 @@
         "kind": 6,
         "importPath": "movimentacoes.admin",
         "description": "movimentacoes.admin",
-        "peekOfCode": "class SaidaAdmin(admin.ModelAdmin):\n    def delete_all_saidas(modeladmin, request, queryset):\n        queryset.delete()\n    list_display = (\"tipo_despesa\", 'descricao', 'valor', 'data', 'banco', 'tipo_pagamento', 'situacao')\n    search_fields = ('descricao', \"tipo_despesa\")  \n    list_filter = ('data', 'banco', 'tipo_pagamento', 'situacao')\n    actions = [delete_all_saidas]",
+        "peekOfCode": "class SaidaAdmin(admin.ModelAdmin):\n    def delete_all_saidas(modeladmin, request, queryset):\n        queryset.delete()\n    list_display = (\"tipo_despesa\", 'descricao', 'valor', 'data', 'tipo_pagamento', 'situacao')\n    search_fields = ('descricao', \"tipo_despesa\")  \n    list_filter = ('data', 'tipo_pagamento', 'situacao')\n    actions = [delete_all_saidas]",
         "detail": "movimentacoes.admin",
         "documentation": {}
     },
@@ -1010,24 +1565,6 @@
         "description": "movimentacoes.apps",
         "peekOfCode": "class MovimentacoesConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'movimentacoes'",
         "detail": "movimentacoes.apps",
-        "documentation": {}
-    },
-    {
-        "label": "BancoModelForm",
-        "kind": 6,
-        "importPath": "movimentacoes.forms",
-        "description": "movimentacoes.forms",
-        "peekOfCode": "class BancoModelForm(forms.ModelForm):\n    class Meta:\n        model = Banco\n        fields = (\"nome\", \"saldo_inicial\", \"status\")\nclass TipoModelForm(forms.ModelForm):\n    class Meta:\n        model = Tipo\n        fields = '__all__'\nclass EntradaModelForm(forms.ModelForm):\n    class Meta:",
-        "detail": "movimentacoes.forms",
-        "documentation": {}
-    },
-    {
-        "label": "TipoModelForm",
-        "kind": 6,
-        "importPath": "movimentacoes.forms",
-        "description": "movimentacoes.forms",
-        "peekOfCode": "class TipoModelForm(forms.ModelForm):\n    class Meta:\n        model = Tipo\n        fields = '__all__'\nclass EntradaModelForm(forms.ModelForm):\n    class Meta:\n        model = Entrada\n        fields = \"__all__\"\nclass SaidaModelForm(forms.ModelForm):\n    class Meta:",
-        "detail": "movimentacoes.forms",
         "documentation": {}
     },
     {
@@ -1049,29 +1586,11 @@
         "documentation": {}
     },
     {
-        "label": "Banco",
-        "kind": 6,
-        "importPath": "movimentacoes.models",
-        "description": "movimentacoes.models",
-        "peekOfCode": "class Banco(models.Model):\n    nome = models.CharField(max_length=50)\n    saldo_inicial = models.DecimalField(max_digits=12, decimal_places=2)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)\n    def save(self, *args, **kwargs):\n        # Se o banco já existe, não permitir a edição do saldo_inicial\n        if self.pk is not None:  # O objeto já existe\n            # Obtendo o objeto existente do banco de dados\n            banco_existente = Banco.objects.get(pk=self.pk)",
-        "detail": "movimentacoes.models",
-        "documentation": {}
-    },
-    {
-        "label": "Tipo",
-        "kind": 6,
-        "importPath": "movimentacoes.models",
-        "description": "movimentacoes.models",
-        "peekOfCode": "class Tipo(models.Model):\n    NOME_TIPO = (\n        (\"pagamento\", \"Tipo de Pagamento\"),\n        (\"despesa\", \"Tipo de Despesa\"),\n        (\"entrada\", \"Tipo de Entrada\"),\n    )\n    nome = models.CharField(max_length=100, unique=True)\n    tipo = models.CharField(max_length=10, choices=NOME_TIPO)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self):",
-        "detail": "movimentacoes.models",
-        "documentation": {}
-    },
-    {
         "label": "Entrada",
         "kind": 6,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "class Entrada(models.Model):\n    cliente = models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.PROTECT)\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    banco = models.ForeignKey(Banco, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'pagamento'}, on_delete=models.PROTECT,related_name='pagamentos')\n    tipo_entrada = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'entrada'}, on_delete=models.PROTECT, related_name='entradas')\n    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')\n    def __str__(self):",
+        "peekOfCode": "class Entrada(models.Model):\n    cliente = models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.PROTECT)\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT, null=True, blank=True)\n    tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='pagamentos')\n    tipo_receita = models.ForeignKey(TipoReceita, on_delete=models.PROTECT, related_name='receitas', null=True)\n    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')\n    def __str__(self):",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -1080,16 +1599,7 @@
         "kind": 6,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "class Saida(models.Model):\n    tipo_despesa = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'despesa'}, on_delete=models.PROTECT,related_name='despesas_saida')\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    banco = models.ForeignKey(Banco, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(Tipo, limit_choices_to={'tipo': 'pagamento'}, on_delete=models.PROTECT, related_name='saidas')\n    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')\n    def __str__(self):\n        return f'Saída: {self.valor} - {self.descricao}'",
-        "detail": "movimentacoes.models",
-        "documentation": {}
-    },
-    {
-        "label": "STATUS",
-        "kind": 5,
-        "importPath": "movimentacoes.models",
-        "description": "movimentacoes.models",
-        "peekOfCode": "STATUS = (\n    (\"AT\", \"Ativo\"),\n    (\"IN\", \"Inativo\")\n)\nSITUACAO = (\n    (\"PG\", \"Pago\"),\n    (\"AP\", \"A pagar\")\n)\nclass Banco(models.Model):\n    nome = models.CharField(max_length=50)",
+        "peekOfCode": "class Saida(models.Model):\n    tipo_despesa = models.ForeignKey(TipoDespesa, on_delete=models.PROTECT,related_name='despesas_saida')\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT, null=True, blank=True)\n    tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='saidas')\n    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')\n    def __str__(self):\n        return f'Saída: {self.valor} - {self.descricao}'",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -1098,7 +1608,7 @@
         "kind": 5,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "SITUACAO = (\n    (\"PG\", \"Pago\"),\n    (\"AP\", \"A pagar\")\n)\nclass Banco(models.Model):\n    nome = models.CharField(max_length=50)\n    saldo_inicial = models.DecimalField(max_digits=12, decimal_places=2)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)\n    def save(self, *args, **kwargs):",
+        "peekOfCode": "SITUACAO = (\n    (\"PG\", \"Pago\"),\n    (\"AP\", \"A pagar\")\n)\nclass Entrada(models.Model):\n    cliente = models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.PROTECT)\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT, null=True, blank=True)",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -1107,98 +1617,8 @@
         "kind": 5,
         "importPath": "movimentacoes.urls",
         "description": "movimentacoes.urls",
-        "peekOfCode": "urlpatterns = [\n    path('', DashboardView.as_view(), name='dashboard'),  # Tela inicial\n    # URLs de Banco\n    path('bancos/', BancoListView.as_view(), name='banco-list'),\n    path('bancos/<int:pk>/', BancoDetailView.as_view(), name='banco-detail'),\n    path('bancos/novo/', BancoCreateView.as_view(), name='banco-create'),\n    path('bancos/editar/<int:pk>/', BancoUpdateView.as_view(), name='banco-update'),\n    path('bancos/<int:pk>/deletar/', BancoDeleteView.as_view(), name='banco-delete'),\n    # URLs de Tipo\n    path('tipos/', TipoListView.as_view(), name='tipo-list'),",
+        "peekOfCode": "urlpatterns = [\n    path('', DashboardView.as_view(), name='dashboard'),  # Tela inicial\n    # URLs de Entrada\n    path('entradas/', EntradaListView.as_view(), name='entrada-list'),\n    path('entradas/<int:pk>/', EntradaDetailView.as_view(), name='entrada-detail'),\n    path('entradas/nova/', EntradaCreateView.as_view(), name='entrada-create'),\n    path('entradas/<int:pk>/editar/', EntradaUpdateView.as_view(), name='entrada-update'),\n    path('entradas/<int:pk>/deletar/', EntradaDeleteView.as_view(), name='entrada-delete'),\n    # URLs de Saida\n    path('saidas/', SaidaListView.as_view(), name='saida-list'),",
         "detail": "movimentacoes.urls",
-        "documentation": {}
-    },
-    {
-        "label": "BancoCreateView",
-        "kind": 6,
-        "importPath": "movimentacoes.views",
-        "description": "movimentacoes.views",
-        "peekOfCode": "class BancoCreateView(CreateView):\n    '''CRIAÇÃO DE UM NOVO BANCO'''\n    model = Banco\n    form_class = BancoModelForm\n    template_name = 'banco/banco_form.html'\n    success_url = reverse_lazy('banco-list')\nclass BancoListView(ListView):\n    '''LISTAGEM DOS BANCOS'''\n    model = Banco\n    template_name = 'banco/banco_list.html'",
-        "detail": "movimentacoes.views",
-        "documentation": {}
-    },
-    {
-        "label": "BancoListView",
-        "kind": 6,
-        "importPath": "movimentacoes.views",
-        "description": "movimentacoes.views",
-        "peekOfCode": "class BancoListView(ListView):\n    '''LISTAGEM DOS BANCOS'''\n    model = Banco\n    template_name = 'banco/banco_list.html'\n    context_object_name = 'bancos'\nclass BancoDetailView(DetailView):\n    '''DETALHAMENTO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_detail.html'\n    context_object_name = 'banco'",
-        "detail": "movimentacoes.views",
-        "documentation": {}
-    },
-    {
-        "label": "BancoDetailView",
-        "kind": 6,
-        "importPath": "movimentacoes.views",
-        "description": "movimentacoes.views",
-        "peekOfCode": "class BancoDetailView(DetailView):\n    '''DETALHAMENTO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_detail.html'\n    context_object_name = 'banco'\nclass BancoUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_form.html'\n    form_class = BancoModelForm",
-        "detail": "movimentacoes.views",
-        "documentation": {}
-    },
-    {
-        "label": "BancoUpdateView",
-        "kind": 6,
-        "importPath": "movimentacoes.views",
-        "description": "movimentacoes.views",
-        "peekOfCode": "class BancoUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_form.html'\n    form_class = BancoModelForm\n    success_url = reverse_lazy('banco-list')\n    def form_valid(self, form):\n        try:\n            return super().form_valid(form)\n        except ValueError as e:",
-        "detail": "movimentacoes.views",
-        "documentation": {}
-    },
-    {
-        "label": "BancoDeleteView",
-        "kind": 6,
-        "importPath": "movimentacoes.views",
-        "description": "movimentacoes.views",
-        "peekOfCode": "class BancoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_confirm_delete.html'\n    success_url = reverse_lazy('banco-list')\n    def delete(self, request, *args, **kwargs):\n        try:\n            return super().delete(request, *args, **kwargs)\n        except ProtectedError:\n            messages.error(request, \"Não é possível excluir este banco porque ele está relacionado a outras operações.\")",
-        "detail": "movimentacoes.views",
-        "documentation": {}
-    },
-    {
-        "label": "TipoListView",
-        "kind": 6,
-        "importPath": "movimentacoes.views",
-        "description": "movimentacoes.views",
-        "peekOfCode": "class TipoListView(ListView):\n    '''LISTAGEM DE TIPOS'''\n    model = Tipo\n    template_name = 'tipo/tipo_list.html'\n    context_object_name = 'tipos'\nclass TipoDetailView(DetailView):\n    '''DETALHAMENTO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_detail.html'\n    context_object_name = 'tipo'",
-        "detail": "movimentacoes.views",
-        "documentation": {}
-    },
-    {
-        "label": "TipoDetailView",
-        "kind": 6,
-        "importPath": "movimentacoes.views",
-        "description": "movimentacoes.views",
-        "peekOfCode": "class TipoDetailView(DetailView):\n    '''DETALHAMENTO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_detail.html'\n    context_object_name = 'tipo'\nclass TipoCreateView(CreateView):\n    '''CRIAÇÃO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_form.html'\n    form_class = TipoModelForm",
-        "detail": "movimentacoes.views",
-        "documentation": {}
-    },
-    {
-        "label": "TipoCreateView",
-        "kind": 6,
-        "importPath": "movimentacoes.views",
-        "description": "movimentacoes.views",
-        "peekOfCode": "class TipoCreateView(CreateView):\n    '''CRIAÇÃO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_form.html'\n    form_class = TipoModelForm\n    success_url = reverse_lazy('tipo-list')\n    def get_initial(self):\n        initial = super().get_initial()\n        initial['status'] = 'AT'  # Define o status como ativo por padrão\n        return initial",
-        "detail": "movimentacoes.views",
-        "documentation": {}
-    },
-    {
-        "label": "TipoUpdateView",
-        "kind": 6,
-        "importPath": "movimentacoes.views",
-        "description": "movimentacoes.views",
-        "peekOfCode": "class TipoUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_form.html'\n    form_class = TipoModelForm\n    success_url = reverse_lazy('tipo-list')\nclass TipoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_confirm_delete.html'",
-        "detail": "movimentacoes.views",
-        "documentation": {}
-    },
-    {
-        "label": "TipoDeleteView",
-        "kind": 6,
-        "importPath": "movimentacoes.views",
-        "description": "movimentacoes.views",
-        "peekOfCode": "class TipoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM TIPO'''\n    model = Tipo\n    template_name = 'tipo/tipo_confirm_delete.html'\n    success_url = reverse_lazy('tipo-list')\n##### CRUD DE ENTRADAS ######\nclass EntradaListView(ListView):\n    '''LISTAGEM DE ENTRADAS'''\n    model = Entrada\n    template_name = 'entrada/entrada_list.html'",
-        "detail": "movimentacoes.views",
         "documentation": {}
     },
     {
@@ -1296,17 +1716,260 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class DashboardView(TemplateView):\n    template_name = 'dashboard.html'\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Pega o mês do GET, se não houver, usa o mês atual\n        mes = self.request.GET.get('mes', timezone.now().month)\n        ano = timezone.now().year  # você pode querer adicionar uma opção para o ano\n        entradas = Entrada.objects.filter(data__month=mes, data__year=ano)\n        saidas = Saida.objects.filter(data__month=mes, data__year=ano)\n        bancos = Banco.objects.all()",
+        "peekOfCode": "class DashboardView(TemplateView):\n    template_name = 'dashboard.html'\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Pega o mês do GET, se não houver, usa o mês atual\n        mes = self.request.GET.get('mes', timezone.now().month)\n        ano = timezone.now().year  # você pode querer adicionar uma opção para o ano\n        entradas = Entrada.objects.filter(data__month=mes, data__year=ano)\n        saidas = Saida.objects.filter(data__month=mes, data__year=ano)\n        contas = ContaBancaria.objects.all()",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
     {
-        "label": "logger",
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "operacoes.migrations.0001_initial",
+        "description": "operacoes.migrations.0001_initial",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = [\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Tipo',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('nome', models.CharField(max_length=100, unique=True)),",
+        "detail": "operacoes.migrations.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "operacoes.migrations.0002_tipodespesa_tipopagamento_tiporeceita",
+        "description": "operacoes.migrations.0002_tipodespesa_tipopagamento_tiporeceita",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('operacoes', '0001_initial'),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='TipoDespesa',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),\n                ('nome', models.CharField(max_length=100, unique=True)),",
+        "detail": "operacoes.migrations.0002_tipodespesa_tipopagamento_tiporeceita",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "operacoes.migrations.0003_delete_tipo",
+        "description": "operacoes.migrations.0003_delete_tipo",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('movimentacoes', '0010_entrada_tipo_receita_alter_entrada_tipo_pagamento_and_more'),\n        ('operacoes', '0002_tipodespesa_tipopagamento_tiporeceita'),\n    ]\n    operations = [\n        migrations.DeleteModel(\n            name='Tipo',\n        ),\n    ]",
+        "detail": "operacoes.migrations.0003_delete_tipo",
+        "documentation": {}
+    },
+    {
+        "label": "TipoReceitaAdmin",
+        "kind": 6,
+        "importPath": "operacoes.admin",
+        "description": "operacoes.admin",
+        "peekOfCode": "class TipoReceitaAdmin(admin.ModelAdmin):\n    list_display = ('nome','status')\n    search_fields = ('nome',)\n    list_filter = ('status',)\n@admin.register(TipoDespesa)\nclass TipoDespesaAdmin(admin.ModelAdmin):\n    list_display = ('nome','status')\n    search_fields = ('nome',)\n    list_filter = ('status',)\n@admin.register(TipoPagamento)",
+        "detail": "operacoes.admin",
+        "documentation": {}
+    },
+    {
+        "label": "TipoDespesaAdmin",
+        "kind": 6,
+        "importPath": "operacoes.admin",
+        "description": "operacoes.admin",
+        "peekOfCode": "class TipoDespesaAdmin(admin.ModelAdmin):\n    list_display = ('nome','status')\n    search_fields = ('nome',)\n    list_filter = ('status',)\n@admin.register(TipoPagamento)\nclass TipoPagamentoAdmin(admin.ModelAdmin):\n    list_display = ('nome','status')\n    search_fields = ('nome',)\n    list_filter = ('status',)",
+        "detail": "operacoes.admin",
+        "documentation": {}
+    },
+    {
+        "label": "TipoPagamentoAdmin",
+        "kind": 6,
+        "importPath": "operacoes.admin",
+        "description": "operacoes.admin",
+        "peekOfCode": "class TipoPagamentoAdmin(admin.ModelAdmin):\n    list_display = ('nome','status')\n    search_fields = ('nome',)\n    list_filter = ('status',)",
+        "detail": "operacoes.admin",
+        "documentation": {}
+    },
+    {
+        "label": "OperacoesConfig",
+        "kind": 6,
+        "importPath": "operacoes.apps",
+        "description": "operacoes.apps",
+        "peekOfCode": "class OperacoesConfig(AppConfig):\n    default_auto_field = 'django.db.models.BigAutoField'\n    name = 'operacoes'",
+        "detail": "operacoes.apps",
+        "documentation": {}
+    },
+    {
+        "label": "TipoReceitaModelForm",
+        "kind": 6,
+        "importPath": "operacoes.forms",
+        "description": "operacoes.forms",
+        "peekOfCode": "class TipoReceitaModelForm(forms.ModelForm):\n    class Meta:\n        model = TipoReceita\n        fields = '__all__'\nclass TipoDespesaModelForm(forms.ModelForm):\n    class Meta:\n        model = TipoDespesa\n        fields = '__all__'\nclass TipoPagamentoModelForm(forms.ModelForm):\n    class Meta:",
+        "detail": "operacoes.forms",
+        "documentation": {}
+    },
+    {
+        "label": "TipoDespesaModelForm",
+        "kind": 6,
+        "importPath": "operacoes.forms",
+        "description": "operacoes.forms",
+        "peekOfCode": "class TipoDespesaModelForm(forms.ModelForm):\n    class Meta:\n        model = TipoDespesa\n        fields = '__all__'\nclass TipoPagamentoModelForm(forms.ModelForm):\n    class Meta:\n        model = TipoPagamento\n        fields = '__all__'",
+        "detail": "operacoes.forms",
+        "documentation": {}
+    },
+    {
+        "label": "TipoPagamentoModelForm",
+        "kind": 6,
+        "importPath": "operacoes.forms",
+        "description": "operacoes.forms",
+        "peekOfCode": "class TipoPagamentoModelForm(forms.ModelForm):\n    class Meta:\n        model = TipoPagamento\n        fields = '__all__'",
+        "detail": "operacoes.forms",
+        "documentation": {}
+    },
+    {
+        "label": "TipoPagamento",
+        "kind": 6,
+        "importPath": "operacoes.models",
+        "description": "operacoes.models",
+        "peekOfCode": "class TipoPagamento(models.Model):\n    nome = models.CharField(max_length=100, unique=True)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self) -> str:\n        return self.nome\nclass TipoDespesa(models.Model):\n    nome = models.CharField(max_length=100, unique=True)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self) -> str:\n        return self.nome",
+        "detail": "operacoes.models",
+        "documentation": {}
+    },
+    {
+        "label": "TipoDespesa",
+        "kind": 6,
+        "importPath": "operacoes.models",
+        "description": "operacoes.models",
+        "peekOfCode": "class TipoDespesa(models.Model):\n    nome = models.CharField(max_length=100, unique=True)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self) -> str:\n        return self.nome\nclass TipoReceita(models.Model):\n    nome = models.CharField(max_length=100, unique=True)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self) -> str:\n        return self.nome",
+        "detail": "operacoes.models",
+        "documentation": {}
+    },
+    {
+        "label": "TipoReceita",
+        "kind": 6,
+        "importPath": "operacoes.models",
+        "description": "operacoes.models",
+        "peekOfCode": "class TipoReceita(models.Model):\n    nome = models.CharField(max_length=100, unique=True)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self) -> str:\n        return self.nome",
+        "detail": "operacoes.models",
+        "documentation": {}
+    },
+    {
+        "label": "STATUS",
         "kind": 5,
-        "importPath": "movimentacoes.views",
-        "description": "movimentacoes.views",
-        "peekOfCode": "logger = logging.getLogger(__name__)\nclass BancoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco/banco_confirm_delete.html'\n    success_url = reverse_lazy('banco-list')\n    def delete(self, request, *args, **kwargs):\n        try:\n            return super().delete(request, *args, **kwargs)\n        except ProtectedError:",
-        "detail": "movimentacoes.views",
+        "importPath": "operacoes.models",
+        "description": "operacoes.models",
+        "peekOfCode": "STATUS = (\n    (\"AT\", \"Ativo\"),\n    (\"IN\", \"Inativo\")\n)\nclass TipoPagamento(models.Model):\n    nome = models.CharField(max_length=100, unique=True)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def __str__(self) -> str:\n        return self.nome\nclass TipoDespesa(models.Model):",
+        "detail": "operacoes.models",
+        "documentation": {}
+    },
+    {
+        "label": "urlpatterns",
+        "kind": 5,
+        "importPath": "operacoes.urls",
+        "description": "operacoes.urls",
+        "peekOfCode": "urlpatterns = [\n    # URLs de Operacoes\n    path('', OperacoesListView.as_view(), name='operacao-list'),\n    # Receitas,\n    path('receitas/novo/', TipoReceitaCreateView.as_view(), name='receita-create'),\n    path('receitas/<int:pk>/', TipoReceitaDetailView.as_view(), name='receita-detail'),\n    path('receitas/<int:pk>/editar/', TipoReceitaUpdateView.as_view(), name='receita-update'),\n    path('receitas/<int:pk>/deletar/', TipoReceitaDeleteView.as_view(), name='receita-delete'),\n    # Despesas\n    path('despesas/novo/', TipoDespesaCreateView.as_view(), name='despesa-create'),",
+        "detail": "operacoes.urls",
+        "documentation": {}
+    },
+    {
+        "label": "OperacoesListView",
+        "kind": 6,
+        "importPath": "operacoes.views",
+        "description": "operacoes.views",
+        "peekOfCode": "class OperacoesListView(TemplateView):\n    '''LISTAGEM DE OPERAÇÕES '''\n    template_name = 'operacao_list.html'\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        tipo_despesa = TipoDespesa.objects.all()\n        tipo_receita = TipoReceita.objects.all()\n        tipo_pagamento = TipoPagamento.objects.all()\n        context['despesa'] = tipo_despesa\n        context['receita'] = tipo_receita",
+        "detail": "operacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "TipoReceitaCreateView",
+        "kind": 6,
+        "importPath": "operacoes.views",
+        "description": "operacoes.views",
+        "peekOfCode": "class TipoReceitaCreateView(CreateView):\n    '''CRIAÇÃO DE UM TIPO DE RECEITA'''\n    model = TipoReceita\n    template_name = 'operacao_form.html'\n    form_class = TipoReceitaModelForm\n    success_url = reverse_lazy('operacao-list')\n    def get_initial(self):\n        initial = super().get_initial()\n        initial['status'] = 'AT'  # Define o status como ativo por padrão\n        return initial",
+        "detail": "operacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "TipoReceitaDetailView",
+        "kind": 6,
+        "importPath": "operacoes.views",
+        "description": "operacoes.views",
+        "peekOfCode": "class TipoReceitaDetailView(DetailView):\n    '''DETALHAMENTO DE UM TIPO DE RECEITA'''\n    model = TipoReceita\n    template_name = 'receita/receita_detail.html'\n    context_object_name = 'tipo'\nclass TipoReceitaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM TIPO'''\n    model = TipoReceita\n    template_name = 'operacao_form.html'\n    form_class = TipoReceitaModelForm",
+        "detail": "operacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "TipoReceitaUpdateView",
+        "kind": 6,
+        "importPath": "operacoes.views",
+        "description": "operacoes.views",
+        "peekOfCode": "class TipoReceitaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM TIPO'''\n    model = TipoReceita\n    template_name = 'operacao_form.html'\n    form_class = TipoReceitaModelForm\n    success_url = reverse_lazy('operacao-list')\nclass TipoReceitaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM TIPO'''\n    model = TipoReceita\n    template_name = 'operacao_confirm_delete.html'",
+        "detail": "operacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "TipoReceitaDeleteView",
+        "kind": 6,
+        "importPath": "operacoes.views",
+        "description": "operacoes.views",
+        "peekOfCode": "class TipoReceitaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM TIPO'''\n    model = TipoReceita\n    template_name = 'operacao_confirm_delete.html'\n    success_url = reverse_lazy('operacao-list')\n##### CRUD DE TIPOS DE DESPESAS ######\nclass TipoDespesaCreateView(CreateView):\n    '''CRIAÇÃO DE UM TIPO DE DESPESA'''\n    model = TipoDespesa\n    template_name = 'operacao_form.html'",
+        "detail": "operacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "TipoDespesaCreateView",
+        "kind": 6,
+        "importPath": "operacoes.views",
+        "description": "operacoes.views",
+        "peekOfCode": "class TipoDespesaCreateView(CreateView):\n    '''CRIAÇÃO DE UM TIPO DE DESPESA'''\n    model = TipoDespesa\n    template_name = 'operacao_form.html'\n    form_class = TipoDespesaModelForm\n    success_url = reverse_lazy('operacao-list')\n    def get_initial(self):\n        initial = super().get_initial()\n        initial['status'] = 'AT'  # Define o status como ativo por padrão\n        return initial",
+        "detail": "operacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "TipoDespesaDetailView",
+        "kind": 6,
+        "importPath": "operacoes.views",
+        "description": "operacoes.views",
+        "peekOfCode": "class TipoDespesaDetailView(DetailView):\n    '''DETALHAMENTO DE UM TIPO DE DESPESA'''\n    model = TipoDespesa\n    template_name = 'receita/receita_detail.html'\n    context_object_name = 'tipo'\nclass TipoDespesaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM TIPO DE DESPESA'''\n    model = TipoDespesa\n    template_name = 'operacao_form.html'\n    form_class = TipoDespesaModelForm",
+        "detail": "operacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "TipoDespesaUpdateView",
+        "kind": 6,
+        "importPath": "operacoes.views",
+        "description": "operacoes.views",
+        "peekOfCode": "class TipoDespesaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM TIPO DE DESPESA'''\n    model = TipoDespesa\n    template_name = 'operacao_form.html'\n    form_class = TipoDespesaModelForm\n    success_url = reverse_lazy('operacao-list')\nclass TipoDespesaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM TIPO DE DESPESA'''\n    model = TipoDespesa\n    template_name = 'operacao_confirm_delete.html'",
+        "detail": "operacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "TipoDespesaDeleteView",
+        "kind": 6,
+        "importPath": "operacoes.views",
+        "description": "operacoes.views",
+        "peekOfCode": "class TipoDespesaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM TIPO DE DESPESA'''\n    model = TipoDespesa\n    template_name = 'operacao_confirm_delete.html'\n    success_url = reverse_lazy('operacao-list')\n##### CRUD DE TIPOS DE PAGAMENTOS ######\nclass TipoPagamentoCreateView(CreateView):\n    '''CRIAÇÃO DE UM TIPO DE PAGAMENTOS'''\n    model = TipoPagamento\n    template_name = 'operacao_form.html'",
+        "detail": "operacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "TipoPagamentoCreateView",
+        "kind": 6,
+        "importPath": "operacoes.views",
+        "description": "operacoes.views",
+        "peekOfCode": "class TipoPagamentoCreateView(CreateView):\n    '''CRIAÇÃO DE UM TIPO DE PAGAMENTOS'''\n    model = TipoPagamento\n    template_name = 'operacao_form.html'\n    form_class = TipoPagamentoModelForm\n    success_url = reverse_lazy('operacao-list')\n    def get_initial(self):\n        initial = super().get_initial()\n        initial['status'] = 'AT'  # Define o status como ativo por padrão\n        return initial",
+        "detail": "operacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "TipoPagamentoDetailView",
+        "kind": 6,
+        "importPath": "operacoes.views",
+        "description": "operacoes.views",
+        "peekOfCode": "class TipoPagamentoDetailView(DetailView):\n    '''DETALHAMENTO DE UM TIPO DE PAGAMENTOS'''\n    model = TipoPagamento\n    template_name = 'receita/receita_detail.html'\n    context_object_name = 'tipo'\nclass TipoPagamentoUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM TIPO DE PAGAMENTOS'''\n    model = TipoPagamento\n    template_name = 'operacao_form.html'\n    form_class = TipoPagamentoModelForm",
+        "detail": "operacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "TipoPagamentoUpdateView",
+        "kind": 6,
+        "importPath": "operacoes.views",
+        "description": "operacoes.views",
+        "peekOfCode": "class TipoPagamentoUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM TIPO DE PAGAMENTOS'''\n    model = TipoPagamento\n    template_name = 'operacao_form.html'\n    form_class = TipoPagamentoModelForm\n    success_url = reverse_lazy('operacao-list')\nclass TipoPagamentoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM TIPO DE PAGAMENTOS'''\n    model = TipoPagamento\n    template_name = 'operacao_confirm_delete.html'",
+        "detail": "operacoes.views",
+        "documentation": {}
+    },
+    {
+        "label": "TipoPagamentoDeleteView",
+        "kind": 6,
+        "importPath": "operacoes.views",
+        "description": "operacoes.views",
+        "peekOfCode": "class TipoPagamentoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM TIPO DE PAGAMENTOS'''\n    model = TipoPagamento\n    template_name = 'operacao_confirm_delete.html'\n    success_url = reverse_lazy('operacao-list')",
+        "detail": "operacoes.views",
         "documentation": {}
     },
     {

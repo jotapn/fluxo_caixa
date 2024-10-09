@@ -5,9 +5,7 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">{{ banco.nome }}</h4>
-            <p class="card-text"><strong>Saldo Inicial:</strong> R$ {{ banco.saldo_inicial_formatado }}</p>
             <p class="card-text"><strong>Status:</strong> {{ banco.get_status_display }}</p>
-            <p class="card-text"><strong>Saldo Atual:</strong> R$ {{ banco.saldo_atual_formatado }}</p>
             <a href="{% url 'banco-update' banco.pk %}" class="btn btn-warning">Editar</a>
             <a href="{% url 'banco-list' %}" class="btn btn-secondary">Voltar</a>
         </div>

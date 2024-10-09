@@ -1,115 +1,9 @@
 from django.utils import timezone
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
-from .models import Banco, Tipo, Entrada, Saida
-from .forms import BancoModelForm, TipoModelForm, EntradaModelForm, SaidaModelForm
-from django.db.models.deletion import ProtectedError
-from django.db.utils import IntegrityError
-from django.contrib import messages
-
-
-##### CRUD DE BANCOS ######
-class BancoCreateView(CreateView):
-    '''CRIAÇÃO DE UM NOVO BANCO'''
-    model = Banco
-    form_class = BancoModelForm
-    template_name = 'banco/banco_form.html'
-    success_url = reverse_lazy('banco-list')
-
-
-class BancoListView(ListView):
-    '''LISTAGEM DOS BANCOS'''
-    model = Banco
-    template_name = 'banco/banco_list.html'
-    context_object_name = 'bancos'
-
-
-class BancoDetailView(DetailView):
-    '''DETALHAMENTO DE UM BANCO'''
-    model = Banco
-    template_name = 'banco/banco_detail.html'
-    context_object_name = 'banco'
-
-
-class BancoUpdateView(UpdateView):
-    '''ATUALIZAÇÃO DE UM BANCO'''
-    model = Banco
-    template_name = 'banco/banco_form.html'
-    form_class = BancoModelForm
-    success_url = reverse_lazy('banco-list')
-    
-    def form_valid(self, form):
-        try:
-            return super().form_valid(form)
-        except ValueError as e:
-            form.add_error('saldo_inicial', str(e))  # Adiciona erro ao campo de saldo inicial
-            return self.form_invalid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Editar Banco'
-        return context
-
-import logging
-
-logger = logging.getLogger(__name__)
-
-class BancoDeleteView(DeleteView):
-    '''EXCLUSÃO DE UM BANCO'''
-    model = Banco
-    template_name = 'banco/banco_confirm_delete.html'
-    success_url = reverse_lazy('banco-list')
-
-    def delete(self, request, *args, **kwargs):
-        try:
-            return super().delete(request, *args, **kwargs)
-        except ProtectedError:
-            messages.error(request, "Não é possível excluir este banco porque ele está relacionado a outras operações.")
-            return self.get(request, *args, **kwargs)
-
-
-
-##### CRUD DE TIPOS ######
-class TipoListView(ListView):
-    '''LISTAGEM DE TIPOS'''
-    model = Tipo
-    template_name = 'tipo/tipo_list.html'
-    context_object_name = 'tipos'
-
-
-class TipoDetailView(DetailView):
-    '''DETALHAMENTO DE UM TIPO'''
-    model = Tipo
-    template_name = 'tipo/tipo_detail.html'
-    context_object_name = 'tipo'
-
-
-class TipoCreateView(CreateView):
-    '''CRIAÇÃO DE UM TIPO'''
-    model = Tipo
-    template_name = 'tipo/tipo_form.html'
-    form_class = TipoModelForm
-    success_url = reverse_lazy('tipo-list')
-
-    def get_initial(self):
-        initial = super().get_initial()
-        initial['status'] = 'AT'  # Define o status como ativo por padrão
-        return initial
-
-
-class TipoUpdateView(UpdateView):
-    '''ATUALIZAÇÃO DE UM TIPO'''
-    model = Tipo
-    template_name = 'tipo/tipo_form.html'
-    form_class = TipoModelForm
-    success_url = reverse_lazy('tipo-list')
-
-
-class TipoDeleteView(DeleteView):
-    '''EXCLUSÃO DE UM TIPO'''
-    model = Tipo
-    template_name = 'tipo/tipo_confirm_delete.html'
-    success_url = reverse_lazy('tipo-list')
+from bancos.models import ContaBancaria
+from .models import Entrada, Saida
+from .forms import EntradaModelForm, SaidaModelForm
 
 
 ##### CRUD DE ENTRADAS ######
@@ -198,12 +92,12 @@ class DashboardView(TemplateView):
 
         entradas = Entrada.objects.filter(data__month=mes, data__year=ano)
         saidas = Saida.objects.filter(data__month=mes, data__year=ano)
-        bancos = Banco.objects.all()
+        contas = ContaBancaria.objects.all()
 
         context['entradas'] = entradas
         context['saidas'] = saidas
         context['mes_atual'] = mes  # Adiciona o mês atual ao contexto
-        context['bancos'] = bancos
+        context['bancos'] = contas
 
         # Define a lista de meses
         context['meses'] = [
