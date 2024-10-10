@@ -1,6 +1,8 @@
-from django.shortcuts import get_object_or_404
-from django.utils import timezone
+from django.contrib import messages
+from django.contrib.messages import constants
 from django.urls import reverse_lazy
+from django.utils import timezone
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 from bancos.models import ContaBancaria
 from .models import Entrada, Saida
@@ -29,18 +31,15 @@ class EntradaCreateView(CreateView):
     success_url = reverse_lazy('entrada-list')
 
     def form_valid(self, form):
-        print("teste")
         # Salvar a entrada primeiro
         entrada = form.save(commit=False)
-        conta_bancaria = get_object_or_404(ContaBancaria, pk=self.request.POST['conta'])
-        
-        entrada.conta = conta_bancaria  # Associar a entrada à conta bancária
-        entrada.save()  # Salvar a entrada
 
         # Atualizar o saldo da conta bancária
-        conta_bancaria.saldo_atual += entrada.valor
-        conta_bancaria.save()
-
+        if entrada.situacao == "PG":
+            entrada.conta.saldo_atual += entrada.valor
+        
+        entrada.save()  # Salvar a entrada
+        entrada.conta.save()  # Atualizar o saldo da conta bancária
         return super().form_valid(form)
 
 
@@ -51,6 +50,27 @@ class EntradaUpdateView(UpdateView):
     form_class = EntradaModelForm
     success_url = reverse_lazy('entrada-list')
 
+    def form_valid(self, form):
+        # Obter a entrada antiga para comparar os valores anteriores
+        entrada_antiga = Entrada.objects.get(pk=self.object.pk)
+        entrada_nova = form.save(commit=False)
+
+        conta_bancaria = entrada_nova.conta
+        
+        # Se a entrada antiga já estava "paga", subtrair o valor antigo do saldo
+        if entrada_antiga.situacao == "PG":
+            conta_bancaria.saldo_atual -= entrada_antiga.valor
+
+        # Se a nova entrada também está "paga", adicionar o novo valor ao saldo
+        if entrada_nova.situacao == "PG":
+            conta_bancaria.saldo_atual += entrada_nova.valor
+
+        # Salvar a entrada e a conta bancária
+        entrada_nova.save()
+        conta_bancaria.save()
+
+        return super().form_valid(form)
+
 
 class EntradaDeleteView(DeleteView):
     '''EXCLUSÃO DE UMA ENTRADA'''
@@ -58,20 +78,23 @@ class EntradaDeleteView(DeleteView):
     template_name = 'entrada/entrada_confirm_delete.html'
     success_url = reverse_lazy('entrada-list')
     
-    def delete(self, request, *args, **kwargs):
-        print("teste")
-        # Obter a entrada que será excluída
-        entrada = Entrada.objects.get(pk=kwargs['pk'])  # Pega a entrada a ser excluída
-        print(f"Excluindo entrada: {entrada.descricao} com valor: {entrada.valor}")
-        conta_bancaria = entrada.conta  # A conta bancária associada
+    def post(self, request, pk):
+        entrada = get_object_or_404(Entrada, pk=pk)
 
-        # Subtrair o valor da entrada do saldo da conta bancária
-        if conta_bancaria.saldo_atual is not None:  # Verifica se saldo_atual não é None
-            conta_bancaria.saldo_atual -= entrada.valor  # Atualiza o saldo
-            conta_bancaria.save()  # Salva a conta bancária com o novo saldo
+        conta_bancaria = entrada.conta
 
-        # Chama o método delete da superclasse
-        return super().delete(request, *args, **kwargs)
+        # Subtrai o valor da entrada do saldo atual da conta bancária
+        conta_bancaria.saldo_atual -= entrada.valor
+        conta_bancaria.save()
+
+        # Exclui a entrada
+        entrada.delete()
+
+        # Mensagem de sucesso
+        messages.add_message(request,constants.SUCCESS, 'Entrada excluída com sucesso e saldo ajustado.')
+
+        # Redireciona para a página de listagem
+        return redirect('entrada-list')
 
 ##### CRUD DE SAÍDAS ######
 class SaidaListView(ListView):
@@ -93,6 +116,18 @@ class SaidaCreateView(CreateView):
     template_name = 'saida/saida_form.html'
     form_class = SaidaModelForm
     success_url = reverse_lazy('saida-list')
+
+    def form_valid(self, form):
+        saida = form.save(commit=False)
+
+        if saida.situacao == "PG":
+            saida.conta.saldo_atual -= saida.valor
+        
+        saida.save()
+        saida.conta.save()
+        return super().form_valid(form)
+    
+
 
 
 class SaidaUpdateView(UpdateView):

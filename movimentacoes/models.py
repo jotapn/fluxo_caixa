@@ -28,7 +28,7 @@ class Entrada(models.Model):
         return f"R$ {self.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
     
     @property
-    def situacao_legivel(self):
+    def situacao_formatado(self):
         for sigla, descricao in SITUACAO:
             if self.situacao == sigla:
                 return descricao
@@ -76,7 +76,7 @@ class Saida(models.Model):
         return f"R$ {self.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
     
     @property
-    def situacao_legivel(self):
+    def situacao_formatado(self):
         for sigla, descricao in SITUACAO:
             if self.situacao == sigla:
                 return descricao

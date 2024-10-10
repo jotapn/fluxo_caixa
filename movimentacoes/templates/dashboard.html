@@ -49,7 +49,7 @@
             <tbody>
                 {% for banco in bancos %}
                 <tr>
-                    <td>{{ banco.nome }}</td>
+                    <td><a class="table" href={% url "conta_bancaria_detail" banco.pk %}>{{ banco.nome }}</a></td>
                     <td>{{ banco.saldo_atual_formatado }}</td>
                 </tr>
                 {% empty %}
@@ -78,7 +78,7 @@
                     <td>{{ entrada.conta }}</td>
                     <td>{{ entrada.valor_formatado }}</td>
                     <td>{{ entrada.data|date:"d/m/Y" }}</td>
-                    <td>{{ entrada.situacao_legivel }}</td>
+                    <td>{{ entrada.situacao_formatado }}</td>
                 </tr>
                 {% empty %}
                 <tr>
@@ -106,7 +106,7 @@
                     <td>{{ saida.conta }}</td>
                     <td>{{ saida.valor_formatado }}</td>
                     <td>{{ saida.data|date:"d/m/Y" }}</td>
-                    <td>{{ saida.situacao_legivel }}</td>
+                    <td>{{ saida.situacao_formatado }}</td>
                 </tr>
                 {% empty %}
                 <tr>

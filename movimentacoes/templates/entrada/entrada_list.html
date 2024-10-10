@@ -11,7 +11,7 @@
                 <th>Descrição</th>
                 <th>Valor</th>
                 <th>Data</th>
-                <th>Banco</th>
+                <th>Conta</th>
                 <th>Tipo Pagamento</th>
                 <th>Tipo Entrada</th>
                 <th>Situação</th>
@@ -22,13 +22,17 @@
             {% for entrada in object_list %}
             <tr>
                 <td>{{ entrada.cliente }}</td>
-                <td>{{ entrada.descricao }}</td>
+                {% if entrada.descricao == none %}
+                    <td>-</td>
+                {% else %}
+                    <td>{{ entrada.descricao }}</td>
+                {% endif %}
                 <td>{{ entrada.valor_formatado }}</td>
                 <td>{{ entrada.data|date:"d/m/Y" }}</td>
-                <td>{{ entrada.banco }}</td>
+                <td>{{ entrada.conta }}</td>
                 <td>{{ entrada.tipo_pagamento }}</td>
-                <td>{{ entrada.tipo_entrada }}</td>
-                <td>{{ entrada.situacao_legivel }}</td>
+                <td>{{ entrada.tipo_receita }}</td>
+                <td>{{ entrada.situacao_formatado }}</td>
                 <td>
                     <a href="{% url 'entrada-detail' entrada.id %}" class="btn btn-info btn-sm">Ver</a>
                     <a href="{% url 'entrada-update' entrada.id %}" class="btn btn-warning btn-sm">Editar</a>

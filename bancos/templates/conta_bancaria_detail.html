@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Detalhes da Conta Bancária</h1>
+
+    <div class="card">
+        <div class="card-header">
+            Conta: {{ conta.nome }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"><strong>Saldo Atual:</strong> R$ {{ conta.saldo_atual }}</h5>
+            <p class="card-text">Saldo Inicial: R$ {{ conta.saldo_inicial }}</p>
+            <p class="card-text">Status:
+                {% if conta.status == 'AT' %}
+                    Ativa
+                {% else %}
+                    Inativa
+                {% endif %}
+            </p>
+            <a href="{% url 'conta_bancaria_update' conta.pk %}" class="btn btn-primary">Editar</a>
+            <a href="{% url 'conta_bancaria_delete' conta.pk %}" class="btn btn-danger">Excluir</a>
+            <a href="{% url 'conta_bancaria_list' %}" class="btn btn-secondary">Voltar</a>
+        </div>
+    </div>
+
+    <h2 class="mt-4">Movimentações Relacionadas</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Tipo</th>
+                <th>Situação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for operacao in movimentacoes %}
+                <tr>
+                    <td>{{ operacao.data|date:"d/m/Y" }}</td>
+                    {% if operacao.descricao == none %}
+                    <td>-</td>
+                    {% else %}
+                    <td>{{ operacao.descricao }}</td>
+                    {% endif %}
+                    <td>R$ {{ operacao.valor }}</td>
+                    <td>
+                        {% if operacao.tipo_despesa %}
+                        Saída
+                        {% else %}
+                        Entrada 
+                        {% endif %}
+                    </td>
+                    <td>{{ operacao.situacao_formatado }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">Nenhuma movimentação encontrada</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -28,7 +28,7 @@
                 <td>{{ saida.data|date:"d/m/Y" }}</td>  {# Formato: 01/10/2024 #}
                 <td>{{ saida.banco }}</td>
                 <td>{{ saida.tipo_pagamento }}</td>
-                <td>{{ saida.situacao_legivel }}</td>  {# Usando a nova propriedade #}
+                <td>{{ saida.situacao_formatado }}</td>  {# Usando a nova propriedade #}
                 <td>
                     <a href="{% url 'saida-detail' saida.id %}" class="btn btn-info btn-sm">Ver</a>
                     <a href="{% url 'saida-update' saida.id %}" class="btn btn-warning btn-sm">Editar</a>

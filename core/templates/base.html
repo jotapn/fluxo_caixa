@@ -108,6 +108,14 @@
         </ul>
     </div>
     <main>
+        {% if messages %}
+            {% for message in messages %}
+                <section class="alert {{message.tags}}">
+                    {{message}}
+
+                </section>
+            {% endfor %}
+        {% endif %}
         <div class="container">
             {% block content %}
             {% endblock %}

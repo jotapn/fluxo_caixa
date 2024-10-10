@@ -425,6 +425,14 @@
         "documentation": {}
     },
     {
+        "label": "messages",
+        "importPath": "django.contrib",
+        "description": "django.contrib",
+        "isExtraImport": true,
+        "detail": "django.contrib",
+        "documentation": {}
+    },
+    {
         "label": "admin",
         "importPath": "django.contrib",
         "description": "django.contrib",
@@ -609,91 +617,44 @@
         "documentation": {}
     },
     {
-        "label": "ListView",
-        "importPath": "django.views.generic",
-        "description": "django.views.generic",
+        "label": "django.shortcuts",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "django.views.generic",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
-        "label": "CreateView",
-        "importPath": "django.views.generic",
-        "description": "django.views.generic",
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
         "isExtraImport": true,
-        "detail": "django.views.generic",
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
-        "label": "DetailView",
-        "importPath": "django.views.generic",
-        "description": "django.views.generic",
+        "label": "get_object_or_404",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
         "isExtraImport": true,
-        "detail": "django.views.generic",
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
-        "label": "UpdateView",
-        "importPath": "django.views.generic",
-        "description": "django.views.generic",
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
         "isExtraImport": true,
-        "detail": "django.views.generic",
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
-        "label": "DeleteView",
-        "importPath": "django.views.generic",
-        "description": "django.views.generic",
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
         "isExtraImport": true,
-        "detail": "django.views.generic",
-        "documentation": {}
-    },
-    {
-        "label": "TemplateView",
-        "importPath": "django.views.generic",
-        "description": "django.views.generic",
-        "isExtraImport": true,
-        "detail": "django.views.generic",
-        "documentation": {}
-    },
-    {
-        "label": "ListView",
-        "importPath": "django.views.generic",
-        "description": "django.views.generic",
-        "isExtraImport": true,
-        "detail": "django.views.generic",
-        "documentation": {}
-    },
-    {
-        "label": "CreateView",
-        "importPath": "django.views.generic",
-        "description": "django.views.generic",
-        "isExtraImport": true,
-        "detail": "django.views.generic",
-        "documentation": {}
-    },
-    {
-        "label": "DetailView",
-        "importPath": "django.views.generic",
-        "description": "django.views.generic",
-        "isExtraImport": true,
-        "detail": "django.views.generic",
-        "documentation": {}
-    },
-    {
-        "label": "UpdateView",
-        "importPath": "django.views.generic",
-        "description": "django.views.generic",
-        "isExtraImport": true,
-        "detail": "django.views.generic",
-        "documentation": {}
-    },
-    {
-        "label": "DeleteView",
-        "importPath": "django.views.generic",
-        "description": "django.views.generic",
-        "isExtraImport": true,
-        "detail": "django.views.generic",
+        "detail": "django.shortcuts",
         "documentation": {}
     },
     {
@@ -785,11 +746,115 @@
         "documentation": {}
     },
     {
+        "label": "ListView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "CreateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "DetailView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "UpdateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "DeleteView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
         "label": "TemplateView",
         "importPath": "django.views.generic",
         "description": "django.views.generic",
         "isExtraImport": true,
         "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "ListView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "CreateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "DetailView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "UpdateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "DeleteView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "TemplateView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
+        "documentation": {}
+    },
+    {
+        "label": "Entrada",
+        "importPath": "movimentacoes.models",
+        "description": "movimentacoes.models",
+        "isExtraImport": true,
+        "detail": "movimentacoes.models",
+        "documentation": {}
+    },
+    {
+        "label": "Saida",
+        "importPath": "movimentacoes.models",
+        "description": "movimentacoes.models",
+        "isExtraImport": true,
+        "detail": "movimentacoes.models",
         "documentation": {}
     },
     {
@@ -865,30 +930,6 @@
         "documentation": {}
     },
     {
-        "label": "render",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "get_object_or_404",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "redirect",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
@@ -919,6 +960,22 @@
         "description": "dotenv",
         "isExtraImport": true,
         "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "constants",
+        "importPath": "django.contrib.messages",
+        "description": "django.contrib.messages",
+        "isExtraImport": true,
+        "detail": "django.contrib.messages",
+        "documentation": {}
+    },
+    {
+        "label": "constants",
+        "importPath": "django.contrib.messages",
+        "description": "django.contrib.messages",
+        "isExtraImport": true,
+        "detail": "django.contrib.messages",
         "documentation": {}
     },
     {
@@ -1054,7 +1111,7 @@
         "kind": 6,
         "importPath": "bancos.models",
         "description": "bancos.models",
-        "peekOfCode": "class ContaBancaria(models.Model):\n    banco = models.ForeignKey(Banco, on_delete=models.PROTECT)\n    nome = models.CharField(max_length=50)\n    conta = models.CharField(max_length=20)\n    agencia = models.CharField(max_length=20)\n    gerente = models.CharField(max_length=200, null=True, blank=True)\n    saldo_inicial = models.DecimalField(max_digits=12, decimal_places=2)\n    saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    def save(self, *args, **kwargs):",
+        "peekOfCode": "class ContaBancaria(models.Model):\n    banco = models.ForeignKey(Banco, on_delete=models.PROTECT)\n    nome = models.CharField(max_length=50)\n    conta = models.CharField(max_length=20)\n    agencia = models.CharField(max_length=20)\n    gerente = models.CharField(max_length=200, null=True, blank=True)\n    saldo_inicial = models.DecimalField(max_digits=12, decimal_places=2)\n    saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)\n    status = models.CharField(max_length=10, choices=STATUS, default=\"AT\")\n    @property",
         "detail": "bancos.models",
         "documentation": {}
     },
@@ -1108,16 +1165,7 @@
         "kind": 6,
         "importPath": "bancos.views",
         "description": "bancos.views",
-        "peekOfCode": "class BancoUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco_form.html'\n    form_class = BancoModelForm\n    success_url = reverse_lazy('banco-list')\nclass ContaBancariaUpdateView(UpdateView):\n    model = ContaBancaria\n    def form_valid(self, form):\n        try:",
-        "detail": "bancos.views",
-        "documentation": {}
-    },
-    {
-        "label": "ContaBancariaUpdateView",
-        "kind": 6,
-        "importPath": "bancos.views",
-        "description": "bancos.views",
-        "peekOfCode": "class ContaBancariaUpdateView(UpdateView):\n    model = ContaBancaria\n    def form_valid(self, form):\n        try:\n            return super().form_valid(form)\n        except ValueError as e:\n            form.add_error('saldo_inicial', str(e))  # Adiciona erro ao campo de saldo inicial\n            return self.form_invalid(form)\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)",
+        "peekOfCode": "class BancoUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco_form.html'\n    form_class = BancoModelForm\n    success_url = reverse_lazy('banco-list')\nclass BancoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco_confirm_delete.html'",
         "detail": "bancos.views",
         "documentation": {}
     },
@@ -1127,6 +1175,15 @@
         "importPath": "bancos.views",
         "description": "bancos.views",
         "peekOfCode": "class BancoDeleteView(DeleteView):\n    '''EXCLUSÃO DE UM BANCO'''\n    model = Banco\n    template_name = 'banco_confirm_delete.html'\n    success_url = reverse_lazy('banco-list')\n    def delete(self, request, *args, **kwargs):\n        try:\n            return super().delete(request, *args, **kwargs)\n        except ProtectedError:\n            messages.error(request, \"Não é possível excluir este banco porque ele está relacionado a contas ativas.\")",
+        "detail": "bancos.views",
+        "documentation": {}
+    },
+    {
+        "label": "ContaBancariaUpdateView",
+        "kind": 6,
+        "importPath": "bancos.views",
+        "description": "bancos.views",
+        "peekOfCode": "class ContaBancariaUpdateView(UpdateView):\n    model = ContaBancaria\n    def form_valid(self, form):\n        try:\n            return super().form_valid(form)\n        except ValueError as e:\n            form.add_error('saldo_inicial', str(e))  # Adiciona erro ao campo de saldo inicial\n            return self.form_invalid(form)\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)",
         "detail": "bancos.views",
         "documentation": {}
     },
@@ -1153,7 +1210,7 @@
         "kind": 6,
         "importPath": "bancos.views",
         "description": "bancos.views",
-        "peekOfCode": "class ContaBancariaDetailView(DetailView):\n    '''DETALHAMENTO DE UMA CONTA BANCÁRIA'''\n    model = ContaBancaria\n    template_name = 'conta_bancaria_detail.html'\n    context_object_name = 'conta'\nclass ContaBancariaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA CONTA BANCÁRIA'''\n    model = ContaBancaria\n    form_class = ContaBancariaModelForm\n    template_name = 'conta_bancaria_form.html'",
+        "peekOfCode": "class ContaBancariaDetailView(DetailView):\n    '''DETALHAMENTO DE UMA CONTA BANCÁRIA'''\n    model = ContaBancaria\n    template_name = 'conta_bancaria_detail.html'\n    context_object_name = 'conta'\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Pegar as movimentações (entradas e saídas) da conta bancária atual\n        conta = self.get_object()\n        entradas = Entrada.objects.filter(conta=conta)",
         "detail": "bancos.views",
         "documentation": {}
     },
@@ -1162,7 +1219,7 @@
         "kind": 6,
         "importPath": "bancos.views",
         "description": "bancos.views",
-        "peekOfCode": "class ContaBancariaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA CONTA BANCÁRIA'''\n    model = ContaBancaria\n    form_class = ContaBancariaModelForm\n    template_name = 'conta_bancaria_form.html'\n    success_url = reverse_lazy('conta_bancaria_list')\nclass ContaBancariaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA CONTA BANCÁRIA'''\n    model = ContaBancaria\n    template_name = 'conta_bancaria_confirm_delete.html'",
+        "peekOfCode": "class ContaBancariaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA CONTA BANCÁRIA'''\n    model = ContaBancaria\n    form_class = ContaBancariaModelForm\n    template_name = 'conta_bancaria_form.html'\n    success_url = reverse_lazy('conta_bancaria_list')\n    def form_valid(self, form):\n        cb = self.get_object()\n        saldo_inicial_antigo = cb.saldo_inicial\n        nova_cb = form.save(commit=False)",
         "detail": "bancos.views",
         "documentation": {}
     },
@@ -1414,7 +1471,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "LANGUAGE_CODE = 'en-us'\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "peekOfCode": "LANGUAGE_CODE = 'pt-br'\nTIME_ZONE = 'America/Sao_Paulo'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = '/static/'\nSTATICFILES_DIRS = (os.path.join(BASE_DIR, 'core/templates/static'),)\nSTATIC_ROOT = os.path.join('static')\nMEDIA_ROOT = os.path.join(BASE_DIR, 'media')",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1423,7 +1480,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "TIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nMEDIA_ROOT = os.path.join(BASE_DIR,\"media\")",
+        "peekOfCode": "TIME_ZONE = 'America/Sao_Paulo'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = '/static/'\nSTATICFILES_DIRS = (os.path.join(BASE_DIR, 'core/templates/static'),)\nSTATIC_ROOT = os.path.join('static')\nMEDIA_ROOT = os.path.join(BASE_DIR, 'media')\nMEDIA_URL = '/media/'",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1432,7 +1489,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nMEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"",
+        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = '/static/'\nSTATICFILES_DIRS = (os.path.join(BASE_DIR, 'core/templates/static'),)\nSTATIC_ROOT = os.path.join('static')\nMEDIA_ROOT = os.path.join(BASE_DIR, 'media')\nMEDIA_URL = '/media/'\n# Default primary key field type",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1441,7 +1498,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nMEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"\nCRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"",
+        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = '/static/'\nSTATICFILES_DIRS = (os.path.join(BASE_DIR, 'core/templates/static'),)\nSTATIC_ROOT = os.path.join('static')\nMEDIA_ROOT = os.path.join(BASE_DIR, 'media')\nMEDIA_URL = '/media/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1450,16 +1507,25 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "STATIC_URL = 'static/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nMEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"\nCRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"\nCRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"",
+        "peekOfCode": "STATIC_URL = '/static/'\nSTATICFILES_DIRS = (os.path.join(BASE_DIR, 'core/templates/static'),)\nSTATIC_ROOT = os.path.join('static')\nMEDIA_ROOT = os.path.join(BASE_DIR, 'media')\nMEDIA_URL = '/media/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nMEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"",
         "detail": "core.settings",
         "documentation": {}
     },
     {
-        "label": "DEFAULT_AUTO_FIELD",
+        "label": "STATICFILES_DIRS",
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nMEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"\nCRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"\nCRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"",
+        "peekOfCode": "STATICFILES_DIRS = (os.path.join(BASE_DIR, 'core/templates/static'),)\nSTATIC_ROOT = os.path.join('static')\nMEDIA_ROOT = os.path.join(BASE_DIR, 'media')\nMEDIA_URL = '/media/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nMEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"\nCRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "STATIC_ROOT",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "STATIC_ROOT = os.path.join('static')\nMEDIA_ROOT = os.path.join(BASE_DIR, 'media')\nMEDIA_URL = '/media/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nMEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"\nCRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"\nCRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1468,7 +1534,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "MEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"\nCRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"\nCRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"",
+        "peekOfCode": "MEDIA_ROOT = os.path.join(BASE_DIR, 'media')\nMEDIA_URL = '/media/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nMEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"\nCRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"\nCRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"\nfrom django.contrib.messages import constants",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1477,7 +1543,34 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "MEDIA_URL = \"/media/\"\nCRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"\nCRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"",
+        "peekOfCode": "MEDIA_URL = '/media/'\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nMEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"\nCRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"\nCRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"\nfrom django.contrib.messages import constants\nMESSAGE_TAGS = {",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_AUTO_FIELD",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'\nMEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"\nCRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"\nCRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"\nfrom django.contrib.messages import constants\nMESSAGE_TAGS = {\n    constants.DEBUG: 'alert-primary',\n    constants.ERROR: 'alert-danger',\n    constants.SUCCESS: 'alert-success',",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "MEDIA_ROOT",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "MEDIA_ROOT = os.path.join(BASE_DIR,\"media\")\nMEDIA_URL = \"/media/\"\nCRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"\nCRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"\nfrom django.contrib.messages import constants\nMESSAGE_TAGS = {\n    constants.DEBUG: 'alert-primary',\n    constants.ERROR: 'alert-danger',\n    constants.SUCCESS: 'alert-success',\n    constants.INFO: 'alert-info',",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "MEDIA_URL",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "MEDIA_URL = \"/media/\"\nCRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"\nCRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"\nfrom django.contrib.messages import constants\nMESSAGE_TAGS = {\n    constants.DEBUG: 'alert-primary',\n    constants.ERROR: 'alert-danger',\n    constants.SUCCESS: 'alert-success',\n    constants.INFO: 'alert-info',\n    constants.WARNING: 'alert-warning',",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1486,7 +1579,7 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "CRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"\nCRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"",
+        "peekOfCode": "CRISPY_ALLOWED_TEMPLATE_PACKS = \"bootstrap5\"  # ou \"bootstrap4\"\nCRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"\nfrom django.contrib.messages import constants\nMESSAGE_TAGS = {\n    constants.DEBUG: 'alert-primary',\n    constants.ERROR: 'alert-danger',\n    constants.SUCCESS: 'alert-success',\n    constants.INFO: 'alert-info',\n    constants.WARNING: 'alert-warning',\n}",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1495,7 +1588,16 @@
         "kind": 5,
         "importPath": "core.settings",
         "description": "core.settings",
-        "peekOfCode": "CRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"",
+        "peekOfCode": "CRISPY_TEMPLATE_PACK = \"bootstrap5\"  # ou \"bootstrap4\"\nfrom django.contrib.messages import constants\nMESSAGE_TAGS = {\n    constants.DEBUG: 'alert-primary',\n    constants.ERROR: 'alert-danger',\n    constants.SUCCESS: 'alert-success',\n    constants.INFO: 'alert-info',\n    constants.WARNING: 'alert-warning',\n}",
+        "detail": "core.settings",
+        "documentation": {}
+    },
+    {
+        "label": "MESSAGE_TAGS",
+        "kind": 5,
+        "importPath": "core.settings",
+        "description": "core.settings",
+        "peekOfCode": "MESSAGE_TAGS = {\n    constants.DEBUG: 'alert-primary',\n    constants.ERROR: 'alert-danger',\n    constants.SUCCESS: 'alert-success',\n    constants.INFO: 'alert-info',\n    constants.WARNING: 'alert-warning',\n}",
         "detail": "core.settings",
         "documentation": {}
     },
@@ -1738,7 +1840,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class EntradaCreateView(CreateView):\n    '''CRIAÇÃO DE ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_form.html'\n    form_class = EntradaModelForm\n    success_url = reverse_lazy('entrada-list')\n    def form_valid(self, form):\n        print(\"teste\")\n        # Salvar a entrada primeiro\n        entrada = form.save(commit=False)",
+        "peekOfCode": "class EntradaCreateView(CreateView):\n    '''CRIAÇÃO DE ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_form.html'\n    form_class = EntradaModelForm\n    success_url = reverse_lazy('entrada-list')\n    def form_valid(self, form):\n        # Salvar a entrada primeiro\n        entrada = form.save(commit=False)\n        # Atualizar o saldo da conta bancária",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
@@ -1747,7 +1849,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class EntradaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_form.html'\n    form_class = EntradaModelForm\n    success_url = reverse_lazy('entrada-list')\nclass EntradaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_confirm_delete.html'",
+        "peekOfCode": "class EntradaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_form.html'\n    form_class = EntradaModelForm\n    success_url = reverse_lazy('entrada-list')\n    def form_valid(self, form):\n        # Obter a entrada antiga para comparar os valores anteriores\n        entrada_antiga = Entrada.objects.get(pk=self.object.pk)\n        entrada_nova = form.save(commit=False)",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
@@ -1756,7 +1858,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class EntradaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_confirm_delete.html'\n    success_url = reverse_lazy('entrada-list')\n    def delete(self, request, *args, **kwargs):\n        print(\"teste\")\n        # Obter a entrada que será excluída\n        entrada = Entrada.objects.get(pk=kwargs['pk'])  # Pega a entrada a ser excluída\n        print(f\"Excluindo entrada: {entrada.descricao} com valor: {entrada.valor}\")",
+        "peekOfCode": "class EntradaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_confirm_delete.html'\n    success_url = reverse_lazy('entrada-list')\n    def post(self, request, pk):\n        entrada = get_object_or_404(Entrada, pk=pk)\n        conta_bancaria = entrada.conta\n        # Subtrai o valor da entrada do saldo atual da conta bancária\n        conta_bancaria.saldo_atual -= entrada.valor",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
@@ -1783,7 +1885,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class SaidaCreateView(CreateView):\n    '''CRIAÇÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_form.html'\n    form_class = SaidaModelForm\n    success_url = reverse_lazy('saida-list')\nclass SaidaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_form.html'",
+        "peekOfCode": "class SaidaCreateView(CreateView):\n    '''CRIAÇÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_form.html'\n    form_class = SaidaModelForm\n    success_url = reverse_lazy('saida-list')\n    def form_valid(self, form):\n        saida = form.save(commit=False)\n        if saida.situacao == \"PG\":\n            saida.conta.saldo_atual -= saida.valor",
         "detail": "movimentacoes.views",
         "documentation": {}
     },

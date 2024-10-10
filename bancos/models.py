@@ -30,19 +30,6 @@ class ContaBancaria(models.Model):
     saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)
     status = models.CharField(max_length=10, choices=STATUS, default="AT")
 
-    def save(self, *args, **kwargs):
-        # Se o conta já existe, não permitir a edição do saldo_inicial
-        if self.pk is not None:  # O objeto já existe
-            # Obtendo o objeto existente do banco de dados
-            banco_existente = ContaBancaria.objects.get(pk=self.pk)
-            # Se o saldo inicial foi alterado, lance um erro ou reverta a mudança
-            if banco_existente.saldo_inicial != self.saldo_inicial:
-                raise ValueError("Não é permitido alterar o saldo inicial de uma conta já cadastrada.")
-        else:
-            self.saldo_atual = self.saldo_inicial  # Somente na primeira vez
-        super().save(*args, **kwargs)
-
-
     @property
     def saldo_atual_formatado(self):
         return f"R$ {self.saldo_atual:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
