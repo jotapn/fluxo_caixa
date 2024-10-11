@@ -3,11 +3,47 @@
 {% block content %}
 <div class="container mt-5">
     <h1>{{ view.title }}</h1>
-    <form method="post">
+    <form method="post" id='entradaForm'>
         {% csrf_token %}
         {{ form|crispy }}
-        <button type="submit" class="btn btn-success">Salvar</button>
+        {% if duplicate_warning %}
+        <div id="duplicateAlert" class="alert alert-warning" role="alert" style="display:none;">
+            Já existe uma entrada idêntica a esta. Deseja continuar mesmo assim?
+            <div>
+                <button type="button" class="btn btn-danger" id="noBtn">Não</button>
+                <button type="button" class="btn btn-success" id="yesBtn">Sim</button>
+            </div>
+        </div> 
+        {% endif %}
+        <!-- Campo oculto para indicar confirmação de duplicidade -->
+        <input type="hidden" name="confirm_duplicate" id="confirm_duplicate" value="">
+
+        <button id="submitBtn" type="submit" class="btn btn-success">Salvar</button>
         <a href="{% url 'entrada-list' %}" class="btn btn-secondary">Cancelar</a>
     </form>
+
+    
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      {% if duplicate_warning %}
+      // Exibe o alerta de duplicidade ao usuário
+      document.getElementById('duplicateAlert').style.display = 'block';
+      document.getElementById('submitBtn').style.display = 'none';
+      
+      // Se o usuário clicar "Não", cancela o envio
+      document.getElementById('noBtn').addEventListener('click', function () {
+        // Redireciona para a lista de entradas
+        window.location.href = "{% url 'entrada-list' %}";
+      });
+
+      // Se o usuário clicar "Sim", submete o formulário
+      document.getElementById('yesBtn').addEventListener('click', async function () {
+        document.getElementById('confirm_duplicate').value = "true"; 
+        await document.getElementById('entradaForm').submit();  // Use 'submit' para submeter o formulário
+      });
+      {% endif %}
+    });
+  </script>
 {% endblock %}

@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.messages import constants
+from django.http import HttpRequest, HttpResponse
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect
@@ -30,9 +31,24 @@ class EntradaCreateView(CreateView):
     form_class = EntradaModelForm
     success_url = reverse_lazy('entrada-list')
 
+
     def form_valid(self, form):
         # Salvar a entrada primeiro
         entrada = form.save(commit=False)
+        entradas_existentes = Entrada.objects.filter(
+            descricao=entrada.descricao,
+            valor=entrada.valor,
+            data=entrada.data,
+            cliente=entrada.cliente
+        )
+
+        if entradas_existentes.exists():
+            if self.request.POST.get('confirm_duplicate') != 'true':
+                # Passa a flag ao template se existir uma duplicidade
+                context = self.get_context_data(form=form)
+                context['duplicate_warning'] = True
+                return self.render_to_response(context)
+
 
         # Atualizar o saldo da conta bancária
         if entrada.situacao == "PG":

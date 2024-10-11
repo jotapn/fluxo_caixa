@@ -321,6 +321,22 @@
         "documentation": {}
     },
     {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "models",
         "importPath": "django.db",
         "description": "django.db",
@@ -987,6 +1003,30 @@
         "documentation": {}
     },
     {
+        "label": "date",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "now",
+        "importPath": "django.utils.timezone",
+        "description": "django.utils.timezone",
+        "isExtraImport": true,
+        "detail": "django.utils.timezone",
+        "documentation": {}
+    },
+    {
         "label": "ContaBancaria",
         "importPath": "bancos.models",
         "description": "bancos.models",
@@ -1024,6 +1064,22 @@
         "description": "operacoes.models",
         "isExtraImport": true,
         "detail": "operacoes.models",
+        "documentation": {}
+    },
+    {
+        "label": "HttpRequest",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
+        "documentation": {}
+    },
+    {
+        "label": "HttpResponse",
+        "importPath": "django.http",
+        "description": "django.http",
+        "isExtraImport": true,
+        "detail": "django.http",
         "documentation": {}
     },
     {
@@ -1737,6 +1793,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "movimentacoes.migrations.0014_alter_entrada_data_alter_saida_data",
+        "description": "movimentacoes.migrations.0014_alter_entrada_data_alter_saida_data",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('movimentacoes', '0013_alter_entrada_cliente_alter_entrada_conta'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='entrada',\n            name='data',\n            field=models.DateField(),\n        ),",
+        "detail": "movimentacoes.migrations.0014_alter_entrada_data_alter_saida_data",
+        "documentation": {}
+    },
+    {
         "label": "EntradaAdmin",
         "kind": 6,
         "importPath": "movimentacoes.admin",
@@ -1768,7 +1833,7 @@
         "kind": 6,
         "importPath": "movimentacoes.forms",
         "description": "movimentacoes.forms",
-        "peekOfCode": "class EntradaModelForm(forms.ModelForm):\n    class Meta:\n        model = Entrada\n        fields = \"__all__\"\nclass SaidaModelForm(forms.ModelForm):\n    class Meta:\n        model = Saida\n        fields = \"__all__\"",
+        "peekOfCode": "class EntradaModelForm(forms.ModelForm):\n    data = forms.DateField(\n        widget=forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),\n        initial=datetime.today,\n        input_formats=['%Y-%m-%d']\n    )\n    class Meta:\n        model = Entrada\n        fields = \"__all__\"\n        widgets = {",
         "detail": "movimentacoes.forms",
         "documentation": {}
     },
@@ -1777,7 +1842,7 @@
         "kind": 6,
         "importPath": "movimentacoes.forms",
         "description": "movimentacoes.forms",
-        "peekOfCode": "class SaidaModelForm(forms.ModelForm):\n    class Meta:\n        model = Saida\n        fields = \"__all__\"",
+        "peekOfCode": "class SaidaModelForm(forms.ModelForm):\n    data = forms.DateField(\n        widget=forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),\n        initial=datetime.today,\n        input_formats=['%Y-%m-%d']\n    )\n    class Meta:\n        model = Saida\n        fields = \"__all__\"\n        widgets = {",
         "detail": "movimentacoes.forms",
         "documentation": {}
     },
@@ -1786,7 +1851,7 @@
         "kind": 6,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "class Entrada(models.Model):\n    cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='pagamentos')\n    tipo_receita = models.ForeignKey(TipoReceita, on_delete=models.PROTECT, related_name='receitas', null=True)\n    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')\n    def __str__(self):",
+        "peekOfCode": "class Entrada(models.Model):\n    cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField()\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='pagamentos')\n    tipo_receita = models.ForeignKey(TipoReceita, on_delete=models.PROTECT, related_name='receitas', null=True)\n    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')\n    def __str__(self):",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -1795,7 +1860,7 @@
         "kind": 6,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "class Saida(models.Model):\n    tipo_despesa = models.ForeignKey(TipoDespesa, on_delete=models.PROTECT,related_name='despesas_saida')\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT, null=True, blank=True)\n    tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='saidas')\n    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')\n    def __str__(self):\n        return f'Saída: {self.valor} - {self.descricao}'",
+        "peekOfCode": "class Saida(models.Model):\n    tipo_despesa = models.ForeignKey(TipoDespesa, on_delete=models.PROTECT,related_name='despesas_saida')\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField()\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT, null=True, blank=True)\n    tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='saidas')\n    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')\n    def __str__(self):\n        return f'Saída: {self.valor} - {self.descricao}'",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -1804,7 +1869,7 @@
         "kind": 5,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "SITUACAO = (\n    (\"PG\", \"Pago\"),\n    (\"AP\", \"A pagar\")\n)\nclass Entrada(models.Model):\n    cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField(auto_now_add=True)\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)",
+        "peekOfCode": "SITUACAO = (\n    (\"PG\", \"Pago\"),\n    (\"AP\", \"A pagar\")\n)\nclass Entrada(models.Model):\n    cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField()\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -1840,7 +1905,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class EntradaCreateView(CreateView):\n    '''CRIAÇÃO DE ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_form.html'\n    form_class = EntradaModelForm\n    success_url = reverse_lazy('entrada-list')\n    def form_valid(self, form):\n        # Salvar a entrada primeiro\n        entrada = form.save(commit=False)\n        # Atualizar o saldo da conta bancária",
+        "peekOfCode": "class EntradaCreateView(CreateView):\n    '''CRIAÇÃO DE ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_form.html'\n    form_class = EntradaModelForm\n    success_url = reverse_lazy('entrada-list')\n    def form_valid(self, form):\n        # Salvar a entrada primeiro\n        entrada = form.save(commit=False)\n        entradas_existentes = Entrada.objects.filter(",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
