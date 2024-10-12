@@ -21,8 +21,6 @@
         <button id="submitBtn" type="submit" class="btn btn-success">Salvar</button>
         <a href="{% url 'entrada-list' %}" class="btn btn-secondary">Cancelar</a>
     </form>
-
-    
 </div>
 
 <script>
@@ -40,7 +38,8 @@
 
       // Se o usuário clicar "Sim", submete o formulário
       document.getElementById('yesBtn').addEventListener('click', async function () {
-        document.getElementById('confirm_duplicate').value = "true"; 
+        document.getElementById('confirm_duplicate').value = "true";
+        console.log("Duplicate Warning:", {{ duplicate_warning|yesno:"true,false" }}) 
         await document.getElementById('entradaForm').submit();  // Use 'submit' para submeter o formulário
       });
       {% endif %}

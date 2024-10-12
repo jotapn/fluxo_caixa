@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.db.models.deletion import ProtectedError
 from movimentacoes.models import Entrada, Saida
 from .models import Banco, ContaBancaria
-from .forms import BancoModelForm, ContaBancariaModelForm
+from .forms import BancoModelForm, ContaBancariaModelForm, ContaBancariaUpdateModelForm
 
 
 ##### CRUD DE BANCOS ######
@@ -84,6 +84,12 @@ class ContaBancariaCreateView(CreateView):
         initial = super().get_initial()
         initial['status'] = 'AT'  # Define o status como ativo por padrão
         return initial
+    
+    def form_valid(self, form):
+        cb = form.save(commit=False)
+        cb.saldo_atual += cb.saldo_inicial
+        return super().form_valid(form)
+    
 
 class ContaBancariaDetailView(DetailView):
     '''DETALHAMENTO DE UMA CONTA BANCÁRIA'''
@@ -112,18 +118,24 @@ class ContaBancariaDetailView(DetailView):
 class ContaBancariaUpdateView(UpdateView):
     '''ATUALIZAÇÃO DE UMA CONTA BANCÁRIA'''
     model = ContaBancaria
-    form_class = ContaBancariaModelForm
+    form_class = ContaBancariaUpdateModelForm
     template_name = 'conta_bancaria_form.html'
     success_url = reverse_lazy('conta_bancaria_list')
 
     def form_valid(self, form):
         cb = self.get_object()
         saldo_inicial_antigo = cb.saldo_inicial
+        saldo_atual_antigo = cb.saldo_atual
         nova_cb = form.save(commit=False)
 
         if saldo_inicial_antigo != nova_cb.saldo_inicial:
             form.add_error('saldo_inicial', "Não é permitido alterar o saldo inicial de uma conta já cadastrada.")
             return self.form_invalid(form)
+        
+        if saldo_atual_antigo != nova_cb.saldo_atual:
+            form.add_error('saldo_atual', "Não é permitido alterar o saldo atual.")
+            return self.form_invalid(form)
+
         
         nova_cb.save()
         return super().form_valid(form)

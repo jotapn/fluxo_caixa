@@ -100,8 +100,9 @@ class EntradaDeleteView(DeleteView):
         conta_bancaria = entrada.conta
 
         # Subtrai o valor da entrada do saldo atual da conta bancária
-        conta_bancaria.saldo_atual -= entrada.valor
-        conta_bancaria.save()
+        if entrada.situacao == 'PG':
+            conta_bancaria.saldo_atual -= entrada.valor
+            conta_bancaria.save()
 
         # Exclui a entrada
         entrada.delete()
@@ -136,9 +137,39 @@ class SaidaCreateView(CreateView):
     def form_valid(self, form):
         saida = form.save(commit=False)
 
+        # Verifica se a saída já existe
+        saida_existente = Saida.objects.filter(
+            descricao=saida.descricao,
+            valor=saida.valor,
+            data=saida.data,
+            conta=saida.conta,
+            tipo_pagamento=saida.tipo_pagamento,
+            situacao=saida.situacao
+        )
+
+        novo_saldo = saida.conta.saldo_atual - saida.valor
+        context = self.get_context_data(form=form)
+        context['saldo_negativo'] = False
+        context['duplicate_warning'] = False
+
+        # Verifica as condições de duplicidade e saldo negativo
+        if saida_existente.exists():
+            context['duplicate_warning'] = True
+        if saida.situacao == "PG" and novo_saldo < 0:
+            context['saldo_negativo'] = True
+
+        # Lógica para lidar com confirmações
+        if context['duplicate_warning'] and self.request.POST.get('confirm_duplicate') != 'true':
+            return self.render_to_response(context)
+
+        if context['saldo_negativo'] and self.request.POST.get('confirm_saldo_negativo') != 'true':
+            return self.render_to_response(context)
+
+        # Atualiza o saldo se a situação for "PG"
         if saida.situacao == "PG":
-            saida.conta.saldo_atual -= saida.valor
-        
+            saida.conta.saldo_atual = novo_saldo
+
+        # Salva a saída e a conta
         saida.save()
         saida.conta.save()
         return super().form_valid(form)
@@ -159,7 +190,25 @@ class SaidaDeleteView(DeleteView):
     model = Saida
     template_name = 'saida/saida_confirm_delete.html'
     success_url = reverse_lazy('saida-list')
+    
+    def post(self, request, pk):
+        saida = get_object_or_404(Saida, pk=pk)
 
+        conta_bancaria = saida.conta
+
+        # Subtrai o valor da saida do saldo atual da conta bancária
+        if saida.situacao == "PG":
+            conta_bancaria.saldo_atual += saida.valor
+            conta_bancaria.save()
+
+        # Exclui a entrada
+        saida.delete()
+
+        # Mensagem de sucesso
+        messages.add_message(request,constants.SUCCESS, 'Saída excluída com sucesso e saldo ajustado.')
+
+        # Redireciona para a página de listagem
+        return redirect('saida-list')
 
 class DashboardView(TemplateView):
     template_name = 'dashboard.html'

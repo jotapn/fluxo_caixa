@@ -1140,7 +1140,7 @@
         "kind": 6,
         "importPath": "bancos.forms",
         "description": "bancos.forms",
-        "peekOfCode": "class BancoModelForm(forms.ModelForm):\n    class Meta:\n        model = Banco\n        fields = (\"nome\", \"status\")\nclass ContaBancariaModelForm(forms.ModelForm):\n    class Meta:\n        model = ContaBancaria\n        fields = '__all__'",
+        "peekOfCode": "class BancoModelForm(forms.ModelForm):\n    class Meta:\n        model = Banco\n        fields = (\"nome\", \"status\")\nclass ContaBancariaModelForm(forms.ModelForm):\n    class Meta:\n        model = ContaBancaria\n        fields = '__all__'\n        widgets = {\n            'saldo_atual': forms.NumberInput(attrs={\"readonly\":True}),",
         "detail": "bancos.forms",
         "documentation": {}
     },
@@ -1149,7 +1149,16 @@
         "kind": 6,
         "importPath": "bancos.forms",
         "description": "bancos.forms",
-        "peekOfCode": "class ContaBancariaModelForm(forms.ModelForm):\n    class Meta:\n        model = ContaBancaria\n        fields = '__all__'",
+        "peekOfCode": "class ContaBancariaModelForm(forms.ModelForm):\n    class Meta:\n        model = ContaBancaria\n        fields = '__all__'\n        widgets = {\n            'saldo_atual': forms.NumberInput(attrs={\"readonly\":True}),\n            'saldo_inicial': forms.NumberInput(attrs={'placeholder':'0,00'}),\n        }\nclass ContaBancariaUpdateModelForm(forms.ModelForm):\n    class Meta:",
+        "detail": "bancos.forms",
+        "documentation": {}
+    },
+    {
+        "label": "ContaBancariaUpdateModelForm",
+        "kind": 6,
+        "importPath": "bancos.forms",
+        "description": "bancos.forms",
+        "peekOfCode": "class ContaBancariaUpdateModelForm(forms.ModelForm):\n    class Meta:\n        model = ContaBancaria\n        fields = '__all__'\n        widgets = {\n            'saldo_atual': forms.NumberInput(attrs={\"readonly\":True}),\n            'saldo_inicial': forms.NumberInput(attrs={\"readonly\":True}),\n        }",
         "detail": "bancos.forms",
         "documentation": {}
     },
@@ -1275,7 +1284,7 @@
         "kind": 6,
         "importPath": "bancos.views",
         "description": "bancos.views",
-        "peekOfCode": "class ContaBancariaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA CONTA BANCÁRIA'''\n    model = ContaBancaria\n    form_class = ContaBancariaModelForm\n    template_name = 'conta_bancaria_form.html'\n    success_url = reverse_lazy('conta_bancaria_list')\n    def form_valid(self, form):\n        cb = self.get_object()\n        saldo_inicial_antigo = cb.saldo_inicial\n        nova_cb = form.save(commit=False)",
+        "peekOfCode": "class ContaBancariaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA CONTA BANCÁRIA'''\n    model = ContaBancaria\n    form_class = ContaBancariaUpdateModelForm\n    template_name = 'conta_bancaria_form.html'\n    success_url = reverse_lazy('conta_bancaria_list')\n    def form_valid(self, form):\n        cb = self.get_object()\n        saldo_inicial_antigo = cb.saldo_inicial\n        saldo_atual_antigo = cb.saldo_atual",
         "detail": "bancos.views",
         "documentation": {}
     },
@@ -1923,7 +1932,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class EntradaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_confirm_delete.html'\n    success_url = reverse_lazy('entrada-list')\n    def post(self, request, pk):\n        entrada = get_object_or_404(Entrada, pk=pk)\n        conta_bancaria = entrada.conta\n        # Subtrai o valor da entrada do saldo atual da conta bancária\n        conta_bancaria.saldo_atual -= entrada.valor",
+        "peekOfCode": "class EntradaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_confirm_delete.html'\n    success_url = reverse_lazy('entrada-list')\n    def post(self, request, pk):\n        entrada = get_object_or_404(Entrada, pk=pk)\n        conta_bancaria = entrada.conta\n        # Subtrai o valor da entrada do saldo atual da conta bancária\n        if entrada.situacao == 'PG':",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
@@ -1950,7 +1959,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class SaidaCreateView(CreateView):\n    '''CRIAÇÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_form.html'\n    form_class = SaidaModelForm\n    success_url = reverse_lazy('saida-list')\n    def form_valid(self, form):\n        saida = form.save(commit=False)\n        if saida.situacao == \"PG\":\n            saida.conta.saldo_atual -= saida.valor",
+        "peekOfCode": "class SaidaCreateView(CreateView):\n    '''CRIAÇÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_form.html'\n    form_class = SaidaModelForm\n    success_url = reverse_lazy('saida-list')\n    def form_valid(self, form):\n        saida = form.save(commit=False)\n        # Verifica se a saída já existe\n        saida_existente = Saida.objects.filter(",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
@@ -1968,7 +1977,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class SaidaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_confirm_delete.html'\n    success_url = reverse_lazy('saida-list')\nclass DashboardView(TemplateView):\n    template_name = 'dashboard.html'\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Pega o mês do GET, se não houver, usa o mês atual",
+        "peekOfCode": "class SaidaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_confirm_delete.html'\n    success_url = reverse_lazy('saida-list')\n    def post(self, request, pk):\n        saida = get_object_or_404(Saida, pk=pk)\n        conta_bancaria = saida.conta\n        # Subtrai o valor da saida do saldo atual da conta bancária\n        if saida.situacao == \"PG\":",
         "detail": "movimentacoes.views",
         "documentation": {}
     },

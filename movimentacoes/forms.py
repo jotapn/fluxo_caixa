@@ -16,6 +16,7 @@ class EntradaModelForm(forms.ModelForm):
         fields = "__all__"
         widgets = {
             'data': forms.DateInput(attrs={'type': 'date'}),
+            'valor': forms.NumberInput(attrs={'placeholder':'0,00'}),
         }
 
 class SaidaModelForm(forms.ModelForm):
@@ -30,5 +31,6 @@ class SaidaModelForm(forms.ModelForm):
         fields = "__all__"
         widgets = {
             'data': forms.DateInput(attrs={'type': 'date'}),
+            'valor': forms.NumberInput(attrs={'placeholder':'0,00'}),
         }
 
