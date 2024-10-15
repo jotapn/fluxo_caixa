@@ -24,6 +24,10 @@
         </div>
     </div>
 
+    <!-- Gráfico de movimentações -->
+    <h3 class="mt-5">Gráfico de Movimentações</h3>
+    <canvas id="movimentacoesChart"></canvas>
+    
     <h2 class="mt-4">Movimentações Relacionadas</h2>
     <table class="table table-bordered">
         <thead>
@@ -62,4 +66,55 @@
         </tbody>
     </table>
 </div>
+
+<!-- Incluindo o Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Dados do gráfico
+    const labels = {{ labels|safe }};
+    const entradas = {{ entradas|safe }};
+    const saidas = {{ saidas|safe }};
+
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: 'Entradas',
+                data: entradas,
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Saídas',
+                data: saidas,
+                backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }
+        ]
+    };
+
+    // Configurações do gráfico
+    const config = {
+        type: 'bar', // ou 'line', 'pie', etc.
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    };
+
+    // Inicializando o gráfico
+    const movimentacoesChart = new Chart(
+        document.getElementById('movimentacoesChart'),
+        config
+    );
+</script>
+
+
 {% endblock %}

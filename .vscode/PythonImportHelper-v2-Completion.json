@@ -633,44 +633,27 @@
         "documentation": {}
     },
     {
-        "label": "django.shortcuts",
-        "kind": 6,
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
         "isExtraImport": true,
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "detail": "django.shortcuts",
+        "detail": "datetime",
         "documentation": {}
     },
     {
-        "label": "render",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
+        "label": "date",
+        "importPath": "datetime",
+        "description": "datetime",
         "isExtraImport": true,
-        "detail": "django.shortcuts",
+        "detail": "datetime",
         "documentation": {}
     },
     {
-        "label": "get_object_or_404",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
         "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "redirect",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
-        "documentation": {}
-    },
-    {
-        "label": "redirect",
-        "importPath": "django.shortcuts",
-        "description": "django.shortcuts",
-        "isExtraImport": true,
-        "detail": "django.shortcuts",
+        "detail": "datetime",
         "documentation": {}
     },
     {
@@ -946,6 +929,38 @@
         "documentation": {}
     },
     {
+        "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "get_object_or_404",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
         "label": "os",
         "kind": 6,
         "isExtraImport": true,
@@ -1000,22 +1015,6 @@
         "description": "django.core.wsgi",
         "isExtraImport": true,
         "detail": "django.core.wsgi",
-        "documentation": {}
-    },
-    {
-        "label": "date",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "datetime",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
         "documentation": {}
     },
     {
@@ -1158,7 +1157,16 @@
         "kind": 6,
         "importPath": "bancos.forms",
         "description": "bancos.forms",
-        "peekOfCode": "class ContaBancariaUpdateModelForm(forms.ModelForm):\n    class Meta:\n        model = ContaBancaria\n        fields = '__all__'\n        widgets = {\n            'saldo_atual': forms.NumberInput(attrs={\"readonly\":True}),\n            'saldo_inicial': forms.NumberInput(attrs={\"readonly\":True}),\n        }",
+        "peekOfCode": "class ContaBancariaUpdateModelForm(forms.ModelForm):\n    class Meta:\n        model = ContaBancaria\n        fields = '__all__'\n        widgets = {\n            'saldo_atual': forms.NumberInput(attrs={\"readonly\":True}),\n            'saldo_inicial': forms.NumberInput(attrs={\"readonly\":True}),\n        }\nclass FiltroMovimentacaoForm(forms.Form):\n    class Meta:",
+        "detail": "bancos.forms",
+        "documentation": {}
+    },
+    {
+        "label": "FiltroMovimentacaoForm",
+        "kind": 6,
+        "importPath": "bancos.forms",
+        "description": "bancos.forms",
+        "peekOfCode": "class FiltroMovimentacaoForm(forms.Form):\n    class Meta:\n        fields = ['situacao', 'data_inicio', 'data_fim'] \n        situacao_choices = [\n        ('', 'Todas'),\n        ('PG', 'Pago'),\n        ('AP', 'A pagar'),\n        ]\n        situacao = forms.ChoiceField(choices=situacao_choices, required=False)\n        data_inicio = forms.DateField(required=False, widget=forms.TextInput(attrs={'type': 'date'}))",
         "detail": "bancos.forms",
         "documentation": {}
     },
@@ -1275,7 +1283,7 @@
         "kind": 6,
         "importPath": "bancos.views",
         "description": "bancos.views",
-        "peekOfCode": "class ContaBancariaDetailView(DetailView):\n    '''DETALHAMENTO DE UMA CONTA BANCÁRIA'''\n    model = ContaBancaria\n    template_name = 'conta_bancaria_detail.html'\n    context_object_name = 'conta'\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Pegar as movimentações (entradas e saídas) da conta bancária atual\n        conta = self.get_object()\n        entradas = Entrada.objects.filter(conta=conta)",
+        "peekOfCode": "class ContaBancariaDetailView(DetailView):\n    '''DETALHAMENTO DE UMA CONTA BANCÁRIA'''\n    model = ContaBancaria\n    template_name = 'conta_bancaria_detail.html'\n    context_object_name = 'conta'\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Pegar as movimentações (entradas e saídas) da conta bancária atual\n        conta = self.get_object()\n        movimentacoes = list(Entrada.objects.filter(conta=conta).order_by('-data')) + list(Saida.objects.filter(conta=conta).order_by('-data'))",
         "detail": "bancos.views",
         "documentation": {}
     },

@@ -24,3 +24,16 @@ class ContaBancariaUpdateModelForm(forms.ModelForm):
             'saldo_atual': forms.NumberInput(attrs={"readonly":True}),
             'saldo_inicial': forms.NumberInput(attrs={"readonly":True}),
         }
+
+class FiltroMovimentacaoForm(forms.Form):
+    class Meta:
+        fields = ['situacao', 'data_inicio', 'data_fim'] 
+        situacao_choices = [
+        ('', 'Todas'),
+        ('PG', 'Pago'),
+        ('AP', 'A pagar'),
+        ]
+        situacao = forms.ChoiceField(choices=situacao_choices, required=False)
+        data_inicio = forms.DateField(required=False, widget=forms.TextInput(attrs={'type': 'date'}))
+        data_fim = forms.DateField(required=False, widget=forms.TextInput(attrs={'type': 'date'}))
+

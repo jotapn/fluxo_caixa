@@ -1,4 +1,4 @@
-import django.shortcuts
+from datetime import datetime
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 from django.contrib import messages
@@ -99,20 +99,32 @@ class ContaBancariaDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+
         # Pegar as movimentações (entradas e saídas) da conta bancária atual
         conta = self.get_object()
-        entradas = Entrada.objects.filter(conta=conta)
-        saidas = Saida.objects.filter(conta=conta)
+        movimentacoes = list(Entrada.objects.filter(conta=conta).order_by('-data')) + list(Saida.objects.filter(conta=conta).order_by('-data'))
 
-        # Combinar e ordenar por data
-        movimentacoes = sorted(
-            list(entradas) + list(saidas),
-            key=lambda mov: mov.data,
-            reverse=True
-        )
+        # Agrupar valores por data
+        valores_por_data = {}
+        for operacao in movimentacoes:
+            data_formatada = operacao.data.strftime("%d/%m/%Y")  # Formatação da data
+            tipo = 'entrada' if not hasattr(operacao, 'tipo_despesa') else 'saida'
+            valor = float(operacao.valor)
 
+            if data_formatada not in valores_por_data:
+                valores_por_data[data_formatada] = {'entrada': 0, 'saida': 0}
+
+            valores_por_data[data_formatada][tipo] += valor
+
+        # Ordenar por data
+        datas_ordenadas = sorted(valores_por_data.keys(), key=lambda x: datetime.strptime(x, "%d/%m/%Y"))
+
+        # Prepare os dados para o gráfico
+        context['labels'] = datas_ordenadas
+        context['entradas'] = [valores_por_data[data]['entrada'] for data in datas_ordenadas]
+        context['saidas'] = [valores_por_data[data]['saida'] for data in datas_ordenadas]
         context['movimentacoes'] = movimentacoes
+
         return context
 
 class ContaBancariaUpdateView(UpdateView):
