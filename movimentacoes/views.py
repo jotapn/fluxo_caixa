@@ -119,7 +119,7 @@ class SaidaListView(ListView):
     model = Saida
     template_name = 'saida/saida_list.html'
     context_object_name = 'saidas'
-
+    ordering = ['data']
 
 class SaidaDetailView(DetailView):
     '''DETALHES DE UMA SAÍDA'''
@@ -184,6 +184,48 @@ class SaidaUpdateView(UpdateView):
     form_class = SaidaModelForm
     success_url = reverse_lazy('saida-list')
 
+    def form_valid(self, form):
+        saida = form.save(commit=False)
+        # Verifica se a saída já existe
+        saida_existente = Saida.objects.filter(
+            descricao=saida.descricao,
+            valor=saida.valor,
+            data=saida.data,
+            conta=saida.conta,
+            tipo_pagamento=saida.tipo_pagamento,
+            situacao=saida.situacao
+        ).exclude(pk=saida.pk)
+
+        saldo_inicial = saida.conta.saldo_atual + self.get_object().valor
+        print(saida.conta.saldo_atual)
+        print(self.get_object().valor)
+        novo_saldo = saldo_inicial - saida.valor
+        context = self.get_context_data(form=form)
+        context['saldo_negativo'] = False
+        context['duplicate_warning'] = False
+
+        # Verifica as condições de duplicidade e saldo negativo
+        if saida_existente.exists():
+            context['duplicate_warning'] = True
+        if saida.situacao == "PG" and novo_saldo < 0:
+            context['saldo_negativo'] = True
+
+        # Lógica para lidar com confirmações
+        if context['duplicate_warning'] and self.request.POST.get('confirm_duplicate') != 'true':
+            return self.render_to_response(context)
+
+        if context['saldo_negativo'] and self.request.POST.get('confirm_saldo_negativo') != 'true':
+            return self.render_to_response(context)
+
+        # Atualiza o saldo se a situação for "PG"
+        if saida.situacao == "PG":
+            saida.conta.saldo_atual = novo_saldo
+
+        # Salva a saída e a conta
+        saida.save()
+        saida.conta.save()
+        return super().form_valid(form)
+
 
 class SaidaDeleteView(DeleteView):
     '''EXCLUSÃO DE UMA SAÍDA'''
@@ -220,8 +262,8 @@ class DashboardView(TemplateView):
         mes = self.request.GET.get('mes', timezone.now().month)
         ano = timezone.now().year  # você pode querer adicionar uma opção para o ano
 
-        entradas = Entrada.objects.filter(data__month=mes, data__year=ano)
-        saidas = Saida.objects.filter(data__month=mes, data__year=ano)
+        entradas = Entrada.objects.filter(data__month=mes, data__year=ano).order_by('data')
+        saidas = Saida.objects.filter(data__month=mes, data__year=ano).order_by('data')
         contas = ContaBancaria.objects.all()
 
         context['entradas'] = entradas

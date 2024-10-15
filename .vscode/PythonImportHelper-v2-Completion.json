@@ -1941,7 +1941,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class SaidaListView(ListView):\n    '''LISTAGEM DE SAÍDAS'''\n    model = Saida\n    template_name = 'saida/saida_list.html'\n    context_object_name = 'saidas'\nclass SaidaDetailView(DetailView):\n    '''DETALHES DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_detail.html'\n    context_object_name = 'saida'",
+        "peekOfCode": "class SaidaListView(ListView):\n    '''LISTAGEM DE SAÍDAS'''\n    model = Saida\n    template_name = 'saida/saida_list.html'\n    context_object_name = 'saidas'\n    ordering = ['data']\nclass SaidaDetailView(DetailView):\n    '''DETALHES DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_detail.html'",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
@@ -1968,7 +1968,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class SaidaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_form.html'\n    form_class = SaidaModelForm\n    success_url = reverse_lazy('saida-list')\nclass SaidaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_confirm_delete.html'",
+        "peekOfCode": "class SaidaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_form.html'\n    form_class = SaidaModelForm\n    success_url = reverse_lazy('saida-list')\n    def form_valid(self, form):\n        saida = form.save(commit=False)\n        # Verifica se a saída já existe\n        saida_existente = Saida.objects.filter(",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
@@ -1986,7 +1986,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class DashboardView(TemplateView):\n    template_name = 'dashboard.html'\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Pega o mês do GET, se não houver, usa o mês atual\n        mes = self.request.GET.get('mes', timezone.now().month)\n        ano = timezone.now().year  # você pode querer adicionar uma opção para o ano\n        entradas = Entrada.objects.filter(data__month=mes, data__year=ano)\n        saidas = Saida.objects.filter(data__month=mes, data__year=ano)\n        contas = ContaBancaria.objects.all()",
+        "peekOfCode": "class DashboardView(TemplateView):\n    template_name = 'dashboard.html'\n    def get_context_data(self, **kwargs):\n        context = super().get_context_data(**kwargs)\n        # Pega o mês do GET, se não houver, usa o mês atual\n        mes = self.request.GET.get('mes', timezone.now().month)\n        ano = timezone.now().year  # você pode querer adicionar uma opção para o ano\n        entradas = Entrada.objects.filter(data__month=mes, data__year=ano).order_by('data')\n        saidas = Saida.objects.filter(data__month=mes, data__year=ano).order_by('data')\n        contas = ContaBancaria.objects.all()",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
