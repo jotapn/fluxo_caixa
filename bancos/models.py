@@ -25,7 +25,6 @@ class ContaBancaria(models.Model):
     conta = models.CharField(max_length=20)
     agencia = models.CharField(max_length=20)
     gerente = models.CharField(max_length=200, null=True, blank=True)
-
     saldo_inicial = models.DecimalField(max_digits=12, decimal_places=2)
     saldo_atual = models.DecimalField(max_digits=12,decimal_places=2, null=True, blank=True,auto_created=True, default=0)
     status = models.CharField(max_length=10, choices=STATUS, default="AT")

@@ -1,50 +1,28 @@
 from django.db import models
 
-STATUS = (
-    ("AT", "Ativo"),
-    ("IN", "Inativo")
-)
+class Status(models.TextChoices):
+    ATIVO = 'AT', "Ativo"
+    INATIVO = 'IN', "Inativo"
 
-class TipoPagamento(models.Model):
+class Operacoes(models.Model):
     nome = models.CharField(max_length=100, unique=True)
-    status = models.CharField(max_length=10, choices=STATUS, default="AT")
-    
+    descricao = models.TextField(blank=True, null=True)
+    status = models.CharField(max_length=2,
+                                choices=Status.choices, 
+                                default=Status.ATIVO)
+
     def __str__(self) -> str:
         return self.nome
 
     @property
     def status_formatado(self):
-        for id, descricao in STATUS:
-            if self.status == id:
-                return descricao
-            return self.status
-    
-class TipoDespesa(models.Model):
-    nome = models.CharField(max_length=100, unique=True)
-    status = models.CharField(max_length=10, choices=STATUS, default="AT")
-    
-    def __str__(self) -> str:
-        return self.nome
-    
-    @property
-    def status_formatado(self):
-        for id, descricao in STATUS:
-            if self.status == id:
-                return descricao
-            return self.status
+        return dict(Status.choices).get(self.status, self.status)
 
+class TipoPagamento(Operacoes): 
+    ...
 
-class TipoReceita(models.Model):
-    nome = models.CharField(max_length=100, unique=True)
-    status = models.CharField(max_length=10, choices=STATUS, default="AT")
-    
-    def __str__(self) -> str:
-        return self.nome
-    
-    @property
-    def status_formatado(self):
-        for id, descricao in STATUS:
-            if self.status == id:
-                return descricao
-            return self.status
-    
+class TipoDespesa(Operacoes):
+    ...
+
+class TipoReceita(Operacoes):
+    ...

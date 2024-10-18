@@ -16,6 +16,11 @@ class ContaBancariaModelForm(forms.ModelForm):
             'saldo_inicial': forms.NumberInput(attrs={'placeholder':'0,00'}),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Filtrar para exibir apenas os bancos ativos
+        self.fields['banco'].queryset = Banco.objects.filter(status='AT')
+
 class ContaBancariaUpdateModelForm(forms.ModelForm):
     class Meta:
         model = ContaBancaria

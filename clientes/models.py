@@ -5,7 +5,6 @@ class Cliente(models.Model):
         ('pf', "Pessoa física"),
         ('pj', "Pessoa jurídica"),
     )
-
     nome_fantasia = models.CharField(max_length=80)
     razao_social = models.CharField(max_length=80)
     tipo_pessoa = models.CharField(max_length=20,choices=PESSOA, null=True, blank=True)

@@ -8,44 +8,39 @@ SITUACAO = (
     ("PG", "Pago"),
     ("AP", "A pagar")
 )
+class Situacao(models.TextChoices):
+    PAGO = 'PG', "Pago"
+    A_PAGAR = 'AP', "A pagar"
 
-
-class Entrada(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)
+class Movimentacoes(models.Model):
     descricao = models.CharField(max_length=200, null=True, blank=True)
     valor = models.DecimalField(max_digits=12, decimal_places=2)
     data = models.DateField()
     conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)
     tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='pagamentos')
-    tipo_receita = models.ForeignKey(TipoReceita, on_delete=models.PROTECT, related_name='receitas', null=True)
     situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')
 
-    def __str__(self):
-        return f'Entrada: {self.valor} - {self.descricao}'
-    
     @property
     def valor_formatado(self):
         return f"R$ {self.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
-    
+
     @property
     def situacao_formatado(self):
-        for sigla, descricao in SITUACAO:
-            if self.situacao == sigla:
-                return descricao
-        return self.situacao  # Retorna a sigla se não encontrar
-    
+        return dict(Situacao.choices).get(self.situacao, self.situacao)
+
     class Meta:
         ordering= ['-data']
 
+class Entrada(Movimentacoes):
+    tipo_receita = models.ForeignKey(TipoReceita, on_delete=models.PROTECT, related_name='receitas', null=True)
+    cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, default=None)
 
-class Saida(models.Model):
-    tipo_despesa = models.ForeignKey(TipoDespesa, on_delete=models.PROTECT,related_name='despesas_saida')
-    descricao = models.CharField(max_length=200, null=True, blank=True)
-    valor = models.DecimalField(max_digits=12, decimal_places=2)
-    data = models.DateField()
-    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT, null=True, blank=True)
-    tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='saidas')
-    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')
+    def __str__(self):
+        return f'Entrada: {self.valor} - {self.descricao}'
+
+
+class Saida(Movimentacoes):
+    tipo_despesa = models.ForeignKey(TipoDespesa, on_delete=models.PROTECT,related_name='despesas')
 
     def __str__(self):
         return f'Saída: {self.valor} - {self.descricao}'
@@ -70,17 +65,3 @@ class Saida(models.Model):
     #         conta = self.conta
     #         conta.saldo_atual += valor
     #         conta.save()
-
-    @property
-    def valor_formatado(self):
-        return f"R$ {self.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
-    
-    @property
-    def situacao_formatado(self):
-        for sigla, descricao in SITUACAO:
-            if self.situacao == sigla:
-                return descricao
-        return self.situacao  # Retorna a sigla se não encontrar
-    
-    class Meta:
-        ordering= ['-data']

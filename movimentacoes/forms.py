@@ -1,8 +1,8 @@
 from django import forms
+from django.utils.timezone import now, datetime
 from .models import Entrada, Saida
-from datetime import date, datetime
-from django.utils.timezone import now
-
+from bancos.models import ContaBancaria
+from operacoes.models import TipoDespesa, TipoPagamento, TipoReceita
 
 class EntradaModelForm(forms.ModelForm):
     data = forms.DateField(
@@ -18,6 +18,13 @@ class EntradaModelForm(forms.ModelForm):
             'data': forms.DateInput(attrs={'type': 'date'}),
             'valor': forms.NumberInput(attrs={'placeholder':'0,00'}),
         }
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Filtrar para exibir apenas os bancos ativos
+        self.fields['conta'].queryset = ContaBancaria.objects.filter(status='AT')
+        self.fields['tipo_pagamento'].queryset = TipoPagamento.objects.filter(status='AT')
+        self.fields['tipo_receita'].queryset = TipoReceita.objects.filter(status='AT')
 
 class SaidaModelForm(forms.ModelForm):
     data = forms.DateField(
@@ -34,3 +41,8 @@ class SaidaModelForm(forms.ModelForm):
             'valor': forms.NumberInput(attrs={'placeholder':'0,00'}),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['conta'].queryset = ContaBancaria.objects.filter(status='AT')
+        self.fields['tipo_pagamento'].queryset = TipoPagamento.objects.filter(status='AT')
+        self.fields['tipo_despesa'].queryset = TipoDespesa.objects.filter(status='AT')
