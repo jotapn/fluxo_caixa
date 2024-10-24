@@ -1517,7 +1517,7 @@
         "kind": 6,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "class Situacao(models.TextChoices):\n    PAGO = 'PG', \"Pago\"\n    A_PAGAR = 'AP', \"A pagar\"\nclass Movimentacoes(models.Model):\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField()\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='pagamentos')\n    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')",
+        "peekOfCode": "class Situacao(models.TextChoices):\n    PAGO = 'PG', \"Pago\"\n    A_PAGAR = 'AP', \"A pagar\"\nclass Movimentacoes(models.Model):\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField()\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='pagamentos')\n    situacao = models.CharField(max_length=2, choices=Situacao.choices, default=Situacao.A_PAGAR)",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -1526,7 +1526,7 @@
         "kind": 6,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "class Movimentacoes(models.Model):\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField()\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='pagamentos')\n    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')\n    @property\n    def valor_formatado(self):\n        return f\"R$ {self.valor:,.2f}\".replace(',', 'X').replace('.', ',').replace('X', '.')",
+        "peekOfCode": "class Movimentacoes(models.Model):\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField()\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='pagamentos')\n    situacao = models.CharField(max_length=2, choices=Situacao.choices, default=Situacao.A_PAGAR)\n    @property\n    def valor_formatado(self):\n        return f\"R$ {self.valor:,.2f}\".replace(',', 'X').replace('.', ',').replace('X', '.')",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -1545,15 +1545,6 @@
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
         "peekOfCode": "class Saida(Movimentacoes):\n    tipo_despesa = models.ForeignKey(TipoDespesa, on_delete=models.PROTECT,related_name='despesas')\n    def __str__(self):\n        return f'Saída: {self.valor} - {self.descricao}'\n    # def save(self, *args, **kwargs):\n    #     # Verifica se a saída é nova (ou seja, ainda não tem um ID) ou se a situação mudou para 'Pago'\n    #     if self.pk is None or Saida.objects.get(pk=self.pk).situacao != 'PG':\n    #         # Se a situação é \"PG\" (Pago), diminui o valor no saldo atual da conta\n    #         if self.situacao == 'PG':\n    #             self.conta.saldo_atual -= self.valor",
-        "detail": "movimentacoes.models",
-        "documentation": {}
-    },
-    {
-        "label": "SITUACAO",
-        "kind": 5,
-        "importPath": "movimentacoes.models",
-        "description": "movimentacoes.models",
-        "peekOfCode": "SITUACAO = (\n    (\"PG\", \"Pago\"),\n    (\"AP\", \"A pagar\")\n)\nclass Situacao(models.TextChoices):\n    PAGO = 'PG', \"Pago\"\n    A_PAGAR = 'AP', \"A pagar\"\nclass Movimentacoes(models.Model):\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)",
         "detail": "movimentacoes.models",
         "documentation": {}
     },

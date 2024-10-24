@@ -16,4 +16,4 @@ validate-docbr = "==1.10.0"
 [dev-packages]
 
 [requires]
-python_version = "3.12"
+python_version = "3.13"

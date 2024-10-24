@@ -4,10 +4,7 @@ from bancos.models import ContaBancaria
 from clientes.models import Cliente
 from operacoes.models import TipoReceita, TipoDespesa, TipoPagamento
 
-SITUACAO = (
-    ("PG", "Pago"),
-    ("AP", "A pagar")
-)
+
 class Situacao(models.TextChoices):
     PAGO = 'PG', "Pago"
     A_PAGAR = 'AP', "A pagar"
@@ -18,7 +15,7 @@ class Movimentacoes(models.Model):
     data = models.DateField()
     conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)
     tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='pagamentos')
-    situacao = models.CharField(max_length=2, choices=SITUACAO, default='AP')
+    situacao = models.CharField(max_length=2, choices=Situacao.choices, default=Situacao.A_PAGAR)
 
     @property
     def valor_formatado(self):
