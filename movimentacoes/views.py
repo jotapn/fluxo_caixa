@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.contrib.messages import constants
-from django.http import HttpRequest, HttpResponse
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect
@@ -35,6 +34,7 @@ class EntradaCreateView(CreateView):
     def form_valid(self, form):
         # Salvar a entrada primeiro
         entrada = form.save(commit=False)
+
         entradas_existentes = Entrada.objects.filter(
             descricao=entrada.descricao,
             valor=entrada.valor,
@@ -49,13 +49,7 @@ class EntradaCreateView(CreateView):
                 context['duplicate_warning'] = True
                 return self.render_to_response(context)
 
-
-        # Atualizar o saldo da conta bancária
-        if entrada.situacao == "PG":
-            entrada.conta.saldo_atual += entrada.valor
-        
         entrada.save()  # Salvar a entrada
-        entrada.conta.save()  # Atualizar o saldo da conta bancária
         return super().form_valid(form)
 
 
@@ -66,27 +60,6 @@ class EntradaUpdateView(UpdateView):
     form_class = EntradaModelForm
     success_url = reverse_lazy('entrada-list')
 
-    def form_valid(self, form):
-        # Obter a entrada antiga para comparar os valores anteriores
-        entrada_antiga = Entrada.objects.get(pk=self.object.pk)
-        entrada_nova = form.save(commit=False)
-
-        conta_bancaria = entrada_nova.conta
-        
-        # Se a entrada antiga já estava "paga", subtrair o valor antigo do saldo
-        if entrada_antiga.situacao == "PG":
-            conta_bancaria.saldo_atual -= entrada_antiga.valor
-
-        # Se a nova entrada também está "paga", adicionar o novo valor ao saldo
-        if entrada_nova.situacao == "PG":
-            conta_bancaria.saldo_atual += entrada_nova.valor
-
-        # Salvar a entrada e a conta bancária
-        entrada_nova.save()
-        conta_bancaria.save()
-
-        return super().form_valid(form)
-
 
 class EntradaDeleteView(DeleteView):
     '''EXCLUSÃO DE UMA ENTRADA'''
@@ -96,22 +69,11 @@ class EntradaDeleteView(DeleteView):
     
     def post(self, request, pk):
         entrada = get_object_or_404(Entrada, pk=pk)
-
-        conta_bancaria = entrada.conta
-
-        # Subtrai o valor da entrada do saldo atual da conta bancária
-        if entrada.situacao == 'PG':
-            conta_bancaria.saldo_atual -= entrada.valor
-            conta_bancaria.save()
-
-        # Exclui a entrada
         entrada.delete()
-
         # Mensagem de sucesso
         messages.add_message(request,constants.SUCCESS, 'Entrada excluída com sucesso e saldo ajustado.')
-
         # Redireciona para a página de listagem
-        return redirect('entrada-list')
+        return redirect(self.success_url)
 
 ##### CRUD DE SAÍDAS ######
 class SaidaListView(ListView):
@@ -147,7 +109,7 @@ class SaidaCreateView(CreateView):
             situacao=saida.situacao
         )
 
-        novo_saldo = saida.conta.saldo_atual - saida.valor
+        novo_saldo = saida.conta.saldo_atual - saida.valor if saida.situacao == "PG" else saida.conta.saldo_atual
         context = self.get_context_data(form=form)
         context['saldo_negativo'] = False
         context['duplicate_warning'] = False
@@ -165,13 +127,6 @@ class SaidaCreateView(CreateView):
         if context['saldo_negativo'] and self.request.POST.get('confirm_saldo_negativo') != 'true':
             return self.render_to_response(context)
 
-        # Atualiza o saldo se a situação for "PG"
-        if saida.situacao == "PG":
-            saida.conta.saldo_atual = novo_saldo
-
-        # Salva a saída e a conta
-        saida.save()
-        saida.conta.save()
         return super().form_valid(form)
     
 
@@ -196,10 +151,6 @@ class SaidaUpdateView(UpdateView):
             situacao=saida.situacao
         ).exclude(pk=saida.pk)
 
-        saldo_inicial = saida.conta.saldo_atual + self.get_object().valor
-        print(saida.conta.saldo_atual)
-        print(self.get_object().valor)
-        novo_saldo = saldo_inicial - saida.valor
         context = self.get_context_data(form=form)
         context['saldo_negativo'] = False
         context['duplicate_warning'] = False
@@ -207,7 +158,8 @@ class SaidaUpdateView(UpdateView):
         # Verifica as condições de duplicidade e saldo negativo
         if saida_existente.exists():
             context['duplicate_warning'] = True
-        if saida.situacao == "PG" and novo_saldo < 0:
+
+        if saida.situacao == "PG" and saida.conta.saldo_atual - saida.valor < 0:
             context['saldo_negativo'] = True
 
         # Lógica para lidar com confirmações
@@ -217,13 +169,6 @@ class SaidaUpdateView(UpdateView):
         if context['saldo_negativo'] and self.request.POST.get('confirm_saldo_negativo') != 'true':
             return self.render_to_response(context)
 
-        # Atualiza o saldo se a situação for "PG"
-        if saida.situacao == "PG":
-            saida.conta.saldo_atual = novo_saldo
-
-        # Salva a saída e a conta
-        saida.save()
-        saida.conta.save()
         return super().form_valid(form)
 
 
@@ -235,22 +180,12 @@ class SaidaDeleteView(DeleteView):
     
     def post(self, request, pk):
         saida = get_object_or_404(Saida, pk=pk)
-
-        conta_bancaria = saida.conta
-
-        # Subtrai o valor da saida do saldo atual da conta bancária
-        if saida.situacao == "PG":
-            conta_bancaria.saldo_atual += saida.valor
-            conta_bancaria.save()
-
-        # Exclui a entrada
         saida.delete()
-
         # Mensagem de sucesso
         messages.add_message(request,constants.SUCCESS, 'Saída excluída com sucesso e saldo ajustado.')
 
         # Redireciona para a página de listagem
-        return redirect('saida-list')
+        return redirect(self.success_url)
 
 class DashboardView(TemplateView):
     template_name = 'dashboard.html'

@@ -1,5 +1,4 @@
-from django.db import models
-from django.db import transaction
+from django.db import models, transaction
 from bancos.models import ContaBancaria
 from clientes.models import Cliente
 from operacoes.models import TipoReceita, TipoDespesa, TipoPagamento
@@ -17,6 +16,41 @@ class Movimentacoes(models.Model):
     tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='pagamentos')
     situacao = models.CharField(max_length=2, choices=Situacao.choices, default=Situacao.A_PAGAR)
 
+    class Meta:
+        ordering = ['-data']
+
+    def ajustar_saldo_conta(self, sinal):
+        """Ajusta o saldo da conta de acordo com o valor e o sinal"""
+        if sinal == "-":
+            self.conta.saldo_atual -= self.valor
+        elif sinal == "+":
+            self.conta.saldo_atual += self.valor
+        self.conta.save()
+
+    @transaction.atomic
+    def save(self, *args, **kwargs):
+        ''' Verifica se é uma nova movimentação ou se a situação foi alterada para "Pago" '''
+        if self.pk is None or self.__class__.objects.get(pk=self.pk).situacao != Situacao.PAGO:
+            # Ajusta o saldo da conta apenas se a situação for 'Pago'
+            if self.situacao == Situacao.PAGO:
+                sinal = "+" if isinstance(self, Entrada) else "-"
+                self.ajustar_saldo_conta(sinal)
+        
+        elif self.situacao == Situacao.A_PAGAR:
+            sinal = "-" if isinstance(self, Entrada) else "+"
+            self.ajustar_saldo_conta(sinal)
+
+
+        super().save(*args, **kwargs)
+
+    @transaction.atomic
+    def delete(self, *args, **kwargs):
+        if self.situacao == Situacao.PAGO:
+            '''Atualizar o saldo da conta bancária associada caso seja uma movimentação paga'''
+            sinal = "-" if isinstance(self, Entrada) else "+"
+            self.ajustar_saldo_conta(sinal)
+        super().delete(*args, **kwargs)  # Excluir a Movimentaçao
+
     @property
     def valor_formatado(self):
         return f"R$ {self.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
@@ -24,9 +58,6 @@ class Movimentacoes(models.Model):
     @property
     def situacao_formatado(self):
         return dict(Situacao.choices).get(self.situacao, self.situacao)
-
-    class Meta:
-        ordering= ['-data']
 
 class Entrada(Movimentacoes):
     tipo_receita = models.ForeignKey(TipoReceita, on_delete=models.PROTECT, related_name='receitas', null=True)
@@ -42,23 +73,3 @@ class Saida(Movimentacoes):
     def __str__(self):
         return f'Saída: {self.valor} - {self.descricao}'
     
-    # def save(self, *args, **kwargs):
-    #     # Verifica se a saída é nova (ou seja, ainda não tem um ID) ou se a situação mudou para 'Pago'
-    #     if self.pk is None or Saida.objects.get(pk=self.pk).situacao != 'PG':
-    #         # Se a situação é "PG" (Pago), diminui o valor no saldo atual da conta
-    #         if self.situacao == 'PG':
-    #             self.conta.saldo_atual -= self.valor
-    #             self.conta.save()
-        
-    #     super(Saida, self).save(*args, **kwargs)
-    
-    # def delete(self, *args, **kwargs):
-    #     with transaction.atomic():
-    #         # Primeiro, buscar a saída para saber o valor a ser adicionado ao saldo
-    #         valor = self.valor
-    #         super().delete(*args, **kwargs)  # Excluir a entrada
-
-    #         # Atualizar o saldo da conta bancária associada
-    #         conta = self.conta
-    #         conta.saldo_atual += valor
-    #         conta.save()

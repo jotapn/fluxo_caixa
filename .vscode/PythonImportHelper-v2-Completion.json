@@ -850,22 +850,6 @@
         "documentation": {}
     },
     {
-        "label": "HttpRequest",
-        "importPath": "django.http",
-        "description": "django.http",
-        "isExtraImport": true,
-        "detail": "django.http",
-        "documentation": {}
-    },
-    {
-        "label": "HttpResponse",
-        "importPath": "django.http",
-        "description": "django.http",
-        "isExtraImport": true,
-        "detail": "django.http",
-        "documentation": {}
-    },
-    {
         "label": "timezone",
         "importPath": "django.utils",
         "description": "django.utils",
@@ -1526,7 +1510,7 @@
         "kind": 6,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "class Movimentacoes(models.Model):\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField()\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='pagamentos')\n    situacao = models.CharField(max_length=2, choices=Situacao.choices, default=Situacao.A_PAGAR)\n    @property\n    def valor_formatado(self):\n        return f\"R$ {self.valor:,.2f}\".replace(',', 'X').replace('.', ',').replace('X', '.')",
+        "peekOfCode": "class Movimentacoes(models.Model):\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField()\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='pagamentos')\n    situacao = models.CharField(max_length=2, choices=Situacao.choices, default=Situacao.A_PAGAR)\n    class Meta:\n        ordering = ['-data']\n    def ajustar_saldo_conta(self, sinal):",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -1535,7 +1519,7 @@
         "kind": 6,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "class Entrada(Movimentacoes):\n    tipo_receita = models.ForeignKey(TipoReceita, on_delete=models.PROTECT, related_name='receitas', null=True)\n    cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, default=None)\n    def __str__(self):\n        return f'Entrada: {self.valor} - {self.descricao}'\nclass Saida(Movimentacoes):\n    tipo_despesa = models.ForeignKey(TipoDespesa, on_delete=models.PROTECT,related_name='despesas')\n    def __str__(self):\n        return f'Saída: {self.valor} - {self.descricao}'\n    # def save(self, *args, **kwargs):",
+        "peekOfCode": "class Entrada(Movimentacoes):\n    tipo_receita = models.ForeignKey(TipoReceita, on_delete=models.PROTECT, related_name='receitas', null=True)\n    cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT, default=None)\n    def __str__(self):\n        return f'Entrada: {self.valor} - {self.descricao}'\nclass Saida(Movimentacoes):\n    tipo_despesa = models.ForeignKey(TipoDespesa, on_delete=models.PROTECT,related_name='despesas')\n    def __str__(self):\n        return f'Saída: {self.valor} - {self.descricao}'",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -1544,7 +1528,7 @@
         "kind": 6,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "class Saida(Movimentacoes):\n    tipo_despesa = models.ForeignKey(TipoDespesa, on_delete=models.PROTECT,related_name='despesas')\n    def __str__(self):\n        return f'Saída: {self.valor} - {self.descricao}'\n    # def save(self, *args, **kwargs):\n    #     # Verifica se a saída é nova (ou seja, ainda não tem um ID) ou se a situação mudou para 'Pago'\n    #     if self.pk is None or Saida.objects.get(pk=self.pk).situacao != 'PG':\n    #         # Se a situação é \"PG\" (Pago), diminui o valor no saldo atual da conta\n    #         if self.situacao == 'PG':\n    #             self.conta.saldo_atual -= self.valor",
+        "peekOfCode": "class Saida(Movimentacoes):\n    tipo_despesa = models.ForeignKey(TipoDespesa, on_delete=models.PROTECT,related_name='despesas')\n    def __str__(self):\n        return f'Saída: {self.valor} - {self.descricao}'",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -1589,7 +1573,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class EntradaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_form.html'\n    form_class = EntradaModelForm\n    success_url = reverse_lazy('entrada-list')\n    def form_valid(self, form):\n        # Obter a entrada antiga para comparar os valores anteriores\n        entrada_antiga = Entrada.objects.get(pk=self.object.pk)\n        entrada_nova = form.save(commit=False)",
+        "peekOfCode": "class EntradaUpdateView(UpdateView):\n    '''ATUALIZAÇÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_form.html'\n    form_class = EntradaModelForm\n    success_url = reverse_lazy('entrada-list')\nclass EntradaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_confirm_delete.html'",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
@@ -1598,7 +1582,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class EntradaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_confirm_delete.html'\n    success_url = reverse_lazy('entrada-list')\n    def post(self, request, pk):\n        entrada = get_object_or_404(Entrada, pk=pk)\n        conta_bancaria = entrada.conta\n        # Subtrai o valor da entrada do saldo atual da conta bancária\n        if entrada.situacao == 'PG':",
+        "peekOfCode": "class EntradaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA ENTRADA'''\n    model = Entrada\n    template_name = 'entrada/entrada_confirm_delete.html'\n    success_url = reverse_lazy('entrada-list')\n    def post(self, request, pk):\n        entrada = get_object_or_404(Entrada, pk=pk)\n        entrada.delete()\n        # Mensagem de sucesso\n        messages.add_message(request,constants.SUCCESS, 'Entrada excluída com sucesso e saldo ajustado.')",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
@@ -1643,7 +1627,7 @@
         "kind": 6,
         "importPath": "movimentacoes.views",
         "description": "movimentacoes.views",
-        "peekOfCode": "class SaidaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_confirm_delete.html'\n    success_url = reverse_lazy('saida-list')\n    def post(self, request, pk):\n        saida = get_object_or_404(Saida, pk=pk)\n        conta_bancaria = saida.conta\n        # Subtrai o valor da saida do saldo atual da conta bancária\n        if saida.situacao == \"PG\":",
+        "peekOfCode": "class SaidaDeleteView(DeleteView):\n    '''EXCLUSÃO DE UMA SAÍDA'''\n    model = Saida\n    template_name = 'saida/saida_confirm_delete.html'\n    success_url = reverse_lazy('saida-list')\n    def post(self, request, pk):\n        saida = get_object_or_404(Saida, pk=pk)\n        saida.delete()\n        # Mensagem de sucesso\n        messages.add_message(request,constants.SUCCESS, 'Saída excluída com sucesso e saldo ajustado.')",
         "detail": "movimentacoes.views",
         "documentation": {}
     },
