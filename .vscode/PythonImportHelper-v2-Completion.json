@@ -850,6 +850,22 @@
         "documentation": {}
     },
     {
+        "label": "deletar_movimentacao",
+        "importPath": "movimentacoes.services",
+        "description": "movimentacoes.services",
+        "isExtraImport": true,
+        "detail": "movimentacoes.services",
+        "documentation": {}
+    },
+    {
+        "label": "salvar_movimentacao",
+        "importPath": "movimentacoes.services",
+        "description": "movimentacoes.services",
+        "isExtraImport": true,
+        "detail": "movimentacoes.services",
+        "documentation": {}
+    },
+    {
         "label": "timezone",
         "importPath": "django.utils",
         "description": "django.utils",
@@ -1510,7 +1526,7 @@
         "kind": 6,
         "importPath": "movimentacoes.models",
         "description": "movimentacoes.models",
-        "peekOfCode": "class Movimentacoes(models.Model):\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField()\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='pagamentos')\n    situacao = models.CharField(max_length=2, choices=Situacao.choices, default=Situacao.A_PAGAR)\n    class Meta:\n        ordering = ['-data']\n    def ajustar_saldo_conta(self, sinal):",
+        "peekOfCode": "class Movimentacoes(models.Model):\n    descricao = models.CharField(max_length=200, null=True, blank=True)\n    valor = models.DecimalField(max_digits=12, decimal_places=2)\n    data = models.DateField()\n    conta = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)\n    tipo_pagamento = models.ForeignKey(TipoPagamento, on_delete=models.PROTECT, related_name='pagamentos')\n    situacao = models.CharField(max_length=2, choices=Situacao.choices, default=Situacao.A_PAGAR)\n    class Meta:\n        ordering = ['-data']\n    @transaction.atomic",
         "detail": "movimentacoes.models",
         "documentation": {}
     },
@@ -1530,6 +1546,33 @@
         "description": "movimentacoes.models",
         "peekOfCode": "class Saida(Movimentacoes):\n    tipo_despesa = models.ForeignKey(TipoDespesa, on_delete=models.PROTECT,related_name='despesas')\n    def __str__(self):\n        return f'Saída: {self.valor} - {self.descricao}'",
         "detail": "movimentacoes.models",
+        "documentation": {}
+    },
+    {
+        "label": "ajustar_saldo_conta",
+        "kind": 2,
+        "importPath": "movimentacoes.services",
+        "description": "movimentacoes.services",
+        "peekOfCode": "def ajustar_saldo_conta(instance, sinal):\n    \"\"\"Ajusta o saldo da conta baseado no valor e no sinal.\"\"\"\n    if sinal == \"-\":\n        instance.conta.saldo_atual -= instance.valor\n    elif sinal == \"+\":\n        instance.conta.saldo_atual += instance.valor\n    instance.conta.save()\ndef salvar_movimentacao(instance,situacao,  tipo_operacao):\n    \"\"\"Lógica de ajuste de saldo para salvar nova movimentação ou alteração de situação para 'Pago'.\"\"\"\n    if instance.pk is None or instance.__class__.objects.get(pk=instance.pk).situacao != situacao.PAGO:",
+        "detail": "movimentacoes.services",
+        "documentation": {}
+    },
+    {
+        "label": "salvar_movimentacao",
+        "kind": 2,
+        "importPath": "movimentacoes.services",
+        "description": "movimentacoes.services",
+        "peekOfCode": "def salvar_movimentacao(instance,situacao,  tipo_operacao):\n    \"\"\"Lógica de ajuste de saldo para salvar nova movimentação ou alteração de situação para 'Pago'.\"\"\"\n    if instance.pk is None or instance.__class__.objects.get(pk=instance.pk).situacao != situacao.PAGO:\n        # Ajusta o saldo se a situação for 'Pago'\n        if instance.situacao == situacao.PAGO:\n            sinal = \"+\" if tipo_operacao else \"-\"\n            ajustar_saldo_conta(instance, sinal)\n    elif instance.situacao == situacao.A_PAGAR:\n        sinal = \"-\" if tipo_operacao else \"+\"\n        ajustar_saldo_conta(instance, sinal)",
+        "detail": "movimentacoes.services",
+        "documentation": {}
+    },
+    {
+        "label": "deletar_movimentacao",
+        "kind": 2,
+        "importPath": "movimentacoes.services",
+        "description": "movimentacoes.services",
+        "peekOfCode": "def deletar_movimentacao(instance, situacao, tipo_operacao):\n    \"\"\"Lógica de ajuste de saldo para deletar movimentação paga.\"\"\"\n    if instance.situacao == situacao.PAGO:\n        sinal = \"-\" if tipo_operacao else \"+\"\n        ajustar_saldo_conta(instance, sinal)",
+        "detail": "movimentacoes.services",
         "documentation": {}
     },
     {
