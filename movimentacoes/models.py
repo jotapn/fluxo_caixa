@@ -2,6 +2,7 @@ from django.db import models, transaction
 from bancos.models import ContaBancaria
 from clientes.models import Cliente
 from operacoes.models import TipoReceita, TipoDespesa, TipoPagamento
+from movimentacoes.services import deletar_movimentacao, salvar_movimentacao
 
 
 class Situacao(models.TextChoices):
@@ -19,37 +20,17 @@ class Movimentacoes(models.Model):
     class Meta:
         ordering = ['-data']
 
-    def ajustar_saldo_conta(self, sinal):
-        """Ajusta o saldo da conta de acordo com o valor e o sinal"""
-        if sinal == "-":
-            self.conta.saldo_atual -= self.valor
-        elif sinal == "+":
-            self.conta.saldo_atual += self.valor
-        self.conta.save()
-
     @transaction.atomic
     def save(self, *args, **kwargs):
-        ''' Verifica se é uma nova movimentação ou se a situação foi alterada para "Pago" '''
-        if self.pk is None or self.__class__.objects.get(pk=self.pk).situacao != Situacao.PAGO:
-            # Ajusta o saldo da conta apenas se a situação for 'Pago'
-            if self.situacao == Situacao.PAGO:
-                sinal = "+" if isinstance(self, Entrada) else "-"
-                self.ajustar_saldo_conta(sinal)
-        
-        elif self.situacao == Situacao.A_PAGAR:
-            sinal = "-" if isinstance(self, Entrada) else "+"
-            self.ajustar_saldo_conta(sinal)
-
-
+        tipo_operacao = True if isinstance(self, Entrada) else False
+        salvar_movimentacao(self, Situacao, tipo_operacao)
         super().save(*args, **kwargs)
 
     @transaction.atomic
     def delete(self, *args, **kwargs):
-        if self.situacao == Situacao.PAGO:
-            '''Atualizar o saldo da conta bancária associada caso seja uma movimentação paga'''
-            sinal = "-" if isinstance(self, Entrada) else "+"
-            self.ajustar_saldo_conta(sinal)
-        super().delete(*args, **kwargs)  # Excluir a Movimentaçao
+        tipo_operacao = True if isinstance(self, Entrada) else False
+        deletar_movimentacao(self, Situacao, tipo_operacao)
+        super().delete(*args, **kwargs)
 
     @property
     def valor_formatado(self):
