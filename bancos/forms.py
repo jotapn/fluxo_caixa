@@ -10,7 +10,15 @@ class BancoModelForm(forms.ModelForm):
 class ContaBancariaModelForm(forms.ModelForm):
     class Meta:
         model = ContaBancaria
-        fields = '__all__'
+        fields = [
+            'banco',
+            'nome',
+            'conta',
+            'agencia',
+            'gerente',
+            'status',
+            'saldo_inicial',
+        ]
         widgets = {
             'saldo_atual': forms.NumberInput(attrs={"readonly":True}),
             'saldo_inicial': forms.NumberInput(attrs={'placeholder':'0,00'}),
@@ -24,10 +32,20 @@ class ContaBancariaModelForm(forms.ModelForm):
 class ContaBancariaUpdateModelForm(forms.ModelForm):
     class Meta:
         model = ContaBancaria
-        fields = '__all__'
+        fields = [
+            'banco',    # Inclua o campo Banco se necessário
+            'nome',
+            'conta',
+            'agencia',
+            'gerente',
+            'status',
+            # 'saldo_inicial',  # Não incluir este campo no formulário
+            # 'saldo_atual',    # Não incluir este campo no formulário
+        ]
         widgets = {
-            'saldo_atual': forms.NumberInput(attrs={"readonly":True}),
-            'saldo_inicial': forms.NumberInput(attrs={"readonly":True}),
+            # Se desejar, você pode manter widgets para os campos editáveis
+            'banco': forms.Select(attrs={"class": "form-control"}),
+            # Adicione outros widgets conforme necessário
         }
 
 class FiltroMovimentacaoForm(forms.Form):

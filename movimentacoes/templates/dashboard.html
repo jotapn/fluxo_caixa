@@ -12,6 +12,12 @@
         text-decoration: none;
         color: #000
     }
+
+     /* Efeito hover para a linha da tabela */
+    tbody tr:hover {
+        background-color: #e0f7fa; /* Escolha a cor que desejar */
+        transition: background-color 0.3s;
+    }
 </style>
 
 <div class="row">
@@ -48,8 +54,8 @@
             </thead>
             <tbody>
                 {% for banco in bancos %}
-                <tr>
-                    <td><a class="table" href={% url "conta_bancaria_detail" banco.pk %}>{{ banco.nome }}</a></td>
+                <tr onclick="window.location.href='{% url 'conta_bancaria_detail' banco.pk %}'" style="cursor: pointer;">
+                    <td>{{ banco.nome }}</td>
                     <td>{{ banco.saldo_atual_formatado }}</td>
                 </tr>
                 {% empty %}
@@ -73,7 +79,7 @@
             </thead>
             <tbody>
                 {% for entrada in entradas %}
-                <tr>
+                <tr onclick="window.location.href='{% url 'entrada-detail' entrada.pk %}'" style="cursor: pointer;">
                     <td>{{ entrada.cliente }}</td>
                     <td>{{ entrada.conta }}</td>
                     <td>{{ entrada.valor_formatado }}</td>
@@ -101,7 +107,7 @@
             </thead>
             <tbody>
                 {% for saida in saidas %}
-                <tr>
+                <tr onclick="window.location.href='{% url 'saida-detail' saida.pk %}'" style="cursor: pointer;">
                     <td>{{ saida.tipo_despesa }}</td>
                     <td>{{ saida.conta }}</td>
                     <td>{{ saida.valor_formatado }}</td>

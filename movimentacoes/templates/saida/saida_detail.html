@@ -11,6 +11,7 @@
     <p><strong>Tipo de Pagamento:</strong> {{ saida.tipo_pagamento }}</p>
     <p><strong>Situação:</strong> {{ saida.situacao_legivel }}</p>
     <a href="{% url 'saida-update' saida.id %}" class="btn btn-warning">Editar</a>
-    <a href="{% url 'saida-list' %}" class="btn btn-secondary">Voltar</a>
+    <a href="{% if request.META.HTTP_REFERER %}{{ request.META.HTTP_REFERER }}{% else %}{% url 'saida-list' %}{% endif %}" class="btn btn-secondary">Voltar</a>
+
 </div>
 {% endblock %}

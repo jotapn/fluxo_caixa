@@ -1,7 +1,7 @@
+import datetime
 from django.contrib import messages
 from django.contrib.messages import constants
 from django.urls import reverse_lazy
-from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 from bancos.models import ContaBancaria
@@ -16,7 +16,6 @@ class EntradaListView(ListView):
     template_name = 'entrada/entrada_list.html'
     context_object_name = 'entradas'
 
-# Detalhes de uma Entrada
 class EntradaDetailView(DetailView):
     '''DETALHAMENTO DE ENTRADAS'''
     model = Entrada
@@ -30,16 +29,17 @@ class EntradaCreateView(CreateView):
     form_class = EntradaModelForm
     success_url = reverse_lazy('entrada-list')
 
-
     def form_valid(self, form):
-        # Salvar a entrada primeiro
         entrada = form.save(commit=False)
 
         entradas_existentes = Entrada.objects.filter(
+            cliente=entrada.cliente,
             descricao=entrada.descricao,
             valor=entrada.valor,
             data=entrada.data,
-            cliente=entrada.cliente
+            conta=entrada.conta,
+            tipo_pagamento=entrada.tipo_pagamento,
+            situacao=entrada.situacao
         )
 
         if entradas_existentes.exists():
@@ -48,8 +48,9 @@ class EntradaCreateView(CreateView):
                 context = self.get_context_data(form=form)
                 context['duplicate_warning'] = True
                 return self.render_to_response(context)
-
-        entrada.save()  # Salvar a entrada
+            
+        messages.add_message(self.request, constants.SUCCESS, "Receita criada com sucesso")
+        entrada.save() 
         return super().form_valid(form)
 
 
@@ -59,7 +60,35 @@ class EntradaUpdateView(UpdateView):
     template_name = 'entrada/entrada_form.html'
     form_class = EntradaModelForm
     success_url = reverse_lazy('entrada-list')
+    
+    def form_valid(self, form):
+        entrada = form.save(commit=False)
 
+        # Verifica se a saída já existe
+        entrada_existente = Entrada.objects.filter(
+            cliente=entrada.cliente,
+            descricao=entrada.descricao,
+            valor=entrada.valor,
+            data=entrada.data,
+            conta=entrada.conta,
+            tipo_pagamento=entrada.tipo_pagamento,
+            situacao=entrada.situacao
+        )
+
+        context = self.get_context_data(form=form)
+        context['duplicate_warning'] = False
+
+        # Verifica as condições de duplicidade e saldo negativo
+        if entrada_existente.exists():
+            context['duplicate_warning'] = True
+
+        # Lógica para lidar com confirmações
+        if context['duplicate_warning'] and self.request.POST.get('confirm_duplicate') != 'true':
+            return self.render_to_response(context)
+
+        messages.add_message(self.request, constants.SUCCESS, "Receita editada com sucesso")
+        return super().form_valid(form)
+    
 
 class EntradaDeleteView(DeleteView):
     '''EXCLUSÃO DE UMA ENTRADA'''
@@ -71,7 +100,7 @@ class EntradaDeleteView(DeleteView):
         entrada = get_object_or_404(Entrada, pk=pk)
         entrada.delete()
         # Mensagem de sucesso
-        messages.add_message(request,constants.SUCCESS, 'Entrada excluída com sucesso e saldo ajustado.')
+        messages.add_message(request,constants.SUCCESS, 'Receita excluída com sucesso e saldo ajustado.')
         # Redireciona para a página de listagem
         return redirect(self.success_url)
 
@@ -127,6 +156,7 @@ class SaidaCreateView(CreateView):
         if context['saldo_negativo'] and self.request.POST.get('confirm_saldo_negativo') != 'true':
             return self.render_to_response(context)
 
+        messages.add_message(self.request, constants.SUCCESS, "Despesa criada com sucesso")
         return super().form_valid(form)
     
 
@@ -169,6 +199,7 @@ class SaidaUpdateView(UpdateView):
         if context['saldo_negativo'] and self.request.POST.get('confirm_saldo_negativo') != 'true':
             return self.render_to_response(context)
 
+        messages.add_message(self.request, constants.SUCCESS, "Despesa editada com sucesso")
         return super().form_valid(form)
 
 
@@ -182,7 +213,7 @@ class SaidaDeleteView(DeleteView):
         saida = get_object_or_404(Saida, pk=pk)
         saida.delete()
         # Mensagem de sucesso
-        messages.add_message(request,constants.SUCCESS, 'Saída excluída com sucesso e saldo ajustado.')
+        messages.add_message(request,constants.SUCCESS, 'Despesa excluída com sucesso e saldo ajustado.')
 
         # Redireciona para a página de listagem
         return redirect(self.success_url)
@@ -193,9 +224,9 @@ class DashboardView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Pega o mês do GET, se não houver, usa o mês atual
-        mes = self.request.GET.get('mes', timezone.now().month)
-        ano = timezone.now().year  # você pode querer adicionar uma opção para o ano
+        today = datetime.date.today()
+        mes = int(self.request.GET.get('mes', today.month))
+        ano = int(self.request.GET.get('ano', today.year))
 
         entradas = Entrada.objects.filter(data__month=mes, data__year=ano).order_by('data')
         saidas = Saida.objects.filter(data__month=mes, data__year=ano).order_by('data')

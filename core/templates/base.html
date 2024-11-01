@@ -108,15 +108,15 @@
         </ul>
     </div>
     <main>
-        {% if messages %}
-            {% for message in messages %}
-                <section class="alert {{message.tags}}">
-                    {{message}}
-
-                </section>
-            {% endfor %}
-        {% endif %}
         <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+                    <section class="alert {{message.tags}}" style="margin-top: 1em;">
+                        {{message}}
+                    </section>
+                {% endfor %}
+            {% endif %}
+
             {% block content %}
             {% endblock %}
         </div>

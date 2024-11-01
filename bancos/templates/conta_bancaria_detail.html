@@ -9,25 +9,21 @@
             Conta: {{ conta.nome }}
         </div>
         <div class="card-body">
-            <h5 class="card-title"><strong>Saldo Atual:</strong> R$ {{ conta.saldo_atual }}</h5>
-            <p class="card-text">Saldo Inicial: R$ {{ conta.saldo_inicial }}</p>
-            <p class="card-text">Status:
-                {% if conta.status == 'AT' %}
-                    Ativa
-                {% else %}
-                    Inativa
-                {% endif %}
-            </p>
+            <h5 class="card-title"><strong>Saldo Atual:</strong> {{ conta.saldo_atual_formatado }}</h5>
+            <p class="card-text">Saldo Inicial: {{ conta.saldo_inicial_formatado }}</p>
+            <p class="card-text">Status: {{ conta.status_formatado }}</p>
             <a href="{% url 'conta_bancaria_update' conta.pk %}" class="btn btn-primary">Editar</a>
             <a href="{% url 'conta_bancaria_delete' conta.pk %}" class="btn btn-danger">Excluir</a>
-            <a href="{% url 'conta_bancaria_list' %}" class="btn btn-secondary">Voltar</a>
+            <a href="{% if request.META.HTTP_REFERER %}{{ request.META.HTTP_REFERER }}{% else %}{% url 'conta_bancaria_list' %}{% endif %}" class="btn btn-secondary">Voltar</a>
         </div>
     </div>
 
     <!-- Gráfico de movimentações -->
-    <h3 class="mt-5">Gráfico de Movimentações</h3>
+    <h3 class="mt-5">Análise Financeira Geral por Mês</h3>
     <canvas id="movimentacoesChart"></canvas>
     
+
+    {% comment %} Tabela Movimentacoes {% endcomment %}
     <h2 class="mt-4">Movimentações Relacionadas</h2>
     <table class="table table-bordered">
         <thead>
@@ -48,7 +44,7 @@
                     {% else %}
                     <td>{{ operacao.descricao }}</td>
                     {% endif %}
-                    <td>R$ {{ operacao.valor }}</td>
+                    <td>{{ operacao.valor_formatado }}</td>
                     <td>
                         {% if operacao.tipo_despesa %}
                         Saída
@@ -75,38 +71,65 @@
     const labels = {{ labels|safe }};
     const entradas = {{ entradas|safe }};
     const saidas = {{ saidas|safe }};
+    const lp = {{ lp|safe }};
 
     const data = {
         labels: labels,
         datasets: [
             {
-                label: 'Entradas',
+                label: 'Lucro/Prejuízo',
+                data: lp,
+                backgroundColor: 'rgba(54, 162, 235)', // Cor para a linha do lucro/prejuízo
+                borderColor: 'rgba(54, 162, 235)', // Cor da linha
+                type: 'line', // Tipo de gráfico
+                tension: 0.2,
+                order: 0, // Ordem para que fique sobreposto às barras
+            },
+            {
+                label: 'Receitas',
                 data: entradas,
                 backgroundColor: 'rgba(75, 192, 192, 0.6)',
                 borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
+                borderWidth: 1,
+                
             },
             {
-                label: 'Saídas',
+                label: 'Despesas',
                 data: saidas,
                 backgroundColor: 'rgba(255, 99, 132, 0.6)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1
-            }
+            },
         ]
     };
 
     // Configurações do gráfico
     const config = {
-        type: 'bar', // ou 'line', 'pie', etc.
+        type: 'bar', // Tipo de gráfico principal
         data: data,
         options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+            animations: {
+                radius: {
+                  duration: 400,
+                  easing: 'easeOutQuad',
                 }
+            },
+            hoverRadius: 8,
+            interaction: {
+            mode: 'nearest',
+            intersect: true,
+            axis: 'y'
+            },
+            responsive: true,
+            plugins: {
+                tooltip: {
+                    enabled: true
+                },
+                legend: {
+                    position: 'top',
+                },
             }
-        }
+        },
     };
 
     // Inicializando o gráfico

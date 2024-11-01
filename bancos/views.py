@@ -52,27 +52,7 @@ class BancoDeleteView(DeleteView):
             messages.error(request, "Não é possível excluir este banco porque ele está relacionado a contas ativas.")
             return self.get(request, *args, **kwargs)
 
-
-class ContaBancariaUpdateView(UpdateView):
-    model = ContaBancaria
-    def form_valid(self, form):
-        try:
-            return super().form_valid(form)
-        except ValueError as e:
-            form.add_error('saldo_inicial', str(e))  # Adiciona erro ao campo de saldo inicial
-            return self.form_invalid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Editar Banco'
-        return context
-        
-class ContaBancariaListView(ListView):
-    '''LISTAGEM DE CONTAS BANCÁRIAS'''
-    model = ContaBancaria
-    template_name = 'conta_bancaria_list.html'
-    context_object_name = 'contas'
-    
+            
 class ContaBancariaCreateView(CreateView):
     '''CRIAÇÃO DE UMA CONTA BANCÁRIA'''
     model = ContaBancaria
@@ -90,6 +70,23 @@ class ContaBancariaCreateView(CreateView):
         cb.saldo_atual += cb.saldo_inicial
         return super().form_valid(form)
     
+class ContaBancariaListView(ListView):
+    '''LISTAGEM DE CONTAS BANCÁRIAS'''
+    model = ContaBancaria
+    template_name = 'conta_bancaria_list.html'
+    context_object_name = 'contas'
+
+
+class ContaBancariaUpdateView(UpdateView):
+    model = ContaBancaria
+    form_class = ContaBancariaUpdateModelForm
+    template_name = 'conta_bancaria_form.html'  # Substitua pelo caminho do seu template
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['operacao'] = 'update'
+        print(context)
+        return context
 
 class ContaBancariaDetailView(DetailView):
     '''DETALHAMENTO DE UMA CONTA BANCÁRIA'''
@@ -116,42 +113,34 @@ class ContaBancariaDetailView(DetailView):
 
             valores_por_data[data_formatada][tipo] += valor
 
-        # Ordenar por data
-        datas_ordenadas = sorted(valores_por_data.keys(), key=lambda x: datetime.strptime(x, "%d/%m/%Y"))
-
-        # Prepare os dados para o gráfico
-        context['labels'] = datas_ordenadas
-        context['entradas'] = [valores_por_data[data]['entrada'] for data in datas_ordenadas]
-        context['saidas'] = [valores_por_data[data]['saida'] for data in datas_ordenadas]
         context['movimentacoes'] = movimentacoes
 
+        # Prepare os dados para o gráfico (agregados por mês)
+        valores_por_mes = {}
+        for operacao in movimentacoes:
+            mes_ano = operacao.data.strftime("%m/%Y")  # Formatação do mês e ano
+            tipo = 'entrada' if not hasattr(operacao, 'tipo_despesa') else 'saida'
+            valor = float(operacao.valor)
+
+            if mes_ano not in valores_por_mes:
+                valores_por_mes[mes_ano] = {'entrada': 0, 'saida': 0}
+
+            valores_por_mes[mes_ano][tipo] += valor
+
+        # Ordenar por mês
+        meses_ordenados = sorted(valores_por_mes.keys(), key=lambda x: datetime.strptime(x, "%m/%Y"))
+
+        entradas = [valores_por_mes[mes]['entrada'] for mes in meses_ordenados]
+        saidas = [valores_por_mes[mes]['saida'] for mes in meses_ordenados]
+        lucro_prejuizo = [valores_por_mes[mes]['entrada'] - valores_por_mes[mes]['saida'] for mes in meses_ordenados]
+
+        # Prepare os dados para o gráfico
+        context['labels'] = meses_ordenados
+        context['entradas'] = entradas
+        context['saidas'] = saidas
+        context['lp'] = lucro_prejuizo
+
         return context
-
-class ContaBancariaUpdateView(UpdateView):
-    '''ATUALIZAÇÃO DE UMA CONTA BANCÁRIA'''
-    model = ContaBancaria
-    form_class = ContaBancariaUpdateModelForm
-    template_name = 'conta_bancaria_form.html'
-    success_url = reverse_lazy('conta_bancaria_list')
-
-    def form_valid(self, form):
-        cb = self.get_object()
-        saldo_inicial_antigo = cb.saldo_inicial
-        saldo_atual_antigo = cb.saldo_atual
-        nova_cb = form.save(commit=False)
-
-        if saldo_inicial_antigo != nova_cb.saldo_inicial:
-            form.add_error('saldo_inicial', "Não é permitido alterar o saldo inicial de uma conta já cadastrada.")
-            return self.form_invalid(form)
-        
-        if saldo_atual_antigo != nova_cb.saldo_atual:
-            form.add_error('saldo_atual', "Não é permitido alterar o saldo atual.")
-            return self.form_invalid(form)
-
-        
-        nova_cb.save()
-        return super().form_valid(form)
-    
 
 class ContaBancariaDeleteView(DeleteView):
     '''EXCLUSÃO DE UMA CONTA BANCÁRIA'''
