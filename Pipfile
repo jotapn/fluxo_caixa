@@ -12,6 +12,7 @@ python-dotenv = "==1.0.1"
 sqlparse = "==0.5.1"
 tzdata = "==2024.2"
 validate-docbr = "==1.10.0"
+celery = "*"
 
 [dev-packages]
 
