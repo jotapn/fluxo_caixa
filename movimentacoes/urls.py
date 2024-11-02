@@ -4,6 +4,8 @@ from .views import (
     SaidaListView, SaidaDetailView, SaidaCreateView, SaidaUpdateView, SaidaDeleteView, DashboardView
 )
 
+from . import views
+
 
 urlpatterns = [
     path('', DashboardView.as_view(), name='dashboard'),  # Tela inicial
@@ -21,4 +23,8 @@ urlpatterns = [
     path('saidas/nova/', SaidaCreateView.as_view(), name='saida-create'),
     path('saidas/<int:pk>/editar/', SaidaUpdateView.as_view(), name='saida-update'),
     path('saidas/<int:pk>/deletar/', SaidaDeleteView.as_view(), name='saida-delete'),
+
+    path('importar/entradas/', views.importar_entradas_view, name='importar_entradas'),
+    path('importar/saidas/', views.importar_saidas_view, name='importar_saidas'),
+    path('sucesso/', views.SucessoView.as_view(), name='sucesso'),
 ]

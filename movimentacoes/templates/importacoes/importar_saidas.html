@@ -1,0 +1,18 @@
+<!-- templates/importar_saidas.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Importar Saídas</title>
+</head>
+<body>
+    <h1>Importar Planilha de Saídas</h1>
+    <form action="{% url 'importar_saidas' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="file">Selecione o arquivo de saídas (.xlsx):</label>
+        <input type="file" id="file" name="file" accept=".xlsx" required>
+        <button type="submit">Importar</button>
+    </form>
+    <a href="{% url 'dashboard' %}">Voltar ao Dashboard</a>
+</body>
+</html>

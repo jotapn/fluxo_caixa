@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'clientes',
     'movimentacoes',
     'bancos',
-    'operacoes'
+    'operacoes',
 ]
 
 MIDDLEWARE = [
@@ -90,7 +90,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -150,3 +149,8 @@ MESSAGE_TAGS = {
     constants.INFO: 'alert-info',
     constants.WARNING: 'alert-warning',
 }
+
+# Celery Config
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost//'
+CELERY_RESULT_BACKEND = 'rpc://'
+CELERY_TIMEZONE = TIME_ZONE

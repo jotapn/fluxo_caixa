@@ -7,7 +7,9 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 from bancos.models import ContaBancaria
 from .models import Entrada, Saida
 from .forms import EntradaModelForm, SaidaModelForm
-
+from django.shortcuts import render, redirect
+from .tasks import importar_planilha_entradas, importar_planilha_saidas
+from django.core.files.storage import default_storage
 
 ##### CRUD DE ENTRADAS ######
 class EntradaListView(ListView):
@@ -244,3 +246,46 @@ class DashboardView(TemplateView):
         ]
 
         return context
+
+
+def importar_entradas_view(request):
+    if request.method == 'POST':
+        file = request.FILES['file']
+        file_path = f'/tmp/{file.name}'
+        
+        # Salva o arquivo temporariamente
+        with open(file_path, 'wb+') as destination:
+            for chunk in file.chunks():
+                destination.write(chunk)
+        
+        # Chama a task assíncrona
+        importar_entradas_task.delay(file_path)
+        
+        # Redireciona para a página de sucesso
+        messages.success(request, 'A importação de entradas foi iniciada e está sendo processada.')
+        return redirect('sucesso')
+
+    return render(request, 'importar_entradas.html')
+
+def importar_saidas_view(request):
+    if request.method == 'POST':
+        file = request.FILES['file']
+        file_path = f'/tmp/{file.name}'
+        
+        # Salva o arquivo temporariamente
+        with open(file_path, 'wb+') as destination:
+            for chunk in file.chunks():
+                destination.write(chunk)
+        
+        # Chama a task assíncrona
+        importar_saidas_task.delay(file_path)
+        
+        # Redireciona para a página de sucesso
+        messages.success(request, 'A importação de saídas foi iniciada e está sendo processada.')
+        return redirect('sucesso')
+
+    return render(request, 'importar_saidas.html')
+
+
+class SucessoView(TemplateView):
+    template_name = 'sucesso.html'
