@@ -8,7 +8,7 @@ from bancos.models import ContaBancaria
 from .models import Entrada, Saida
 from .forms import EntradaModelForm, SaidaModelForm
 from django.shortcuts import render, redirect
-from .tasks import importar_planilha_entradas, importar_planilha_saidas
+from .tasks import importar_entradas_task, importar_saidas_task
 from django.core.files.storage import default_storage
 
 ##### CRUD DE ENTRADAS ######
