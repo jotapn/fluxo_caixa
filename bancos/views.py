@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 from django.contrib import messages
 from django.db.models.deletion import ProtectedError
-from movimentacoes.models import Entrada, Saida
+from transacoes.models import Entrada, Saida
 from .models import Banco, ContaBancaria
 from .forms import BancoModelForm, ContaBancariaModelForm, ContaBancariaUpdateModelForm
 

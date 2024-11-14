@@ -265,7 +265,7 @@ def importar_entradas_view(request):
         messages.success(request, 'A importação de entradas foi iniciada e está sendo processada.')
         return redirect('sucesso')
 
-    return render(request, 'importar_entradas.html')
+    return render(request, 'importacoes/importar_entradas.html')
 
 def importar_saidas_view(request):
     if request.method == 'POST':
@@ -284,7 +284,7 @@ def importar_saidas_view(request):
         messages.success(request, 'A importação de saídas foi iniciada e está sendo processada.')
         return redirect('sucesso')
 
-    return render(request, 'importar_saidas.html')
+    return render(request, 'importacoes/importar_saidas.html')
 
 
 class SucessoView(TemplateView):
