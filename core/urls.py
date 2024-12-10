@@ -8,5 +8,5 @@ urlpatterns = [
     path('',include("transacoes.urls")),
     path('',include("bancos.urls")),
     path('operacoes/',include("operacoes.urls")),
-    # path('cadastro/',include("cadastro.urls")),
+    path('cadastro/',include("cadastro.urls")),
 ]

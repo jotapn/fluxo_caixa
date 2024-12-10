@@ -1,5 +1,6 @@
 from django import forms
 from .models import Cadastro, Endereco, Atributo
+from django.db import transaction
 
 class CadastroForm(forms.ModelForm):
     atributos = forms.ModelMultipleChoiceField(
@@ -23,9 +24,9 @@ class CadastroForm(forms.ModelForm):
     class Meta:
         model = Cadastro
         fields = [
+            'tipo_pessoa',
             'nome',
             'nome_fantasia',
-            'tipo_pessoa',
             'cnpj_cpf',
             'email',
             'telefone',
@@ -39,32 +40,40 @@ class CadastroForm(forms.ModelForm):
 
     def clean_cnpj_cpf(self):
         # Validação adicional para CPF/CNPJ
+        tipo_pessoa = self.cleaned_data.get('tipo_pessoa')
         cnpj_cpf = self.cleaned_data.get('cnpj_cpf')
         # A validação já foi implementada no modelo, mas podemos adicionar mensagens personalizadas aqui
-        if not cnpj_cpf:
-            raise forms.ValidationError("O campo CPF/CNPJ é obrigatório.")
+        if tipo_pessoa == 'ET' and not cnpj_cpf:
+            self.cleaned_data['cnpj_cpf'] = None
+        elif tipo_pessoa != "ET":
+            if not cnpj_cpf:
+                raise forms.ValidationError("O campo CPF/CNPJ é obrigatório.")
+
         return cnpj_cpf
 
     def save(self, commit=True):
-        # Salvando o endereço associado ao cadastro
-        instance = super().save(commit=False)
+        # Salvando o Cadastro e Endereço associados
+        with transaction.atomic():  # Garante que tudo seja salvo de forma atômica
+            instance = super().save(commit=False)
 
-        # Criar ou atualizar o endereço
-        endereco = Endereco(
-            cep=self.cleaned_data.get('cep'),
-            logradouro=self.cleaned_data.get('logradouro'),
-            numero=self.cleaned_data.get('numero'),
-            complemento=self.cleaned_data.get('complemento'),
-            referencia=self.cleaned_data.get('referencia'),
-            bairro=self.cleaned_data.get('bairro'),
-            municipio=self.cleaned_data.get('municipio'),
-            estado=self.cleaned_data.get('estado'),
-            pais=self.cleaned_data.get('pais'),
-        )
-        if commit:
-            endereco.save()
-            instance.endereco = endereco
-            instance.save()
-            # Salvar os atributos selecionados
-            self.cleaned_data['atributos'].update(cadastros=instance)
+            # Criar ou atualizar o endereço
+            endereco = Endereco(
+                cep=self.cleaned_data.get('cep'),
+                logradouro=self.cleaned_data.get('logradouro'),
+                numero=self.cleaned_data.get('numero'),
+                complemento=self.cleaned_data.get('complemento'),
+                referencia=self.cleaned_data.get('referencia'),
+                bairro=self.cleaned_data.get('bairro'),
+                municipio=self.cleaned_data.get('municipio'),
+                estado=self.cleaned_data.get('estado'),
+                pais=self.cleaned_data.get('pais'),
+            )
+            if commit:
+                endereco.save()
+                instance.endereco = endereco
+                instance.save()
+
+                # Salvar os atributos ManyToMany
+                instance.atributos.set(self.cleaned_data['atributos'])
+
         return instance

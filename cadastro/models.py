@@ -51,8 +51,8 @@ class Endereco(models.Model):
 class Cadastro(BaseModel):
     nome = models.CharField(max_length=200)
     nome_fantasia = models.CharField(max_length=80)
-    tipo_pessoa = models.CharField(max_length=2, choices=TipoPessoa.choices, default=TipoPessoa.FISICA)
-    cnpj_cpf = models.CharField(max_length=18, unique=True, validators=[validar_cpf_cnpj])
+    tipo_pessoa = models.CharField(max_length=2, choices=TipoPessoa.choices)
+    cnpj_cpf = models.CharField(max_length=18, unique=True, validators=[validar_cpf_cnpj], blank=True, null=True)
     atributos = models.ManyToManyField(Atributo, related_name="cadastros")
     endereco = models.OneToOneField(Endereco, on_delete=models.CASCADE)
     email = models.EmailField(max_length=254)
