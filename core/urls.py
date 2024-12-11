@@ -9,4 +9,5 @@ urlpatterns = [
     path('',include("bancos.urls")),
     path('operacoes/',include("operacoes.urls")),
     path('cadastro/',include("cadastro.urls")),
+    path('financeiro/', include("financeiro.urls")),
 ]

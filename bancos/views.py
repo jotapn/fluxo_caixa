@@ -80,13 +80,9 @@ class ContaBancariaListView(ListView):
 class ContaBancariaUpdateView(UpdateView):
     model = ContaBancaria
     form_class = ContaBancariaUpdateModelForm
-    template_name = 'conta_bancaria_form.html'  # Substitua pelo caminho do seu template
+    template_name = 'conta_bancaria_form.html'  
+    success_url = reverse_lazy('conta_bancaria_list')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['operacao'] = 'update'
-        print(context)
-        return context
 
 class ContaBancariaDetailView(DetailView):
     '''DETALHAMENTO DE UMA CONTA BANCÁRIA'''
