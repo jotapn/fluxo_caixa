@@ -54,7 +54,7 @@ class Cadastro(BaseModel):
     tipo_pessoa = models.CharField(max_length=2, choices=TipoPessoa.choices)
     cnpj_cpf = models.CharField(max_length=18, unique=True, validators=[validar_cpf_cnpj], blank=True, null=True)
     atributos = models.ManyToManyField(Atributo, related_name="cadastros")
-    endereco = models.OneToOneField(Endereco, on_delete=models.CASCADE)
+    endereco = models.OneToOneField(Endereco, on_delete=models.CASCADE, null=True, blank=True)
     email = models.EmailField(max_length=254)
     telefone = models.CharField(max_length=11)
 

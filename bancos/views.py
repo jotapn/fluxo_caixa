@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 from django.contrib import messages
 from django.db.models.deletion import ProtectedError
-from transacoes.models import Entrada, Saida
+# from transacoes.models import Entrada, Saida
 from .models import Banco, ContaBancaria
 from .forms import BancoModelForm, ContaBancariaModelForm, ContaBancariaUpdateModelForm
 
@@ -85,58 +85,59 @@ class ContaBancariaUpdateView(UpdateView):
 
 
 class ContaBancariaDetailView(DetailView):
-    '''DETALHAMENTO DE UMA CONTA BANCÁRIA'''
-    model = ContaBancaria
-    template_name = 'conta_bancaria_detail.html'
-    context_object_name = 'conta'
+    ...
+#     '''DETALHAMENTO DE UMA CONTA BANCÁRIA'''
+#     model = ContaBancaria
+#     template_name = 'conta_bancaria_detail.html'
+#     context_object_name = 'conta'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
 
-        # Pegar as movimentações (entradas e saídas) da conta bancária atual
-        conta = self.get_object()
-        movimentacoes = list(Entrada.objects.filter(conta=conta).order_by('-data')) + list(Saida.objects.filter(conta=conta).order_by('-data'))
+#         # Pegar as movimentações (entradas e saídas) da conta bancária atual
+#         conta = self.get_object()
+#         movimentacoes = list(Entrada.objects.filter(conta=conta).order_by('-data')) + list(Saida.objects.filter(conta=conta).order_by('-data'))
 
-        # Agrupar valores por data
-        valores_por_data = {}
-        for operacao in movimentacoes:
-            data_formatada = operacao.data.strftime("%d/%m/%Y")  # Formatação da data
-            tipo = 'entrada' if not hasattr(operacao, 'tipo_despesa') else 'saida'
-            valor = float(operacao.valor)
+#         # Agrupar valores por data
+#         valores_por_data = {}
+#         for operacao in movimentacoes:
+#             data_formatada = operacao.data.strftime("%d/%m/%Y")  # Formatação da data
+#             tipo = 'entrada' if not hasattr(operacao, 'tipo_despesa') else 'saida'
+#             valor = float(operacao.valor)
 
-            if data_formatada not in valores_por_data:
-                valores_por_data[data_formatada] = {'entrada': 0, 'saida': 0}
+#             if data_formatada not in valores_por_data:
+#                 valores_por_data[data_formatada] = {'entrada': 0, 'saida': 0}
 
-            valores_por_data[data_formatada][tipo] += valor
+#             valores_por_data[data_formatada][tipo] += valor
 
-        context['movimentacoes'] = movimentacoes
+#         context['movimentacoes'] = movimentacoes
 
-        # Prepare os dados para o gráfico (agregados por mês)
-        valores_por_mes = {}
-        for operacao in movimentacoes:
-            mes_ano = operacao.data.strftime("%m/%Y")  # Formatação do mês e ano
-            tipo = 'entrada' if not hasattr(operacao, 'tipo_despesa') else 'saida'
-            valor = float(operacao.valor)
+#         # Prepare os dados para o gráfico (agregados por mês)
+#         valores_por_mes = {}
+#         for operacao in movimentacoes:
+#             mes_ano = operacao.data.strftime("%m/%Y")  # Formatação do mês e ano
+#             tipo = 'entrada' if not hasattr(operacao, 'tipo_despesa') else 'saida'
+#             valor = float(operacao.valor)
 
-            if mes_ano not in valores_por_mes:
-                valores_por_mes[mes_ano] = {'entrada': 0, 'saida': 0}
+#             if mes_ano not in valores_por_mes:
+#                 valores_por_mes[mes_ano] = {'entrada': 0, 'saida': 0}
 
-            valores_por_mes[mes_ano][tipo] += valor
+#             valores_por_mes[mes_ano][tipo] += valor
 
-        # Ordenar por mês
-        meses_ordenados = sorted(valores_por_mes.keys(), key=lambda x: datetime.strptime(x, "%m/%Y"))
+#         # Ordenar por mês
+#         meses_ordenados = sorted(valores_por_mes.keys(), key=lambda x: datetime.strptime(x, "%m/%Y"))
 
-        entradas = [valores_por_mes[mes]['entrada'] for mes in meses_ordenados]
-        saidas = [valores_por_mes[mes]['saida'] for mes in meses_ordenados]
-        lucro_prejuizo = [valores_por_mes[mes]['entrada'] - valores_por_mes[mes]['saida'] for mes in meses_ordenados]
+#         entradas = [valores_por_mes[mes]['entrada'] for mes in meses_ordenados]
+#         saidas = [valores_por_mes[mes]['saida'] for mes in meses_ordenados]
+#         lucro_prejuizo = [valores_por_mes[mes]['entrada'] - valores_por_mes[mes]['saida'] for mes in meses_ordenados]
 
-        # Prepare os dados para o gráfico
-        context['labels'] = meses_ordenados
-        context['entradas'] = entradas
-        context['saidas'] = saidas
-        context['lp'] = lucro_prejuizo
+#         # Prepare os dados para o gráfico
+#         context['labels'] = meses_ordenados
+#         context['entradas'] = entradas
+#         context['saidas'] = saidas
+#         context['lp'] = lucro_prejuizo
 
-        return context
+#         return context
 
 class ContaBancariaDeleteView(DeleteView):
     '''EXCLUSÃO DE UMA CONTA BANCÁRIA'''

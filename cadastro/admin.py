@@ -8,7 +8,6 @@ class AtributoAdmin(admin.ModelAdmin):
 
 @admin.register(Cadastro)
 class CadastroAdmin(admin.ModelAdmin):
-    form = CadastroForm
     list_display = ('nome_fantasia', 'cnpj_cpf', 'mostrar_atributos')
     list_filter = ('atributos',)  # Adiciona filtro por atributos
     search_fields = ('nome_fantasia', 'cnpj_cpf')

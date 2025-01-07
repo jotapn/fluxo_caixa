@@ -1,21 +1,14 @@
 from django.contrib import admin
-from .models import TipoReceita, TipoDespesa, TipoPagamento
+from .models import CentroDeCusto, NaturezaFinanceira
 
-@admin.register(TipoReceita)
-class TipoReceitaAdmin(admin.ModelAdmin):
-    list_display = ('nome','status')
-    search_fields = ('nome',)
+@admin.register(CentroDeCusto)
+class CentroDeCustoAdmin(admin.ModelAdmin):
+    list_display = ('codigo', 'titulo', 'status')
     list_filter = ('status',)
+    search_fields = ('codigo', 'titulo')
 
-
-@admin.register(TipoDespesa)
-class TipoDespesaAdmin(admin.ModelAdmin):
-    list_display = ('nome','status')
-    search_fields = ('nome',)
-    list_filter = ('status',)
-
-@admin.register(TipoPagamento)
-class TipoPagamentoAdmin(admin.ModelAdmin):
-    list_display = ('nome','status')
-    search_fields = ('nome',)
-    list_filter = ('status',)
+@admin.register(NaturezaFinanceira)
+class NaturezaFinanceiraAdmin(admin.ModelAdmin):
+    list_display = ('codigo', 'titulo', 'status')
+    list_filter = ('status','tipo', 'sinal')
+    search_fields = ('codigo', 'titulo')

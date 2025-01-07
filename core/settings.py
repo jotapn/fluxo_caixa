@@ -44,12 +44,10 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
 
-    'clientes',
-    'transacoes',
     'bancos',
-    'operacoes',
     'cadastro',
     'financeiro',
+    'operacoes',
 ]
 
 MIDDLEWARE = [
@@ -153,6 +151,6 @@ MESSAGE_TAGS = {
 }
 
 # Celery Config
-CELERY_BROKER_URL = 'amqp://guest:guest@localhost//'
-CELERY_RESULT_BACKEND = 'rpc://'
-CELERY_TIMEZONE = TIME_ZONE
+# CELERY_BROKER_URL = 'amqp://guest:guest@localhost//'
+# CELERY_RESULT_BACKEND = 'rpc://'
+# CELERY_TIMEZONE = TIME_ZONE
