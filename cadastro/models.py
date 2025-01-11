@@ -2,6 +2,9 @@ from django.db import models
 from validate_docbr import CPF, CNPJ
 from django.core.exceptions import ValidationError
 
+class TipoEndereco(models.TextChoices):
+    PRINCIPAL = "PR", "Principal"
+    SECUNDARIO = "SE", "Secundário"
 
 class TipoPessoa(models.TextChoices):
     FISICA = "PF", "Pessoa Física"
@@ -34,7 +37,34 @@ class Atributo(models.Model):
     def __str__(self):
         return self.get_tipo_display()
 
+class Cadastro(BaseModel):
+    tipo_pessoa = models.CharField(max_length=2, choices=TipoPessoa.choices)
+    nome = models.CharField(max_length=200)
+    nome_fantasia = models.CharField(max_length=80)
+    cnpj_cpf = models.CharField(max_length=18, unique=True, validators=[validar_cpf_cnpj], blank=True, null=True)
+    atributos = models.ManyToManyField(Atributo, related_name="cadastros")
+    email = models.EmailField(max_length=254)
+    telefone = models.CharField(max_length=11)
+
+    def __str__(self):
+        return f"{self.nome}"
+
+    def endereco_principal(self):
+        """Retorna o endereço principal associado ao cadastro."""
+        return self.enderecos.filter(tipo=TipoEndereco.PRINCIPAL).first()
+
 class Endereco(models.Model):
+    cadastro = models.ForeignKey(  # Relaciona o endereço ao cadastro
+        Cadastro,
+        on_delete=models.CASCADE,
+        related_name="enderecos",
+        null=True
+    )
+    tipo = models.CharField(  # Define o tipo do endereço
+        max_length=2,
+        choices=TipoEndereco.choices,
+        default=TipoEndereco.PRINCIPAL
+    )
     cep = models.CharField(max_length=9)
     logradouro = models.CharField(max_length=100)
     numero = models.CharField(max_length=10)
@@ -47,16 +77,13 @@ class Endereco(models.Model):
 
     def __str__(self):
         return f"{self.logradouro}, {self.numero}, {self.municipio} - {self.estado}"
-
-class Cadastro(BaseModel):
-    nome = models.CharField(max_length=200)
-    nome_fantasia = models.CharField(max_length=80)
-    tipo_pessoa = models.CharField(max_length=2, choices=TipoPessoa.choices)
-    cnpj_cpf = models.CharField(max_length=18, unique=True, validators=[validar_cpf_cnpj], blank=True, null=True)
-    atributos = models.ManyToManyField(Atributo, related_name="cadastros")
-    endereco = models.OneToOneField(Endereco, on_delete=models.CASCADE, null=True, blank=True)
-    email = models.EmailField(max_length=254)
-    telefone = models.CharField(max_length=11)
-
-    def __str__(self):
-        return f"{self.nome}"
+    
+    class Meta:
+        constraints = [
+            # Restringe um único endereço principal por cadastro
+            models.UniqueConstraint(
+                fields=["cadastro", "tipo"],
+                condition=models.Q(tipo=TipoEndereco.PRINCIPAL),
+                name="unique_principal_endereco_per_cadastro"
+            )
+        ]

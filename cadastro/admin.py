@@ -1,18 +1,47 @@
 from django.contrib import admin
-from .models import Cadastro, Atributo
-from .forms import CadastroForm
+from django.core.exceptions import ValidationError
+from django.forms import BaseInlineFormSet
+from .models import Cadastro, Endereco, TipoEndereco
 
-@admin.register(Atributo)
-class AtributoAdmin(admin.ModelAdmin):
-    list_display = ('tipo',)
+@admin.register(Endereco)
+class EnderecoAdmin(admin.ModelAdmin):
+    list_display = ('cep','logradouro', )
+    search_fields = ('cep', )
 
+# Formset personalizado para garantir a validação do endereço principal
+class EnderecoInlineFormSet(BaseInlineFormSet):
+    def clean(self):
+        super().clean()
+
+        # Validar que há pelo menos um endereço principal
+        has_principal = False
+        for form in self.forms:
+            if not form.cleaned_data.get("DELETE", False):  # Ignorar exclusões
+                if form.cleaned_data.get("tipo") == TipoEndereco.PRINCIPAL:
+                    if has_principal:
+                        raise ValidationError("Apenas um endereço pode ser marcado como principal.")
+                    has_principal = True
+
+        if not has_principal:
+            raise ValidationError("É obrigatório ter pelo menos um endereço principal.")
+
+# Inline para gerenciar os endereços
+class EnderecoInline(admin.StackedInline):
+    model = Endereco
+    formset = EnderecoInlineFormSet
+    extra = 1  # Adiciona um formulário vazio para novos endereços
+    fields = ['tipo', 'cep', 'logradouro', 'numero', 'complemento', 'bairro', 'municipio', 'estado', 'pais']
+
+# Configuração do admin para Cadastro
 @admin.register(Cadastro)
 class CadastroAdmin(admin.ModelAdmin):
-    list_display = ('nome_fantasia', 'cnpj_cpf', 'mostrar_atributos')
-    list_filter = ('atributos',)  # Adiciona filtro por atributos
-    search_fields = ('nome_fantasia', 'cnpj_cpf')
+    list_display = ['nome', 'email', 'telefone', 'endereco_principal']
+    inlines = [EnderecoInline]
 
-    def mostrar_atributos(self, obj):
-        return ", ".join([atributo.tipo for atributo in obj.atributos.all()])
-
-    mostrar_atributos.short_description = "Atributos"  # Nome da coluna no Django Admin
+    def endereco_principal(self, obj):
+        # Exibe o endereço principal na listagem do admin
+        principal = obj.enderecos.filter(tipo=TipoEndereco.PRINCIPAL).first()
+        if principal:
+            return f"{principal.logradouro}, {principal.numero} - {principal.municipio}/{principal.estado}"
+        return "Nenhum principal"
+    endereco_principal.short_description = "Endereço Principal"

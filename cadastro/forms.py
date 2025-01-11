@@ -10,7 +10,7 @@ class CadastroForm(forms.ModelForm):
         label="Atributos",
         help_text="Selecione um ou mais papéis para este cadastro (Cliente, Fornecedor, Colaborador)."
     )
-     # Campos relacionados ao endereço
+    # Campos relacionados ao endereço
     cep = forms.CharField(max_length=9, label="CEP", required=True)
     logradouro = forms.CharField(max_length=100, label="Endereço", required=True)
     numero = forms.CharField(max_length=10, label="Número", required=True)
@@ -19,7 +19,7 @@ class CadastroForm(forms.ModelForm):
     bairro = forms.CharField(max_length=50, label="Bairro", required=True)
     municipio = forms.CharField(max_length=50, label="Município", required=True)
     estado = forms.CharField(max_length=2, label="Estado", required=True)
-    pais = forms.CharField(max_length=20, label="País", required=True, initial="Brasil")
+    pais = forms.CharField(max_length=20, label="País", required=True)
 
     class Meta:
         model = Cadastro
@@ -68,9 +68,11 @@ class CadastroForm(forms.ModelForm):
                 estado=self.cleaned_data.get('estado'),
                 pais=self.cleaned_data.get('pais'),
             )
+            
+            endereco.save()
+            instance.endereco = endereco
+
             if commit:
-                endereco.save()
-                instance.endereco = endereco
                 instance.save()
 
                 # Salvar os atributos ManyToMany
