@@ -29,8 +29,16 @@ class EnderecoInlineFormSet(BaseInlineFormSet):
 class EnderecoInline(admin.StackedInline):
     model = Endereco
     formset = EnderecoInlineFormSet
-    extra = 1  # Adiciona um formulário vazio para novos endereços
     fields = ['tipo', 'cep', 'logradouro', 'numero', 'complemento', 'bairro', 'municipio', 'estado', 'pais']
+    extra = 0  # Valor padrão para evitar formulários extras
+
+    def get_extra(self, request, obj=None, **kwargs):
+        """
+        Retorna 1 formulário extra apenas se não houver nenhum endereço cadastrado.
+        """
+        if obj and obj.enderecos.exists():
+            return 0  # Nenhum formulário extra se já houver endereços cadastrados
+        return 1  # Um formulário extra se nenhum endereço existir
 
 # Configuração do admin para Cadastro
 @admin.register(Cadastro)

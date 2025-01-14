@@ -40,7 +40,7 @@ class Atributo(models.Model):
 class Cadastro(BaseModel):
     tipo_pessoa = models.CharField(max_length=2, choices=TipoPessoa.choices)
     nome = models.CharField(max_length=200)
-    nome_fantasia = models.CharField(max_length=80)
+    nome_fantasia = models.CharField(max_length=80, null=True, blank=True, verbose_name="Nome Fantasia")
     cnpj_cpf = models.CharField(max_length=18, unique=True, validators=[validar_cpf_cnpj], blank=True, null=True)
     atributos = models.ManyToManyField(Atributo, related_name="cadastros")
     email = models.EmailField(max_length=254)
@@ -52,6 +52,15 @@ class Cadastro(BaseModel):
     def endereco_principal(self):
         """Retorna o endereço principal associado ao cadastro."""
         return self.enderecos.filter(tipo=TipoEndereco.PRINCIPAL).first()
+    
+    def clean(self):
+        super().clean()
+        if self.tipo_pessoa == "PJ" and not self.nome_fantasia:
+            raise ValidationError({"nome_fantasia": "O campo Nome Fantasia é obrigatório para Pessoas Jurídicas."})
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
 class Endereco(models.Model):
     cadastro = models.ForeignKey(  # Relaciona o endereço ao cadastro

@@ -9,6 +9,6 @@ class CentroDeCustoAdmin(admin.ModelAdmin):
 
 @admin.register(NaturezaFinanceira)
 class NaturezaFinanceiraAdmin(admin.ModelAdmin):
-    list_display = ('codigo', 'titulo', 'status')
+    list_display = ('codigo', 'titulo', 'tipo' ,'status')
     list_filter = ('status','tipo', 'sinal')
     search_fields = ('codigo', 'titulo')
