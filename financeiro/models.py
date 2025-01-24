@@ -1,4 +1,5 @@
 from datetime import timedelta
+from dateutil.relativedelta import relativedelta
 from django.db import models
 from django.forms import ValidationError
 from django.utils import timezone
@@ -6,7 +7,6 @@ from operacoes.models import NaturezaFinanceira, CentroDeCusto
 from cadastro.models import Cadastro
 from bancos.models import ContaBancaria
 
-imposto_cadastrado = 0.06
 
 class TipoMovimentacao(models.TextChoices):
     RECEBER = "RE", "Receita"
@@ -37,7 +37,12 @@ class Movimentacao(models.Model):
         default=False,
         verbose_name="Parcelado"
     )
-    # imposto = valor*imposto_cadastrado
+    total_parcelas = models.PositiveIntegerField(
+        null=True, 
+        blank=True, 
+        verbose_name="Total de Parcelas",
+        help_text="Informe o número total de parcelas se a movimentação for parcelada."
+    )
     forma_recebimento = models.ForeignKey(FormaRecebimento, on_delete=models.PROTECT)
     data_vencimento = models.DateField()
     cadastro = models.ForeignKey(Cadastro, verbose_name=("Cliente/Fornecedor"), on_delete=models.PROTECT)
@@ -51,24 +56,34 @@ class Movimentacao(models.Model):
     def valor_liquido(self):
         return self.valor  # Por enquanto, igual ao valor bruto. Esperando definiçao do calculo do imposto
     
-    def gerar_parcela(self, total_parcela, data_inicial):
-        if not self.parcelado:
-            return  # Não gera parcelas se não for parcelado
+    def gerar_parcelas(self, total_parcelas, data_inicial):
+        """
+        Gera automaticamente as parcelas da movimentação.
+
+        Args:
+            total_parcelas (int): Número total de parcelas.
+            data_inicial (date): Data inicial da primeira parcela.
+        """
         
-        valor_parcela = self.valor / total_parcela
-        for i in range(1, total_parcela +1):
+        if self.parcelas.exists():
+            raise ValidationError("As parcelas já foram geradas para esta movimentação.")
+
+        valor_parcela = round(self.valor / total_parcelas, 2)
+        
+        
+        for i in range(1, total_parcelas + 1):
             Parcela.objects.create(
                 movimentacao = self,
                 numero = i,
                 valor = valor_parcela,
-                data_vencimento = data_inicial + timedelta(days=(30 * i))
+                data_vencimento=data_inicial + relativedelta(months=i - 1)
             )
 
     def clean(self):
         super().clean()
 
-        # Validar rateio
-        if self.rateios.exists():
+        # Validação para verificar rateios apenas se a instância já tiver sido salva
+        if self.pk and self.rateios.exists():
             total_valor = sum(rateio.valor or 0 for rateio in self.rateios.all() if rateio.tipo_rateio == TipoRateio.VALOR)
             total_percentual = sum(rateio.percentual or 0 for rateio in self.rateios.all() if rateio.tipo_rateio == TipoRateio.PORCENTAGEM)
 
@@ -80,7 +95,19 @@ class Movimentacao(models.Model):
                 if total_percentual != 100:
                     raise ValidationError("A soma dos percentuais do rateio deve ser igual a 100%.")
 
+        if self.parcelado and not self.total_parcelas:
+            raise ValidationError("Você deve informar o número total de parcelas para movimentações parceladas.")
 
+        if self.parcelado and self.total_parcelas < 2:
+            raise ValidationError("O número de parcelas deve ser no mínimo 2 para movimentações parceladas.")
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if self.parcelado and not self.parcelas.exists():
+            if not self.total_parcelas:
+                raise ValidationError("Você deve informar o número total de parcelas.")
+            self.gerar_parcelas(total_parcelas=self.total_parcelas, data_inicial=self.data_vencimento)
 
 class TipoRateio(models.TextChoices):
     VALOR = "VA", "Valor"
@@ -118,7 +145,7 @@ class RateioCentroDeCusto(models.Model):
 
         if self.tipo_rateio == TipoRateio.VALOR and self.valor is None:
             raise ValidationError("Para o tipo de rateio por valor, o campo 'valor' deve ser preenchido.")
-        elif self.tipo_rateio == TipoRateio.PORCENTAGEM and self.porcentagem is None:
+        elif self.tipo_rateio == TipoRateio.PORCENTAGEM and self.percentual is None:
             raise ValidationError("Para o tipo de rateio por porcentagem, o campo 'percentual' deve ser preenchido.")
     
     
@@ -130,3 +157,8 @@ class Parcela(models.Model):
 
     def __str__(self):
         return f"Parcela {self.numero} - {self.valor}"
+
+    class Meta:
+        unique_together = ('movimentacao', 'numero')
+
+
