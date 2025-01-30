@@ -1,4 +1,5 @@
 from django.db import models
+from django.db import transaction
 
 class Status(models.TextChoices):
     ATIVO = 'AT', "Ativo"
@@ -39,3 +40,35 @@ class ContaBancaria(models.Model):
         
     def __str__(self) -> str:
         return self.nome
+    
+
+    def atualizar_saldo(self, valor, adicionar):
+        if adicionar:
+            self.saldo_atual += valor
+            HistoricoSaldo.objects.create(
+                conta=self,
+                valor_anterior=self.saldo_atual,
+                valor_atual=self.saldo_atual + valor,
+                movimento=valor
+            )
+        else:
+            HistoricoSaldo.objects.create(
+                conta=self,
+                valor_anterior=self.saldo_atual,
+                valor_atual=self.saldo_atual - valor,
+                movimento=valor
+            )
+            self.saldo_atual -= valor
+        self.save()
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.saldo_atual += self.saldo_inicial
+        super().save(*args, **kwargs)
+
+class HistoricoSaldo(models.Model):
+    conta = models.ForeignKey(ContaBancaria, on_delete=models.CASCADE)
+    data = models.DateTimeField(auto_now_add=True)
+    valor_anterior = models.DecimalField(max_digits=10, decimal_places=2)
+    valor_atual = models.DecimalField(max_digits=10, decimal_places=2)
+    movimento = models.DecimalField(max_digits=10, decimal_places=2)

@@ -16,6 +16,7 @@ pandas = "2.2.3"
 pip = "*"
 install = "*"
 validate-docbr = "*"
+django-sample-history = "*"
 
 [dev-packages]
 

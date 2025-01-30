@@ -21,7 +21,7 @@ class RateioCentroDeCustoInline(admin.TabularInline):
 class ParcelaInline(admin.TabularInline):
     model = Parcela
     extra = 1  # Número de formulários extras para novas parcelas
-    fields = ['numero', 'valor', 'data_vencimento']  # Campos exibidos no admin
+    fields = ['numero', 'valor', 'data_vencimento', 'pago']  # Campos exibidos no admin
     readonly_fields = ['numero', 'valor', 'data_vencimento']  # Campos gerados automaticamente são somente leitura
 
     def get_extra(self, request, obj=None, **kwargs):
@@ -47,7 +47,8 @@ class MovimentacaoAdmin(admin.ModelAdmin):
         'parcelado', 
         'forma_recebimento', 
         'data_movimentacao', 
-        'data_vencimento'
+        'data_vencimento',
+        'pago'
     ]  # Campos exibidos na listagem
     list_filter = ['parcelado', 'forma_recebimento']  # Filtros laterais no admin
     search_fields = ['descricao', 'cadastro__nome', 'centro_de_custo__titulo']  # Campos para busca
@@ -71,3 +72,5 @@ class RateioCentroDeCustoAdmin(admin.ModelAdmin):
     list_display = ['movimentacao', 'centro_de_custo', 'tipo_rateio', 'valor', 'percentual']
     list_filter = ['tipo_rateio', 'centro_de_custo']
     search_fields = ['movimentacao__descricao', 'centro_de_custo__titulo']
+
+
