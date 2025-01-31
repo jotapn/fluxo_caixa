@@ -28,22 +28,55 @@ class Movimentacao(models.Model):
         choices=TipoMovimentacao.choices,
         verbose_name="Tipo de Movimentação"
     )
-    natureza_financeira = models.ForeignKey(NaturezaFinanceira, verbose_name="Natureza Financeira", on_delete=models.PROTECT)
-    centro_de_custo = models.ForeignKey(CentroDeCusto, verbose_name="Centro de Custo", on_delete=models.PROTECT)
-    data_movimentacao = models.DateField(verbose_name="Data Movimentação", default=timezone.now)
-    descricao = models.CharField(max_length=255)
-    valor = models.DecimalField(max_digits=10, decimal_places=2)
-    parcelado = models.BooleanField(default=False, verbose_name="Parcelado")
+    natureza_financeira = models.ForeignKey(
+        NaturezaFinanceira, 
+        verbose_name="Natureza Financeira", 
+        on_delete=models.PROTECT
+    )
+    centro_de_custo = models.ForeignKey(
+        CentroDeCusto,
+        verbose_name="Centro de Custo",
+        on_delete=models.PROTECT
+    )
+    data_movimentacao = models.DateField(
+        verbose_name="Data Movimentação",
+        default=timezone.now
+    )
+    descricao = models.CharField(
+        max_length=255
+    )
+    valor = models.DecimalField(
+        max_digits=10,
+        decimal_places=2
+    )
+    parcelado = models.BooleanField(
+        default=False,
+        verbose_name="Parcelado"
+    )
     total_parcelas = models.PositiveIntegerField(
         null=True, blank=True, 
         verbose_name="Total de Parcelas",
         help_text="Informe o número total de parcelas se a movimentação for parcelada."
     )
-    forma_recebimento = models.ForeignKey(FormaRecebimento, on_delete=models.PROTECT)
+    forma_recebimento = models.ForeignKey(
+        FormaRecebimento,
+        on_delete=models.PROTECT
+    )
     data_vencimento = models.DateField()
-    cadastro = models.ForeignKey(Cadastro, verbose_name="Cliente/Fornecedor", on_delete=models.PROTECT)
-    conta_bancaria = models.ForeignKey(ContaBancaria, verbose_name="Conta Bancária", on_delete=models.PROTECT)
-    pago = models.BooleanField(default=False, verbose_name="Pago")
+    cadastro = models.ForeignKey(
+        Cadastro,
+        verbose_name="Cliente/Fornecedor",
+        on_delete=models.PROTECT
+    )
+    conta_bancaria = models.ForeignKey(
+        ContaBancaria,
+        verbose_name="Conta Bancária", 
+        on_delete=models.PROTECT
+    )
+    pago = models.BooleanField(
+        default=False,
+        verbose_name="Pago"
+    )
     historico = HistoricalRecords(
         excluded_fields=['parcelas', 'rateios'],
         history_change_reason_field=models.TextField(null=True)
