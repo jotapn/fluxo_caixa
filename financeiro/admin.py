@@ -7,7 +7,8 @@ from .models import (
     RateioCentroDeCusto,
     Parcela,
     FormaRecebimento,
-    TipoMovimentacao
+    TipoMovimentacao,
+    HistoricoTransacao
 )
 
 # Inline para Rateio de Centros de Custo
@@ -76,3 +77,9 @@ class RateioCentroDeCustoAdmin(admin.ModelAdmin):
     list_display = ['movimentacao', 'centro_de_custo', 'tipo_rateio', 'valor', 'percentual']
     list_filter = ['tipo_rateio', 'centro_de_custo']
     search_fields = ['movimentacao__descricao', 'centro_de_custo__titulo']
+
+@admin.register(HistoricoTransacao)
+class HistoricoTransacaoAdmin(admin.ModelAdmin):
+    list_display = ("transacao", 'data_movimentacao', 'tipo_movimentacao', 'valor', 'saldo_anterior', 'saldo_posterior', 'conta_bancaria')
+    list_filter = ("transacao", 'data_movimentacao', 'tipo_movimentacao', 'conta_bancaria')
+    search_fields = ("transacao", 'data_movimentacao', 'tipo_movimentacao', 'conta_bancaria')

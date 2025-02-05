@@ -113,6 +113,8 @@ class Movimentacao(models.Model):
         is_new = self.pk is None  # Verifica se a movimentação é nova
         old_pago = None
 
+        saldo_anterior = self.conta_bancaria.saldo_atual
+
         if not is_new:
             old_instance = Movimentacao.objects.get(pk=self.pk)
             old_pago = old_instance.pago
@@ -127,6 +129,17 @@ class Movimentacao(models.Model):
         if old_pago is not None and old_pago != self.pago:
             self.conta_bancaria.atualizar_saldo(valor=self.valor, adicionar=(self.tipo_movimentacao == TipoMovimentacao.RECEITA))
 
+            saldo_posterior = self.conta_bancaria.saldo_atual
+
+            HistoricoTransacao.objects.create(
+                transacao = Movimentacao.objects.get(pk=self.pk),
+                data_movimentacao = self.data_movimentacao,
+                tipo_movimentacao = self.tipo_movimentacao,
+                valor = self.valor,
+                saldo_anterior = saldo_anterior,
+                saldo_posterior = saldo_posterior,
+                conta_bancaria = self.conta_bancaria,
+            )
 
     def gerar_parcelas(self):
         self.parcelas.all().delete()
@@ -190,6 +203,7 @@ class Parcela(models.Model):
     def save(self, *args, **kwargs):
         is_new = self.pk is None
         old_pago = None
+        saldo_anterior = self.conta_bancaria.saldo_atual
 
         if not is_new:
             old_instance = Parcela.objects.get(pk=self.pk)
@@ -203,7 +217,35 @@ class Parcela(models.Model):
                 adicionar=(self.movimentacao.tipo_movimentacao == TipoMovimentacao.RECEITA if self.pago else self.movimentacao.tipo_movimentacao == TipoMovimentacao.DESPESA)
             )
 
+            saldo_posterior = self.movimentacao.conta_bancaria.saldo_atual
+
+
+            HistoricoTransacao.objects.create(
+                transacao = self.movimentacao,
+                data_movimentacao = self.data_movimentacao,
+                tipo_movimentacao = self.tipo_movimentacao,
+                valor = self.valor,
+                saldo_anterior = saldo_anterior,
+                saldo_posterior = saldo_posterior,
+                conta_bancaria = self.movimentacao.conta_bancaria,
+            )
+
+
         self.movimentacao.atualizar_status_pagamento()
 
     class Meta:
         unique_together = ('movimentacao', 'numero')
+
+
+class HistoricoTransacao(models.Model):
+    transacao = models.ForeignKey(Movimentacao, on_delete=models.CASCADE,related_name="historico_transacao")
+    data_movimentacao = models.DateField(auto_now=True)
+    tipo_movimentacao = models.CharField(choices=TipoMovimentacao.choices, max_length=2)
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
+    saldo_anterior = models.DecimalField(max_digits=10, decimal_places=2)
+    saldo_posterior = models.DecimalField(max_digits=10, decimal_places=2)
+    conta_bancaria = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f"{self.get_tipo_movimentacao_display()} - R$ {self.valor:.2f} ({self.data_movimentacao})"
+
