@@ -8,7 +8,8 @@ from .models import (
     Parcela,
     FormaRecebimento,
     TipoMovimentacao,
-    HistoricoTransacao
+    HistoricoTransacao,
+    CondicaoPagamento
 )
 
 # Inline para Rateio de Centros de Custo
@@ -50,9 +51,8 @@ class MovimentacaoAdmin(SimpleHistoryAdmin, admin.ModelAdmin):  # 🔥 Corrigido
         'tipo_movimentacao', 
         'valor', 
         'data_vencimento',
-        'pago'
     ]
-    list_filter = ['parcelado', 'forma_recebimento']
+    list_filter = ['forma_recebimento']
     search_fields = ['descricao', 'cadastro__nome', 'centro_de_custo__titulo']
     inlines = [RateioCentroDeCustoInline, ParcelaInline]
     date_hierarchy = 'data_movimentacao'
@@ -66,10 +66,6 @@ class MovimentacaoAdmin(SimpleHistoryAdmin, admin.ModelAdmin):  # 🔥 Corrigido
                 kwargs["queryset"] = NaturezaFinanceira.objects.filter(sinal=SinalNatureza.DEBITO)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
-    def save_model(self, request, obj, form, change):
-        super().save_model(request, obj, form, change)
-        if obj.parcelado and not obj.parcelas.exists():
-            obj.gerar_parcelas(total_parcelas=3, data_inicial=obj.data_vencimento)
 
 # Registro do modelo Rateio de Centros de Custo
 @admin.register(RateioCentroDeCusto)
@@ -83,3 +79,8 @@ class HistoricoTransacaoAdmin(admin.ModelAdmin):
     list_display = ("transacao", 'data_movimentacao', 'tipo_movimentacao', 'valor', 'saldo_anterior', 'saldo_posterior', 'conta_bancaria')
     list_filter = ("transacao", 'data_movimentacao', 'tipo_movimentacao', 'conta_bancaria')
     search_fields = ("transacao", 'data_movimentacao', 'tipo_movimentacao', 'conta_bancaria')
+
+@admin.register(CondicaoPagamento)
+class CondicaoPagamentoAdmin(admin.ModelAdmin):
+    list_display = ['nome',]
+    list_filter = ['nome', ]

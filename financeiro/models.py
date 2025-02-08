@@ -9,6 +9,16 @@ from bancos.models import ContaBancaria
 from simple_history.models import HistoricalRecords
 
 
+class CondicaoPagamento(models.Model):
+    nome = models.CharField(max_length=50, unique=True)
+    numero_parcelas = models.PositiveIntegerField(default=1)  # Usuário define quantas parcelas
+    juros = models.DecimalField(default=0, max_digits=5, decimal_places=2)
+    ativo = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f"{self.nome} - {self.numero_parcelas}x"
+
+
 class TipoMovimentacao(models.TextChoices):
     RECEITA = "RE", "Receita"
     DESPESA = "DE", "Despesa"
@@ -23,133 +33,43 @@ class FormaRecebimento(models.Model):
 
 
 class Movimentacao(models.Model):
-    tipo_movimentacao = models.CharField(
-        max_length=2,
-        choices=TipoMovimentacao.choices,
-        verbose_name="Tipo de Movimentação"
-    )
-    natureza_financeira = models.ForeignKey(
-        NaturezaFinanceira, 
-        verbose_name="Natureza Financeira", 
-        on_delete=models.PROTECT
-    )
-    centro_de_custo = models.ForeignKey(
-        CentroDeCusto,
-        verbose_name="Centro de Custo",
-        on_delete=models.PROTECT
-    )
-    data_movimentacao = models.DateField(
-        verbose_name="Data Movimentação",
-        default=timezone.now
-    )
-    descricao = models.CharField(
-        max_length=255
-    )
-    valor = models.DecimalField(
-        max_digits=10,
-        decimal_places=2
-    )
-    parcelado = models.BooleanField(
-        default=False,
-        verbose_name="Parcelado"
-    )
-    total_parcelas = models.PositiveIntegerField(
-        null=True, blank=True, 
-        verbose_name="Total de Parcelas",
-        help_text="Informe o número total de parcelas se a movimentação for parcelada."
-    )
-    forma_recebimento = models.ForeignKey(
-        FormaRecebimento,
-        on_delete=models.PROTECT
-    )
+    tipo_movimentacao = models.CharField(max_length=2, choices=TipoMovimentacao.choices)
+    natureza_financeira = models.ForeignKey(NaturezaFinanceira, on_delete=models.PROTECT)
+    centro_de_custo = models.ForeignKey(CentroDeCusto, on_delete=models.PROTECT)
+    data_movimentacao = models.DateField(default=timezone.now)
+    descricao = models.CharField(max_length=255)
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
+    forma_recebimento = models.ForeignKey(FormaRecebimento, on_delete=models.PROTECT)
+    condicao_pagamento = models.ForeignKey(CondicaoPagamento, on_delete=models.PROTECT)
     data_vencimento = models.DateField()
-    cadastro = models.ForeignKey(
-        Cadastro,
-        verbose_name="Cliente/Fornecedor",
-        on_delete=models.PROTECT
-    )
-    conta_bancaria = models.ForeignKey(
-        ContaBancaria,
-        verbose_name="Conta Bancária", 
-        on_delete=models.PROTECT
-    )
-    pago = models.BooleanField(
-        default=False,
-        verbose_name="Pago"
-    )
-    historico = HistoricalRecords(
-        excluded_fields=['parcelas', 'rateios'],
-        history_change_reason_field=models.TextField(null=True)
-    )
+    cadastro = models.ForeignKey(Cadastro, on_delete=models.PROTECT)
+    conta_bancaria = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)
+
+    historico = HistoricalRecords()
 
     def __str__(self):
         return f"{self.descricao} - {self.get_tipo_movimentacao_display()} - R$ {self.valor:.2f}"
 
-    def atualizar_status_pagamento(self):
-        """
-        Atualiza o status 'pago' da movimentação principal.
-        Será marcado como 'pago' apenas se TODAS as parcelas forem pagas.
-        """
-        if self.parcelado:
-            todas_pagaram = self.parcelas.filter(pago=False).count() == 0
-            self.pago = todas_pagaram
-        self.save(update_fields=['pago'])
-
-    def clean(self):
-        super().clean()
-
-        if self.parcelado and not self.total_parcelas:
-            raise ValidationError("Você deve informar o número total de parcelas para movimentações parceladas.")
-
-        if self.parcelado and self.total_parcelas < 2:
-            raise ValidationError("O número de parcelas deve ser no mínimo 2.")
-
-        if self.pk and self.rateios.exists():
-            total_percentual = sum(rateio.percentual or 0 for rateio in self.rateios.all() if rateio.tipo_rateio == TipoRateio.PORCENTAGEM)
-            if total_percentual > 100:
-                raise ValidationError("A soma dos percentuais do rateio não pode ultrapassar 100%.")
-
     def save(self, *args, **kwargs):
-        is_new = self.pk is None  # Verifica se a movimentação é nova
-        old_pago = None
+        is_new = self.pk is None
+        super().save(*args, **kwargs)  # ✅ Primeiro salva a movimentação para garantir um ID
 
-        saldo_anterior = self.conta_bancaria.saldo_atual
-
-        if not is_new:
-            old_instance = Movimentacao.objects.get(pk=self.pk)
-            old_pago = old_instance.pago
-
-        super().save(*args, **kwargs)
-
-        # 📌 GARANTIR QUE AS PARCELAS SÓ SEJAM GERADAS UMA VEZ
-        if self.parcelado and not self.parcelas.exists():
-            self.gerar_parcelas()
-
-        # 📌 ATUALIZAÇÃO DO SALDO SE O STATUS "PAGO" MUDOU
-        if old_pago is not None and old_pago != self.pago:
-            self.conta_bancaria.atualizar_saldo(valor=self.valor, adicionar=(self.tipo_movimentacao == TipoMovimentacao.RECEITA))
-
-            saldo_posterior = self.conta_bancaria.saldo_atual
-
-            HistoricoTransacao.objects.create(
-                transacao = Movimentacao.objects.get(pk=self.pk),
-                data_movimentacao = self.data_movimentacao,
-                tipo_movimentacao = self.tipo_movimentacao,
-                valor = self.valor,
-                saldo_anterior = saldo_anterior,
-                saldo_posterior = saldo_posterior,
-                conta_bancaria = self.conta_bancaria,
-            )
+        if is_new:  
+            self.gerar_parcelas()  # 📌 Gera automaticamente as parcelas na criação
 
     def gerar_parcelas(self):
-        self.parcelas.all().delete()
-        valor_parcela = round(self.valor / self.total_parcelas, 2)
+        """ Gera as parcelas aplicando juros automaticamente """
+        self.parcelas.all().delete()  # Remove parcelas anteriores caso existam
 
-        for i in range(1, self.total_parcelas + 1):
+        # 📌 Calculando o valor total com juros
+        valor_total = self.valor * (1 + (self.condicao_pagamento.juros))
+        valor_parcela = round(valor_total / self.condicao_pagamento.numero_parcelas, 2)
+
+        for i in range(1, self.condicao_pagamento.numero_parcelas + 1):
             Parcela.objects.create(
                 movimentacao=self,
                 numero=i,
-                valor=valor_parcela,
+                valor=valor_parcela,  # ✅ Agora o valor da parcela inclui os juros
                 data_vencimento=self.data_vencimento + relativedelta(months=i - 1)
             )
 
@@ -203,39 +123,33 @@ class Parcela(models.Model):
     def save(self, *args, **kwargs):
         is_new = self.pk is None
         old_pago = None
-        saldo_anterior = self.conta_bancaria.saldo_atual
+        saldo_anterior = self.movimentacao.conta_bancaria.saldo_atual
 
         if not is_new:
             old_instance = Parcela.objects.get(pk=self.pk)
-            old_pago = old_instance.pago
+            old_pago = old_instance.pago  # ✅ Captura o status anterior de pagamento
 
         super().save(*args, **kwargs)
 
         if old_pago is not None and old_pago != self.pago:
+            adicionar = self.pago if self.movimentacao.tipo_movimentacao == TipoMovimentacao.RECEITA else not self.pago
+
             self.movimentacao.conta_bancaria.atualizar_saldo(
                 valor=self.valor,
-                adicionar=(self.movimentacao.tipo_movimentacao == TipoMovimentacao.RECEITA if self.pago else self.movimentacao.tipo_movimentacao == TipoMovimentacao.DESPESA)
+                adicionar=adicionar
             )
 
             saldo_posterior = self.movimentacao.conta_bancaria.saldo_atual
 
-
             HistoricoTransacao.objects.create(
-                transacao = self.movimentacao,
-                data_movimentacao = self.data_movimentacao,
-                tipo_movimentacao = self.tipo_movimentacao,
-                valor = self.valor,
-                saldo_anterior = saldo_anterior,
-                saldo_posterior = saldo_posterior,
-                conta_bancaria = self.movimentacao.conta_bancaria,
+                transacao=self.movimentacao,
+                data_movimentacao=timezone.now(),
+                tipo_movimentacao=self.movimentacao.tipo_movimentacao,
+                valor=self.valor,
+                saldo_anterior=saldo_anterior,
+                saldo_posterior=saldo_posterior,
+                conta_bancaria=self.movimentacao.conta_bancaria,
             )
-
-
-        self.movimentacao.atualizar_status_pagamento()
-
-    class Meta:
-        unique_together = ('movimentacao', 'numero')
-
 
 class HistoricoTransacao(models.Model):
     transacao = models.ForeignKey(Movimentacao, on_delete=models.CASCADE,related_name="historico_transacao")
@@ -248,4 +162,3 @@ class HistoricoTransacao(models.Model):
 
     def __str__(self):
         return f"{self.get_tipo_movimentacao_display()} - R$ {self.valor:.2f} ({self.data_movimentacao})"
-
