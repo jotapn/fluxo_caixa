@@ -1,11 +1,11 @@
 from django.db import models
 from django.core.exceptions import ValidationError
-from cadastro.models import Cadastro, Atributo, Atributos
+from cadastro.models import Pessoa, Atributo, Atributos
 
 class CentroDeCusto(models.Model):
     codigo = models.CharField(max_length=20, unique=True)
     titulo = models.CharField(max_length=50)
-    responsavel = models.ForeignKey(Cadastro, null=True, blank=True,on_delete=models.PROTECT,
+    responsavel = models.ForeignKey(Pessoa, null=True, blank=True,on_delete=models.PROTECT,
         limit_choices_to={
             "atributos__tipo": Atributos.COLABORADOR
             },

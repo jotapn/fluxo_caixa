@@ -4,7 +4,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 from operacoes.models import NaturezaFinanceira, CentroDeCusto
-from cadastro.models import Cadastro
+from cadastro.models import Pessoa
 from bancos.models import ContaBancaria
 from simple_history.models import HistoricalRecords
 
@@ -42,7 +42,7 @@ class Movimentacao(models.Model):
     forma_recebimento = models.ForeignKey(FormaRecebimento, on_delete=models.PROTECT)
     condicao_pagamento = models.ForeignKey(CondicaoPagamento, on_delete=models.PROTECT)
     data_vencimento = models.DateField()
-    cadastro = models.ForeignKey(Cadastro, on_delete=models.PROTECT)
+    cadastro = models.ForeignKey(Pessoa, on_delete=models.PROTECT)
     conta_bancaria = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)
 
     historico = HistoricalRecords()

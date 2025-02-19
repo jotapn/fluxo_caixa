@@ -1,5 +1,5 @@
 from django import forms
-from .models import Cadastro, Endereco, Atributo
+from .models import Pessoa, Endereco, Atributo
 from django.db import transaction
 
 class CadastroForm(forms.ModelForm):
@@ -22,7 +22,7 @@ class CadastroForm(forms.ModelForm):
     pais = forms.CharField(max_length=20, label="País", required=True)
 
     class Meta:
-        model = Cadastro
+        model = Pessoa
         fields = [
             'tipo_pessoa',
             'nome',

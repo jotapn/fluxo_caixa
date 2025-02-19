@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
-from .models import Cadastro
+from .models import Pessoa
 from .forms import CadastroForm
 
 def criar_cadastro(request):
@@ -15,7 +15,7 @@ def criar_cadastro(request):
 
 
 class CadastroListView(ListView):
-    model = Cadastro
+    model = Pessoa
     template_name = "cadastro.html"
     context_object_name = 'cadastros'
 

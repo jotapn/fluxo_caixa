@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.forms import BaseInlineFormSet
-from .models import Cadastro, Endereco, TipoEndereco
+from .models import Pessoa, Endereco, TipoEndereco
 
 @admin.register(Endereco)
 class EnderecoAdmin(admin.ModelAdmin):
@@ -41,7 +41,7 @@ class EnderecoInline(admin.StackedInline):
         return 1  # Um formulário extra se nenhum endereço existir
 
 # Configuração do admin para Cadastro
-@admin.register(Cadastro)
+@admin.register(Pessoa)
 class CadastroAdmin(admin.ModelAdmin):
     list_display = ['nome', 'email', 'telefone', 'endereco_principal']
     inlines = [EnderecoInline]
