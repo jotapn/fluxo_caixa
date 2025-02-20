@@ -1,16 +1,8 @@
 from django.db import models
-from validate_docbr import CPF, CNPJ
 from django.core.exceptions import ValidationError
+from validate_docbr import CPF, CNPJ
 import brazilcep
 
-class TipoEndereco(models.TextChoices):
-    PRINCIPAL = "PR", "Principal"
-    COBRANCA = "CO", "Cobrança"
-
-class TipoPessoa(models.TextChoices):
-    FISICA = "PF", "Pessoa Física"
-    JURIDICA = "PJ", "Pessoa Jurídica"
-    ESTRANGEIRO = "ET", "Estrangeiro"
 
 class BaseModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -30,26 +22,31 @@ class Atributo(models.Model):
     def __str__(self):
         return self.get_tipo_display()
 
-def validar_cpf_cnpj(value):
-    if len(value) == 14:
-        if not CPF().validate(value):
-            raise ValidationError("CPF inválido")
-    elif len(value) == 18:
-        if not CNPJ().validate(value):
-            raise ValidationError("CNPJ inválido")
-    return True
+
+class TipoPessoa(models.TextChoices):
+    FISICA = "PF", "Pessoa Física"
+    JURIDICA = "PJ", "Pessoa Jurídica"
+    ESTRANGEIRO = "ET", "Estrangeiro"
 
 class Pessoa(BaseModel):
     tipo_pessoa = models.CharField(max_length=2, choices=TipoPessoa.choices)
     nome = models.CharField(max_length=200)
     nome_fantasia = models.CharField(max_length=80, null=True, blank=True, verbose_name="Nome Fantasia")
-    cnpj_cpf = models.CharField(max_length=18, unique=True, validators=[validar_cpf_cnpj], blank=True, null=True)
+    cnpj_cpf = models.CharField(max_length=18, unique=True, blank=True, null=True)
     atributos = models.ManyToManyField(Atributo, related_name="pessoas")
     email = models.EmailField(max_length=254)
     telefone = models.CharField(max_length=11)
 
     def __str__(self):
         return f"{self.nome}"
+    
+    def clean_cpf_cnpj(self):
+        if self.tipo_pessoa == "PF":
+            if not CPF().validate(self.cnpj_cpf):
+                raise ValidationError("CPF inválido")
+        elif self.tipo_pessoa == 'PJ':
+            if not CNPJ().validate(self.cnpj_cpf):
+                raise ValidationError("CNPJ inválido")
 
     def endereco_principal(self):
         """Retorna o endereço principal associado ao cadastro."""
@@ -62,6 +59,7 @@ class Pessoa(BaseModel):
 
     def save(self, *args, **kwargs):
         self.full_clean()
+        self.clean_cpf_cnpj()
         super().save(*args, **kwargs)
 
 def valida_cep(value):
@@ -74,13 +72,6 @@ class Endereco(models.Model):
         on_delete=models.CASCADE,
         related_name="enderecos",
     )
-    
-    tipo = models.CharField(
-        max_length=2,
-        choices=TipoEndereco.choices,
-        default=TipoEndereco.PRINCIPAL
-    )
-
     cep = models.CharField(max_length=9,validators=[valida_cep])
     logradouro = models.CharField(max_length=100)
     numero = models.CharField(max_length=10)
@@ -90,16 +81,13 @@ class Endereco(models.Model):
     municipio = models.CharField(max_length=50)
     estado = models.CharField(max_length=2)
     pais = models.CharField(max_length=20)
+    principal = models.BooleanField(default=True)
+
+    def save(self, *args, **kwargs):
+        if self.principal:
+            Endereco.objects.filter(pessoa=self.pessoa).update(principal=False)      
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.logradouro}, {self.numero}, {self.municipio} - {self.estado}"
     
-    class Meta:
-        constraints = [
-            # Restringe um único endereço principal por cadastro
-            models.UniqueConstraint(
-                fields=["pessoa", "tipo"],
-                condition=models.Q(tipo=TipoEndereco.PRINCIPAL),
-                name="unique_principal_endereco_per_pessoa"
-            )
-        ]

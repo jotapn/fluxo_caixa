@@ -18,12 +18,6 @@ class CondicaoPagamento(models.Model):
     def __str__(self):
         return f"{self.nome} - {self.numero_parcelas}x"
 
-
-class TipoMovimentacao(models.TextChoices):
-    RECEITA = "RE", "Receita"
-    DESPESA = "DE", "Despesa"
-    
-
 class FormaRecebimento(models.Model):
     nome = models.CharField(max_length=50, unique=True)
     ativo = models.BooleanField(default=True)
@@ -31,18 +25,21 @@ class FormaRecebimento(models.Model):
     def __str__(self):
         return self.nome
 
+class TipoMovimentacao(models.TextChoices):
+    RECEITA = "RE", "Receita"
+    DESPESA = "DE", "Despesa"
 
 class Movimentacao(models.Model):
     tipo_movimentacao = models.CharField(max_length=2, choices=TipoMovimentacao.choices)
+    descricao = models.CharField(max_length=255)
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
+    condicao_pagamento = models.ForeignKey(CondicaoPagamento, on_delete=models.PROTECT)
     natureza_financeira = models.ForeignKey(NaturezaFinanceira, on_delete=models.PROTECT)
     centro_de_custo = models.ForeignKey(CentroDeCusto, on_delete=models.PROTECT)
     data_movimentacao = models.DateField(default=timezone.now)
-    descricao = models.CharField(max_length=255)
-    valor = models.DecimalField(max_digits=10, decimal_places=2)
     forma_recebimento = models.ForeignKey(FormaRecebimento, on_delete=models.PROTECT)
-    condicao_pagamento = models.ForeignKey(CondicaoPagamento, on_delete=models.PROTECT)
     data_vencimento = models.DateField()
-    cadastro = models.ForeignKey(Pessoa, on_delete=models.PROTECT)
+    pessoa = models.ForeignKey(Pessoa, on_delete=models.PROTECT)
     conta_bancaria = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)
 
     historico = HistoricalRecords()

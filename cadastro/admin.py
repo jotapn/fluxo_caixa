@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.forms import BaseInlineFormSet
-from .models import Pessoa, Endereco, TipoEndereco
+from .models import Pessoa, Endereco
+from . forms import PessoaForm
 
 @admin.register(Endereco)
 class EnderecoAdmin(admin.ModelAdmin):
@@ -17,10 +18,9 @@ class EnderecoInlineFormSet(BaseInlineFormSet):
         has_principal = False
         for form in self.forms:
             if not form.cleaned_data.get("DELETE", False):  # Ignorar exclusões
-                if form.cleaned_data.get("tipo") == TipoEndereco.PRINCIPAL:
-                    if has_principal:
-                        raise ValidationError("Apenas um endereço pode ser marcado como principal.")
-                    has_principal = True
+                if has_principal:
+                    raise ValidationError("Apenas um endereço pode ser marcado como principal.")
+                has_principal = True
 
         if not has_principal:
             raise ValidationError("É obrigatório ter pelo menos um endereço principal.")
@@ -42,14 +42,14 @@ class EnderecoInline(admin.StackedInline):
 
 # Configuração do admin para Cadastro
 @admin.register(Pessoa)
-class CadastroAdmin(admin.ModelAdmin):
+class PessoaAdmin(admin.ModelAdmin):
     list_display = ['nome', 'email', 'telefone', 'endereco_principal']
-    inlines = [EnderecoInline]
-
+    #inlines = [EnderecoInline]
+    form = PessoaForm
+    
     def endereco_principal(self, obj):
         # Exibe o endereço principal na listagem do admin
-        principal = obj.enderecos.filter(tipo=TipoEndereco.PRINCIPAL).first()
-        if principal:
-            return f"{principal.logradouro}, {principal.numero} - {principal.municipio}/{principal.estado}"
+        if obj.enderecos.filter(tipo=True).first():
+            return f"{Endereco.logradouro}, {Endereco.numero} - {Endereco.municipio}/{Endereco.estado}"
         return "Nenhum principal"
     endereco_principal.short_description = "Endereço Principal"

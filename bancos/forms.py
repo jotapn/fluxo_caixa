@@ -12,7 +12,7 @@ class ContaBancariaModelForm(forms.ModelForm):
         model = ContaBancaria
         fields = [
             'banco',
-            'nome',
+            'descricao',
             'conta',
             'agencia',
             'gerente',
@@ -34,7 +34,7 @@ class ContaBancariaUpdateModelForm(forms.ModelForm):
         model = ContaBancaria
         fields = [
             'banco',    # Inclua o campo Banco se necessário
-            'nome',
+            'descricao',
             'conta',
             'agencia',
             'gerente',

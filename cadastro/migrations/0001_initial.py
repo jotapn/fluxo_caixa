@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('tipo_pessoa', models.CharField(choices=[('PF', 'Pessoa Física'), ('PJ', 'Pessoa Jurídica'), ('ET', 'Estrangeiro')], max_length=2)),
                 ('nome', models.CharField(max_length=200)),
                 ('nome_fantasia', models.CharField(blank=True, max_length=80, null=True, verbose_name='Nome Fantasia')),
-                ('cnpj_cpf', models.CharField(blank=True, max_length=18, null=True, unique=True, validators=[cadastro.models.validar_cpf_cnpj])),
+                ('cnpj_cpf', models.CharField(blank=True, max_length=18, null=True, unique=True)),
                 ('email', models.EmailField(max_length=254)),
                 ('telefone', models.CharField(max_length=11)),
                 ('atributos', models.ManyToManyField(related_name='pessoas', to='cadastro.atributo')),

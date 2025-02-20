@@ -2,7 +2,7 @@ from django import forms
 from .models import Pessoa, Endereco, Atributo
 from django.db import transaction
 
-class CadastroForm(forms.ModelForm):
+class PessoaForm(forms.ModelForm):
     atributos = forms.ModelMultipleChoiceField(
         queryset=Atributo.objects.all(),
         widget=forms.CheckboxSelectMultiple,  # Exibe opções como checkboxes
@@ -58,6 +58,7 @@ class CadastroForm(forms.ModelForm):
 
             # Criar ou atualizar o endereço
             endereco = Endereco(
+                pessoa = self.id,
                 cep=self.cleaned_data.get('cep'),
                 logradouro=self.cleaned_data.get('logradouro'),
                 numero=self.cleaned_data.get('numero'),

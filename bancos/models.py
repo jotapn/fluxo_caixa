@@ -18,7 +18,7 @@ class Banco(models.Model):
 
 class ContaBancaria(models.Model):
     banco = models.ForeignKey(Banco, on_delete=models.PROTECT)
-    nome = models.CharField(max_length=50)
+    descricao = models.CharField(max_length=50)
     conta = models.CharField(max_length=20)
     agencia = models.CharField(max_length=20, verbose_name='Agência')
     gerente = models.CharField(max_length=200, null=True, blank=True)
