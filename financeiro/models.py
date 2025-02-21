@@ -82,29 +82,6 @@ class Movimentacao(models.Model):
         verbose_name_plural = "Movimentações"
 
 
-class TipoRateio(models.TextChoices):
-    VALOR = "VA", "Valor"
-    PORCENTAGEM = "PO", "Porcentagem"
-
-
-class RateioCentroDeCusto(models.Model):
-    movimentacao = models.ForeignKey(Movimentacao, related_name="rateios", on_delete=models.CASCADE)
-    centro_de_custo = models.ForeignKey(CentroDeCusto, verbose_name="Centro de Custo", on_delete=models.PROTECT)
-    tipo_rateio = models.CharField(
-        max_length=2,
-        choices=TipoRateio.choices,
-        default=TipoRateio.VALOR,
-        verbose_name="Tipo de Rateio"
-    )
-    valor = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    percentual = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-
-    def clean(self):
-        super().clean()
-        if self.tipo_rateio == TipoRateio.VALOR and self.valor is None:
-            raise ValidationError("Para o tipo de rateio por valor, o campo 'valor' deve ser preenchido.")
-        elif self.tipo_rateio == TipoRateio.PORCENTAGEM and self.percentual is None:
-            raise ValidationError("Para o tipo de rateio por porcentagem, o campo 'percentual' deve ser preenchido.")
 
 
 class Parcela(models.Model):

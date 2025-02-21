@@ -9,7 +9,7 @@ class BancoAdmin(admin.ModelAdmin):
 
 @admin.register(ContaBancaria)
 class ContaBancariaAdmin(admin.ModelAdmin):
-    list_display = ('descricao', 'saldo_atual', 'status')
+    list_display = ('descricao', 'status')
     search_fields = ('descricao',)
     list_filter = ('status',)
 # Register your models here.
