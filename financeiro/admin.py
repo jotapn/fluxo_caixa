@@ -1,10 +1,9 @@
 from django.contrib import admin
 from simple_history.admin import SimpleHistoryAdmin
 
-from operacoes.models import NaturezaFinanceira, SinalNatureza
+from operacoes.models import NaturezaFinanceira, SinalNatureza, RateioCentroDeCusto
 from .models import (
     Movimentacao,
-    RateioCentroDeCusto,
     Parcela,
     FormaRecebimento,
     TipoMovimentacao,
