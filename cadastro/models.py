@@ -47,10 +47,6 @@ class Pessoa(BaseModel):
         elif self.tipo_pessoa == 'PJ':
             if not CNPJ().validate(self.cnpj_cpf):
                 raise ValidationError("CNPJ inválido")
-
-    def endereco_principal(self):
-        """Retorna o endereço principal associado ao cadastro."""
-        return self.enderecos.filter(tipo=TipoEndereco.PRINCIPAL).first()
     
     def clean(self):
         super().clean()
@@ -71,6 +67,7 @@ class Endereco(models.Model):
         Pessoa,
         on_delete=models.CASCADE,
         related_name="enderecos",
+        null=True,
     )
     cep = models.CharField(max_length=9,validators=[valida_cep])
     logradouro = models.CharField(max_length=100)
@@ -82,12 +79,7 @@ class Endereco(models.Model):
     estado = models.CharField(max_length=2)
     pais = models.CharField(max_length=20)
     principal = models.BooleanField(default=True)
-
-    def save(self, *args, **kwargs):
-        if self.principal:
-            Endereco.objects.filter(pessoa=self.pessoa).update(principal=False)      
-        super().save(*args, **kwargs)
-
+    
     def __str__(self):
         return f"{self.logradouro}, {self.numero}, {self.municipio} - {self.estado}"
     

@@ -20,6 +20,7 @@ class PessoaForm(forms.ModelForm):
     municipio = forms.CharField(max_length=50, label="Município", required=True)
     estado = forms.CharField(max_length=2, label="Estado", required=True)
     pais = forms.CharField(max_length=20, label="País", required=True)
+    principal = forms.BooleanField()
 
     class Meta:
         model = Pessoa
@@ -32,7 +33,7 @@ class PessoaForm(forms.ModelForm):
             'telefone',
             'atributos',
             'cep', 'logradouro', 'numero', 'complemento',
-            'referencia', 'bairro', 'municipio', 'estado', 'pais',
+            'referencia', 'bairro', 'municipio', 'estado', 'pais', 'principal'
         ]
         widgets = {
             'tipo_pessoa': forms.Select(attrs={'class': 'form-control'}),
@@ -52,13 +53,15 @@ class PessoaForm(forms.ModelForm):
         return cnpj_cpf
 
     def save(self, commit=True):
-        # Salvando o Cadastro e Endereço associados
-        with transaction.atomic():  # Garante que tudo seja salvo de forma atômica
+        with transaction.atomic():
+            # Primeiro, salvamos a instância de Pessoa
             instance = super().save(commit=False)
+            
+            if commit:
+                instance.save()
 
-            # Criar ou atualizar o endereço
+            # Criamos o endereço associado a essa pessoa
             endereco = Endereco(
-                pessoa = self.id,
                 cep=self.cleaned_data.get('cep'),
                 logradouro=self.cleaned_data.get('logradouro'),
                 numero=self.cleaned_data.get('numero'),
@@ -68,9 +71,13 @@ class PessoaForm(forms.ModelForm):
                 municipio=self.cleaned_data.get('municipio'),
                 estado=self.cleaned_data.get('estado'),
                 pais=self.cleaned_data.get('pais'),
+                principal = self.cleaned_data.get('principal')
             )
             
+            # Salvamos o Endereco para garantir que o campo 'pessoa' seja atribuído corretamente
             endereco.save()
+
+            # Agora, associamos o endereço à pessoa
             instance.endereco = endereco
 
             if commit:

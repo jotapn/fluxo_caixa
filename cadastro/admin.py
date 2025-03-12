@@ -29,7 +29,7 @@ class EnderecoInlineFormSet(BaseInlineFormSet):
 class EnderecoInline(admin.StackedInline):
     model = Endereco
     formset = EnderecoInlineFormSet
-    fields = ['tipo', 'cep', 'logradouro', 'numero', 'complemento', 'bairro', 'municipio', 'estado', 'pais']
+    fields = ['cep', 'logradouro', 'numero', 'complemento', 'bairro', 'municipio', 'estado', 'pais']
     extra = 0  # Valor padrão para evitar formulários extras
 
     def get_extra(self, request, obj=None, **kwargs):
@@ -44,12 +44,12 @@ class EnderecoInline(admin.StackedInline):
 @admin.register(Pessoa)
 class PessoaAdmin(admin.ModelAdmin):
     list_display = ['nome', 'email', 'telefone', 'endereco_principal']
-    #inlines = [EnderecoInline]
+    inlines = [EnderecoInline]
     form = PessoaForm
     
     def endereco_principal(self, obj):
         # Exibe o endereço principal na listagem do admin
-        if obj.enderecos.filter(tipo=True).first():
+        if obj.enderecos.filter(principal=True).first():
             return f"{Endereco.logradouro}, {Endereco.numero} - {Endereco.municipio}/{Endereco.estado}"
         return "Nenhum principal"
     endereco_principal.short_description = "Endereço Principal"

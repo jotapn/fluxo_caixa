@@ -1,30 +1,22 @@
 from django.db import models
 from django.db.models import Sum, Case, When, F, Value, DecimalField
-from operacoes.models import NaturezaFinanceira
-
-class Status(models.TextChoices):
-    ATIVO = 'AT', "Ativo"
-    INATIVO = 'IN', "Inativo"
 
 class Banco(models.Model):
-    nome = models.CharField(max_length=50)
-    status = models.CharField(max_length=2, choices=Status.choices, default=Status.ATIVO)
-
-    @property
-    def status_formatado(self):
-        return self.get_status_display()
+    nome = models.CharField(max_length=100, unique=True, verbose_name="Nome do Banco")
+    logo = models.ImageField(upload_to="bancos/logos/", null=True, blank=True, verbose_name="Logo do Banco")
+    status = models.BooleanField(default=True, verbose_name="Ativo")
 
     def __str__(self):
-        return self.nome
+        return f"{self.nome}"
 
 class ContaBancaria(models.Model):
     banco = models.ForeignKey(Banco, on_delete=models.PROTECT)
+    cartao_credito = models.BooleanField(default=False)
     descricao = models.CharField(max_length=50)
     conta = models.CharField(max_length=20)
     agencia = models.CharField(max_length=20, verbose_name='Agência')
-    gerente = models.CharField(max_length=200, null=True, blank=True)
     saldo_inicial = models.DecimalField(max_digits=12, decimal_places=2)
-    status = models.CharField(max_length=2, choices=Status.choices, default=Status.ATIVO)
+    status = models.BooleanField(default=True, verbose_name="Ativo")
     
     @property
     def status_formatado(self):

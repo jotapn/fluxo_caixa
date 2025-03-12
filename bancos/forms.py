@@ -15,7 +15,6 @@ class ContaBancariaModelForm(forms.ModelForm):
             'descricao',
             'conta',
             'agencia',
-            'gerente',
             'status',
             'saldo_inicial',
         ]
@@ -27,7 +26,7 @@ class ContaBancariaModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Filtrar para exibir apenas os bancos ativos
-        self.fields['banco'].queryset = Banco.objects.filter(status='AT')
+        self.fields['banco'].queryset = Banco.objects.filter(status=True)
 
 class ContaBancariaUpdateModelForm(forms.ModelForm):
     class Meta:
@@ -37,7 +36,6 @@ class ContaBancariaUpdateModelForm(forms.ModelForm):
             'descricao',
             'conta',
             'agencia',
-            'gerente',
             'status',
             # 'saldo_inicial',  # Não incluir este campo no formulário
             # 'saldo_atual',    # Não incluir este campo no formulário
