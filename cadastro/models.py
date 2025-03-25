@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.core.exceptions import ValidationError
 from validate_docbr import CPF, CNPJ
@@ -16,13 +17,6 @@ class Atributos(models.TextChoices):
     FORNECEDOR = "FO", "Fornecedor"
     COLABORADOR = "CO", "Colaborador"
 
-class Atributo(models.Model):
-    tipo = models.CharField(max_length=2, choices=Atributos.choices, unique=True)
-
-    def __str__(self):
-        return self.get_tipo_display()
-
-
 class TipoPessoa(models.TextChoices):
     FISICA = "PF", "Pessoa Física"
     JURIDICA = "PJ", "Pessoa Jurídica"
@@ -33,7 +27,11 @@ class Pessoa(BaseModel):
     nome = models.CharField(max_length=200)
     nome_fantasia = models.CharField(max_length=80, null=True, blank=True, verbose_name="Nome Fantasia")
     cnpj_cpf = models.CharField(max_length=18, unique=True, blank=True, null=True)
-    atributos = models.ManyToManyField(Atributo, related_name="pessoas")
+    atributos = ArrayField(
+        models.CharField(max_length=2, choices=Atributos.choices),
+        blank=True,
+        default=list
+    )
     email = models.EmailField(max_length=254)
     telefone = models.CharField(max_length=11)
 
@@ -52,6 +50,9 @@ class Pessoa(BaseModel):
         super().clean()
         if self.tipo_pessoa == "PJ" and not self.nome_fantasia:
             raise ValidationError({"nome_fantasia": "O campo Nome Fantasia é obrigatório para Pessoas Jurídicas."})
+        
+        if hasattr(self, 'usuario') and self.usuario and 'CO' not in self.atributos:
+            raise ValidationError("Apenas colaboradores podem ter um usuário associado.")
 
     def save(self, *args, **kwargs):
         self.full_clean()

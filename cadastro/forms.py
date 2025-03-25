@@ -1,15 +1,8 @@
 from django import forms
-from .models import Pessoa, Endereco, Atributo
+from .models import Pessoa, Endereco, Atributos
 from django.db import transaction
 
 class PessoaForm(forms.ModelForm):
-    atributos = forms.ModelMultipleChoiceField(
-        queryset=Atributo.objects.all(),
-        widget=forms.CheckboxSelectMultiple,  # Exibe opções como checkboxes
-        required=True,
-        label="Atributos",
-        help_text="Selecione um ou mais papéis para este cadastro (Cliente, Fornecedor, Colaborador)."
-    )
     # Campos relacionados ao endereço
     cep = forms.CharField(max_length=9, label="CEP", required=True)
     logradouro = forms.CharField(max_length=100, label="Endereço", required=True)

@@ -44,11 +44,15 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'simple_history',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 
-    'bancos',
-    'cadastro',
-    'financeiro',
-    'operacoes',
+    'bancos.apps.BancosConfig',
+    'cadastro.apps.CadastroConfig',
+    'financeiro.apps.FinanceiroConfig',
+    'operacoes.apps.OperacoesConfig',
+    'usuarios.apps.UsuariosConfig'
 ]
 
 MIDDLEWARE = [
@@ -60,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -93,9 +98,15 @@ DATABASES = {
         'USER': os.getenv('POSTGRES_USER'),  # Usuário do PostgreSQL
         'PASSWORD': os.getenv('POSTGRES_PSW'),  # Senha do usuário
         'HOST': os.getenv('POSTGRES_HOST'),  # Ou IP do servidor do banco de dados
-        'PORT': os.getenv('POSTGRES_PORT'),  # Porta padrão do PostgreSQL
+        'PORT': '5432',  # Porta padrão do PostgreSQL
     }
 }
+
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -115,6 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'usuarios.CustomUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/

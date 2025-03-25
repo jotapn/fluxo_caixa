@@ -1,9 +1,8 @@
-from datetime import timedelta
 from dateutil.relativedelta import relativedelta
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.conf import settings
 from operacoes.models import NaturezaFinanceira, CentroDeCusto
 from cadastro.models import Pessoa
 from bancos.models import ContaBancaria
@@ -72,7 +71,7 @@ class Movimentacao(models.Model):
     pessoa = models.ForeignKey(Pessoa, on_delete=models.PROTECT)
     conta_bancaria = models.ForeignKey(ContaBancaria, on_delete=models.PROTECT)
     cartao_credito = models.ForeignKey(CartaoCredito, on_delete=models.PROTECT, null=True, blank=True)
-    usuario = models.ForeignKey(User, on_delete=models.PROTECT, null=True)  # Temporariamente nullable para migração
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True)  # Temporariamente nullable para migração
 
     historico = HistoricalRecords()
 
@@ -203,7 +202,7 @@ class HistoricoTransacao(models.Model):
 
 
 class PermissaoFinanceira(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+    usuario = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     pode_criar_movimentacao = models.BooleanField(default=False)
     pode_editar_movimentacao = models.BooleanField(default=False)
     pode_excluir_movimentacao = models.BooleanField(default=False)
