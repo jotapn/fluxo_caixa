@@ -38,7 +38,14 @@ class Pessoa(BaseModel):
     def __str__(self):
         return f"{self.nome}"
     
+    @classmethod
+    def colaboradores_sem_usuario(cls):
+        return cls.objects.filter(atributos__contains=['CO']).filter(usuario__isnull=True)
+    
     def clean_cpf_cnpj(self):
+        if not self.cnpj_cpf:
+            return
+
         if self.tipo_pessoa == "PF":
             if not CPF().validate(self.cnpj_cpf):
                 raise ValidationError("CPF inválido")
@@ -50,9 +57,6 @@ class Pessoa(BaseModel):
         super().clean()
         if self.tipo_pessoa == "PJ" and not self.nome_fantasia:
             raise ValidationError({"nome_fantasia": "O campo Nome Fantasia é obrigatório para Pessoas Jurídicas."})
-        
-        if hasattr(self, 'usuario') and self.usuario and 'CO' not in self.atributos:
-            raise ValidationError("Apenas colaboradores podem ter um usuário associado.")
 
     def save(self, *args, **kwargs):
         self.full_clean()
@@ -60,8 +64,9 @@ class Pessoa(BaseModel):
         super().save(*args, **kwargs)
 
 def valida_cep(value):
-    if not brazilcep.get_address_from_cep(value):
-        raise("CEP inválido")
+    endereco = brazilcep.get_address_from_cep(value)
+    if not endereco:
+        raise ValidationError("CEP inválido")
 
 class Endereco(models.Model):
     pessoa = models.ForeignKey(
@@ -84,3 +89,7 @@ class Endereco(models.Model):
     def __str__(self):
         return f"{self.logradouro}, {self.numero}, {self.municipio} - {self.estado}"
     
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['pessoa'], condition=models.Q(principal=True), name='unique_principal_endereco')
+        ]

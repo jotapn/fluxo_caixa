@@ -14,10 +14,12 @@ class EnderecoInlineFormSet(BaseInlineFormSet):
     def clean(self):
         super().clean()
 
-        # Validar que há pelo menos um endereço principal
         has_principal = False
         for form in self.forms:
-            if not form.cleaned_data.get("DELETE", False):  # Ignorar exclusões
+            if form.cleaned_data.get("DELETE", False):
+                continue  # Ignora os endereços marcados para exclusão
+            
+            if form.cleaned_data.get("principal", False):
                 if has_principal:
                     raise ValidationError("Apenas um endereço pode ser marcado como principal.")
                 has_principal = True
@@ -29,27 +31,36 @@ class EnderecoInlineFormSet(BaseInlineFormSet):
 class EnderecoInline(admin.StackedInline):
     model = Endereco
     formset = EnderecoInlineFormSet
-    fields = ['cep', 'logradouro', 'numero', 'complemento', 'bairro', 'municipio', 'estado', 'pais']
-    extra = 0  # Valor padrão para evitar formulários extras
+    fields = ['cep', 'logradouro', 'numero', 'complemento', 'bairro', 'municipio', 'estado', 'pais', 'principal']
+    extra = 1  # Valor padrão para evitar formulários extras
 
     def get_extra(self, request, obj=None, **kwargs):
         """
         Retorna 1 formulário extra apenas se não houver nenhum endereço cadastrado.
         """
-        if obj and obj.enderecos.exists():
-            return 0  # Nenhum formulário extra se já houver endereços cadastrados
-        return 1  # Um formulário extra se nenhum endereço existir
+        if obj is None or not obj.enderecos.exists():
+            return 1  # Se obj não existir ou não tiver endereços, exibe um formulário extra
+        return 0  # Um formulário extra se nenhum endereço existir
 
 # Configuração do admin para Cadastro
 @admin.register(Pessoa)
 class PessoaAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'email', 'telefone', 'endereco_principal']
-    inlines = [EnderecoInline]
+    list_display = ['nome', 'tipo_pessoa', 'email', 'telefone', 'endereco_principal']
     form = PessoaForm
+    inlines = [EnderecoInline]
+    list_filter = ['tipo_pessoa']
+    search_fields = ['nome', 'email', 'telefone', 'cnpj_cpf']
+    list_editable = ['telefone']
+
+    def atributos_list(self, obj):
+        """Exibe os atributos como texto no Django Admin."""
+        return ", ".join(obj.get_atributos_display()) if obj.atributos else "Nenhum"
+    
+    atributos_list.short_description = "Atributos"
     
     def endereco_principal(self, obj):
-        # Exibe o endereço principal na listagem do admin
-        if obj.enderecos.filter(principal=True).first():
-            return f"{Endereco.logradouro}, {Endereco.numero} - {Endereco.municipio}/{Endereco.estado}"
+        endereco = obj.enderecos.filter(principal=True).first()
+        if endereco:
+            return f"{endereco.logradouro}, {endereco.numero} - {endereco.municipio}/{endereco.estado}"
         return "Nenhum principal"
     endereco_principal.short_description = "Endereço Principal"

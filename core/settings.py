@@ -12,9 +12,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
+import environ
 
-load_dotenv()
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -47,6 +48,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'rest_framework',
+    'rest_framework_simplejwt',
 
     'bancos.apps.BancosConfig',
     'cadastro.apps.CadastroConfig',
@@ -94,11 +97,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_NAME'),  # Nome do banco de dados
-        'USER': os.getenv('POSTGRES_USER'),  # Usuário do PostgreSQL
-        'PASSWORD': os.getenv('POSTGRES_PSW'),  # Senha do usuário
-        'HOST': os.getenv('POSTGRES_HOST'),  # Ou IP do servidor do banco de dados
-        'PORT': '5432',  # Porta padrão do PostgreSQL
+        'NAME': env('POSTGRES_NAME'),  # Nome do banco de dados
+        'USER': env('POSTGRES_USER'),  # Usuário do PostgreSQL
+        'PASSWORD': env('POSTGRES_PSW'),  # Senha do usuário
+        'HOST': env('POSTGRES_HOST'),  # Ou IP do servidor do banco de dados
+        'PORT': env('POSTGRES_PORT'),  # Porta padrão do PostgreSQL
     }
 }
 
