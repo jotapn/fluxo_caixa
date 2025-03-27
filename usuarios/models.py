@@ -12,6 +12,8 @@ class CustomUser(AbstractUser):
         null =True,
         related_name="usuario_pessoa"
     )
+    first_login = models.BooleanField(default=True)  # Indica se o usuário deve alterar a senha
+
 
     def __str__(self):
         return self.username

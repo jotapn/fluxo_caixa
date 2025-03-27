@@ -42,6 +42,11 @@ class Pessoa(BaseModel):
     def colaboradores_sem_usuario(cls):
         return cls.objects.filter(atributos__contains=['CO']).filter(usuario__isnull=True)
     
+    def get_atributos_display(self):
+        return ", ".join([Atributos(atributo).label for atributo in self.atributos]) if self.atributos else "Nenhum"
+    
+    get_atributos_display.short_description = "Atributos"
+
     def clean_cpf_cnpj(self):
         if not self.cnpj_cpf:
             return

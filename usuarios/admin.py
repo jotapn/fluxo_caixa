@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
+from .forms import CustomUserCreationForm
 
 class CustomUserAdmin(UserAdmin):
-    model = CustomUser
+    add_form = CustomUserCreationForm
 
     list_display = ("id", "username", "email", "ativo", "is_staff", "is_superuser")
     list_filter = ("is_staff", "is_superuser", "ativo")
@@ -11,7 +12,7 @@ class CustomUserAdmin(UserAdmin):
     ordering = ("id",)
 
     fieldsets = (
-        ("Dados do Usuário", {"fields": ("username", "password", "email", "ativo", "pessoa")}),
+        ("Dados do Usuário", {"fields": ("username", "email", "ativo", "pessoa")}),
         ("Permissões", {"fields": ("is_staff", "is_superuser", "groups", "user_permissions")}),
         ("Datas", {"fields": ("last_login", "date_joined")}),
     )
@@ -21,9 +22,19 @@ class CustomUserAdmin(UserAdmin):
             "Criar Novo Usuário",
             {
                 "classes": ("wide",),
-                "fields": ("username", "email", "password1", "password2", "ativo", "pessoa" , "is_staff", "is_superuser"),
+                "fields": ("username", "email", "ativo", "pessoa" , "is_staff", "is_superuser"),
             },
         ),
     )
+
+    def save_model(self, request, obj, form, change):
+
+        if not change:
+            if obj.pessoa and obj.pessoa.cnpj_cpf:
+                obj.pessoa.cnpj_cpf.replace(".","").replace("-", "").replace("/", "")[:8]  # Pega os 8 primeiros dígitos
+            else:
+                senha = "12345678"
+            obj.set_password(senha)  # Define a senha no Django
+            obj.save()
 
 admin.site.register(CustomUser, CustomUserAdmin)

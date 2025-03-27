@@ -45,18 +45,12 @@ class EnderecoInline(admin.StackedInline):
 # Configuração do admin para Cadastro
 @admin.register(Pessoa)
 class PessoaAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'tipo_pessoa', 'email', 'telefone', 'endereco_principal']
+    list_display = ['nome','get_atributos_display', 'tipo_pessoa', 'email', 'telefone', 'endereco_principal']
     form = PessoaForm
     inlines = [EnderecoInline]
     list_filter = ['tipo_pessoa']
     search_fields = ['nome', 'email', 'telefone', 'cnpj_cpf']
     list_editable = ['telefone']
-
-    def atributos_list(self, obj):
-        """Exibe os atributos como texto no Django Admin."""
-        return ", ".join(obj.get_atributos_display()) if obj.atributos else "Nenhum"
-    
-    atributos_list.short_description = "Atributos"
     
     def endereco_principal(self, obj):
         endereco = obj.enderecos.filter(principal=True).first()
