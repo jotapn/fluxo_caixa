@@ -7,7 +7,7 @@ from cadastro.models import Pessoa
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'password1', 'password2', 'ativo', 'pessoa', 'is_staff', 'is_superuser']
+        fields = ['username', 'password1', 'password2', 'ativo', 'pessoa', 'is_staff', 'is_superuser']
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
