@@ -45,9 +45,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'simple_history',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
     'rest_framework',
     'rest_framework_simplejwt',
 
@@ -67,7 +64,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
-    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -109,7 +105,6 @@ DATABASES = {
 AUTHENTICATION_BACKENDS = [
     'usuarios.auth_backends.CustomUserBackend',
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 # Password validation

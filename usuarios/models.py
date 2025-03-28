@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class CustomUser(AbstractUser):
-    email = models.EmailField(unique=True)
     ativo = models.BooleanField(default=True)
     pessoa = models.OneToOneField(
         Pessoa,
@@ -14,6 +13,9 @@ class CustomUser(AbstractUser):
     )
     first_login = models.BooleanField(default=True)  # Indica se o usuário deve alterar a senha
 
+    @property
+    def email(self):
+        return self.pessoa.email if self.pessoa else None
 
     def __str__(self):
         return self.username
