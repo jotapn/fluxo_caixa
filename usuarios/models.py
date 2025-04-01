@@ -1,6 +1,7 @@
 from cadastro.models import Pessoa
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from .managers import CustomUserManager
 
 class CustomUser(AbstractUser):
     ativo = models.BooleanField(default=True)
@@ -12,6 +13,7 @@ class CustomUser(AbstractUser):
         related_name="usuario_pessoa"
     )
     first_login = models.BooleanField(default=True)  # Indica se o usuário deve alterar a senha
+    objects = CustomUserManager()
 
     @property
     def email(self):
