@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 import os
 import environ
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
+    "rest_framework_simplejwt.token_blacklist",
 
     'bancos.apps.BancosConfig',
     'cadastro.apps.CadastroConfig',
@@ -178,3 +180,15 @@ MESSAGE_TAGS = {
 # CELERY_BROKER_URL = 'amqp://guest:guest@localhost//'
 # CELERY_RESULT_BACKEND = 'rpc://'
 # CELERY_TIMEZONE = TIME_ZONE
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,  # Faz com que o refresh antigo seja invalidado
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": SECRET_KEY,
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+    "TOKEN_BLACKLIST_ENABLED": True,  # Ativa o sistema de blacklist
+}

@@ -1,38 +1,48 @@
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth import authenticate
-from rest_framework import serializers
-from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
+from rest_framework import serializers
 
 User = get_user_model()
 
-class LoginSerializer(serializers.Serializer):
-    username = serializers.CharField(required=True)
-    password = serializers.CharField(write_only=True, required=True)
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """
+    Permite login com username ou email e adiciona mais informações na resposta do token.
+    """
 
-    print(f"🔍 Tentando autenticar: {username}")  # 👉 Depuração
+    def validate(self, attrs):
+        username_or_email = attrs.get("username")  # O campo no SimpleJWT ainda se chama "username"
+        password = attrs.get("password")
 
+        # Verifica se o usuário digitou um e-mail ou um username
+        user = User.objects.filter(username=username_or_email).first()
 
-    def validate(self, data):
-        username = data.get("username")
-        password = data.get("password")
-
-        user = authenticate(username=username, password=password)
         if not user:
-            user = User.objects.filter(username=username).first()
-            if user:
-                user = authenticate(username=user.username, password=user.password)
+            user = User.objects.filter(pessoa__email=username_or_email).first()
 
-        if not user or not isinstance(user, User):  # ⚠️ Corrigimos para evitar o erro
-            print("❌ Falha na autenticação")  # 👉 Depuração
-            raise serializers.ValidationError("Usuário ou senha inválidos.")
-        
-        if not getattr(user, "ativo", True):  # ⚠️ Usamos `getattr` para evitar erro caso user seja `None`
-            print("⛔ Usuário inativo")  # 👉 Depuração
-            raise PermissionDenied("Usuário inativo. Entre em contato com o suporte.")
-        
-        if getattr(user, "first_login", False):  # ⚠️ Usamos `getattr` para garantir segurança
-            raise PermissionDenied("Você deve alterar sua senha antes de continuar.")
-        
-        print(f"✅ Login bem-sucedido: {user}")  # 👉 Depuração
-        data['user'] = user
+        if user is None:
+            raise serializers.ValidationError({"error": "Usuário ou senha inválidos."})
+
+        # Autentica o usuário com username (mesmo se encontrou pelo email)
+        authenticated_user = authenticate(username=user.username, password=password)
+
+        if authenticated_user is None:
+            raise serializers.ValidationError({"error": "Usuário ou senha inválidos."})
+
+        if not authenticated_user.ativo:
+            raise serializers.ValidationError({"error": "Usuário inativo. Entre em contato com o suporte."})
+
+        # Se passou por todas as validações, gera os tokens
+        data = super().validate({"username": user.username, "password": password})
+
+        # Adicionamos informações personalizadas ao response do login
+        data.update({
+            "user_id": authenticated_user.id,
+            "username": authenticated_user.username,
+            "email": authenticated_user.pessoa.email if authenticated_user.pessoa else None,
+            "is_staff": authenticated_user.is_staff,
+            "is_superuser": authenticated_user.is_superuser,
+            "pessoa_id": authenticated_user.pessoa.id if authenticated_user.pessoa else None,
+        })
+
         return data

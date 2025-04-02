@@ -1,29 +1,28 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.authtoken.models import Token
-from rest_framework.permissions import AllowAny
-from rest_framework import status
-from django.contrib.auth import logout, login
-from .serializers import LoginSerializer
+from rest_framework import permissions, status
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.tokens import RefreshToken
+from .serializers import CustomTokenObtainPairSerializer
 
-class LoginView(APIView):
-    """
-    Autentica um usuário e retorna uma resposta com o token de sessão.
-    """
-    permission_classes = [AllowAny]
+class CustomLoginView(TokenObtainPairView):
 
-    def post(self,request):
-        serializer = LoginSerializer(data=request.data)
-
-        if serializer.is_valid():
-            user = serializer.validated_data['user']
-            login(request, user)
-            return Response({'message': "Login realizado com sucesso"}, status= status.HTTP_200_OK)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    serializer_class = CustomTokenObtainPairSerializer
 
 class LogoutView(APIView):
+    print("View logout")
+    # permission_classes = [permissions.IsAuthenticated]
+    print("View logout - permissao")
+
     def post(self,request):
-        request.auth.delete()
-        logout(request)
-        return Response({"detail": "Logout realizado com sucesso."}, status=status.HTTP_200_OK)
+        try:
+            refresh_token = request.data.get("refresh")
+            print(f"pegou o refresh {refresh_token}")
+            token = RefreshToken(refresh_token)
+            print(f"pegou o token {token}")
+            token.blacklist()
+
+            return Response({"message": "Logout realizado com sucesso"}, status=status.HTTP_205_RESET_CONTENT)
+        
+        except Exception as e:
+            return Response({"error": "Token inválido ou já expirado."}, status=status.HTTP_400_BAD_REQUEST)
