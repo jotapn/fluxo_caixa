@@ -18,6 +18,10 @@ class CustomUser(AbstractUser):
     @property
     def email(self):
         return self.pessoa.email if self.pessoa else None
+    
+    @email.setter
+    def email(self, value):
+        pass
 
     def __str__(self):
         return self.username
